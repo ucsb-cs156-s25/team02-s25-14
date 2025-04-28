@@ -4,8 +4,8 @@ const recommendationRequestFixtures = {
         "requesterEmail": "tina@ucsb.edu",
         "professorEmail": "professor@ucsb.edu",
         "explanation": "bs/ms program letter of rec",
-        "dateRequested": "2025-04-28T18:07:24.467",
-        "dateNeeded": "2025-05-10T18:07:24.467",
+        "dateRequested": "2025-04-28T18:07:00",
+        "dateNeeded": "2025-05-10T18:07:00",
         "done": true
         },
     threeRequests: [
