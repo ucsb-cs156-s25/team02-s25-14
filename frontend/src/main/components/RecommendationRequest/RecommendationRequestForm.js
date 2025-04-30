@@ -150,6 +150,7 @@ function RecommendationRequestForm({
               label="Done"
               data-testid="RecommendationRequestForm-done"
               isInvalid={Boolean(errors.done)}
+              defaultChecked={initialContents?.done}
               {...register("done", {
                 required: "Done is required.",
               })}
