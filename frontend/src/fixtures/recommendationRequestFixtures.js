@@ -1,7 +1,7 @@
 const recommendationRequestFixtures = {
   oneRequest: {
     id: 1,
-    requesterEmail: "tina@ucsb.edu",
+    requestorEmail: "tina@ucsb.edu",
     professorEmail: "professor@ucsb.edu",
     explanation: "bs/ms program letter of rec",
     dateRequested: "2025-04-28T18:07:00",
@@ -11,7 +11,7 @@ const recommendationRequestFixtures = {
   threeRequests: [
     {
       id: 2,
-      requesterEmail: "chloe@ucsb.edu",
+      requestorEmail: "chloe@ucsb.edu",
       professorEmail: "prof@ucsb.edu",
       explanation: "grad school application",
       dateRequested: "2024-04-28T11:56:04",
@@ -20,7 +20,7 @@ const recommendationRequestFixtures = {
     },
     {
       id: 3,
-      requesterEmail: "mary@ucsb.edu",
+      requestorEmail: "mary@ucsb.edu",
       professorEmail: "prof1@ucsb.edu",
       explanation: "phd school application",
       dateRequested: "2024-04-15T11:56:04",
@@ -29,7 +29,7 @@ const recommendationRequestFixtures = {
     },
     {
       id: 4,
-      requesterEmail: "nina@ucsb.edu",
+      requestorEmail: "nina@ucsb.edu",
       professorEmail: "prof2@ucsb.edu",
       explanation: "job letter of recommendation",
       dateRequested: "2024-04-20T11:56:04",

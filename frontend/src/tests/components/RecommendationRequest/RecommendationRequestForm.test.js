@@ -37,9 +37,13 @@ describe("RecommendationRequestForm tests", () => {
         />
       </Router>,
     );
+
     await screen.findByTestId(/RecommendationRequestForm-id/);
     expect(screen.getByText(/Id/)).toBeInTheDocument();
     expect(screen.getByTestId(/RecommendationRequestForm-id/)).toHaveValue("1");
+
+    const doneCheckbox = screen.getByTestId("RecommendationRequestForm-done");
+    expect(doneCheckbox).toBeChecked();
   });
 
   test("Correct Error messsages on bad input", async () => {
