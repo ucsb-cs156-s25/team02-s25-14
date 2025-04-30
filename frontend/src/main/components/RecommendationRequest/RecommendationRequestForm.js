@@ -52,7 +52,7 @@ function RecommendationRequestForm({
               type="text"
               isInvalid={Boolean(errors.requestorEmail)}
               {...register("requestorEmail", {
-                required: "Requestor Email is required."
+                required: "Requestor Email is required.",
               })}
             />
             <Form.Control.Feedback type="invalid">
@@ -69,7 +69,7 @@ function RecommendationRequestForm({
               type="text"
               isInvalid={Boolean(errors.professorEmail)}
               {...register("professorEmail", {
-                required: "Professor Email is required."
+                required: "Professor Email is required.",
               })}
             />
             <Form.Control.Feedback type="invalid">
@@ -89,7 +89,7 @@ function RecommendationRequestForm({
               type="text"
               isInvalid={Boolean(errors.explanation)}
               {...register("explanation", {
-                required: "Explanation is required."
+                required: "Explanation is required.",
               })}
             />
             <Form.Control.Feedback type="invalid">
@@ -100,7 +100,9 @@ function RecommendationRequestForm({
 
         <Col>
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="dateRequested">Date Requested (iso format)</Form.Label>
+            <Form.Label htmlFor="dateRequested">
+              Date Requested (iso format)
+            </Form.Label>
             <Form.Control
               data-testid="RecommendationRequestForm-dateRequested"
               id="dateRequested"
@@ -120,40 +122,42 @@ function RecommendationRequestForm({
 
       <Row>
         <Col>
-            <Form.Group className="mb-3">
-                <Form.Label htmlFor="dateNeeded">Date Needed (iso format)</Form.Label>
-                <Form.Control
-                data-testid="RecommendationRequestForm-dateNeeded"
-                id="dateNeeded"
-                type="datetime-local"
-                isInvalid={Boolean(errors.dateNeeded)}
-                {...register("dateNeeded", {
-                    required: true,
-                    pattern: isodate_regex,
-                })}
-                />
-                <Form.Control.Feedback type="invalid">
-                {errors.dateNeeded && "Date Needed is required. "}
-                </Form.Control.Feedback>
-            </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Label htmlFor="dateNeeded">
+              Date Needed (iso format)
+            </Form.Label>
+            <Form.Control
+              data-testid="RecommendationRequestForm-dateNeeded"
+              id="dateNeeded"
+              type="datetime-local"
+              isInvalid={Boolean(errors.dateNeeded)}
+              {...register("dateNeeded", {
+                required: true,
+                pattern: isodate_regex,
+              })}
+            />
+            <Form.Control.Feedback type="invalid">
+              {errors.dateNeeded && "Date Needed is required. "}
+            </Form.Control.Feedback>
+          </Form.Group>
         </Col>
 
         <Col>
-        <Form.Group className="mb-3">
-          <Form.Check
-            type="checkbox"
-            id="done"
-            label="Done"
-            data-testid="RecommendationRequestForm-done"
-            isInvalid={Boolean(errors.done)}
-            {...register("done", {
-              required: "Done is required.",
-            })}
-          />
-          <Form.Control.Feedback type="invalid">
-            {errors.done?.message}
-          </Form.Control.Feedback>
-        </Form.Group>
+          <Form.Group className="mb-3">
+            <Form.Check
+              type="checkbox"
+              id="done"
+              label="Done"
+              data-testid="RecommendationRequestForm-done"
+              isInvalid={Boolean(errors.done)}
+              {...register("done", {
+                required: "Done is required.",
+              })}
+            />
+            <Form.Control.Feedback type="invalid">
+              {errors.done?.message}
+            </Form.Control.Feedback>
+          </Form.Group>
         </Col>
       </Row>
 

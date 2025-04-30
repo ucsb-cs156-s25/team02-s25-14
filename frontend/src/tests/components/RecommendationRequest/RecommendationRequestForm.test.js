@@ -14,9 +14,7 @@ jest.mock("react-router-dom", () => ({
 const queryClient = new QueryClient();
 
 describe("RecommendationRequestForm tests", () => {
-  const testId = "RecommendationRequestForm";
-
-  test("renders correctly", async () => {
+  test("renders correctly with no contents", async () => {
     render(
       <Router>
         <RecommendationRequestForm />
@@ -31,10 +29,12 @@ describe("RecommendationRequestForm tests", () => {
     await screen.findByText(/Create/);
   });
 
-  test("renders correctly", async () => {
+  test("renders correctly with contents", async () => {
     render(
       <Router>
-        <RecommendationRequestForm initialContents={recommendationRequestFixtures.oneRequest} />
+        <RecommendationRequestForm
+          initialContents={recommendationRequestFixtures.oneRequest}
+        />
       </Router>,
     );
     await screen.findByTestId(/RecommendationRequestForm-id/);
@@ -49,11 +49,21 @@ describe("RecommendationRequestForm tests", () => {
       </Router>,
     );
     await screen.findByTestId("RecommendationRequestForm-requestorEmail");
-    const requestorEmailField = screen.getByTestId("RecommendationRequestForm-requestorEmail");
-    const professorEmailField = screen.getByTestId("RecommendationRequestForm-professorEmail");
-    const explanationField = screen.getByTestId("RecommendationRequestForm-explanation");
-    const dateRequestedField = screen.getByTestId("RecommendationRequestForm-dateRequested");
-    const dateNeededField = screen.getByTestId("RecommendationRequestForm-dateNeeded");
+    const requestorEmailField = screen.getByTestId(
+      "RecommendationRequestForm-requestorEmail",
+    );
+    const professorEmailField = screen.getByTestId(
+      "RecommendationRequestForm-professorEmail",
+    );
+    const explanationField = screen.getByTestId(
+      "RecommendationRequestForm-explanation",
+    );
+    const dateRequestedField = screen.getByTestId(
+      "RecommendationRequestForm-dateRequested",
+    );
+    const dateNeededField = screen.getByTestId(
+      "RecommendationRequestForm-dateNeeded",
+    );
     const submitButton = screen.getByTestId("RecommendationRequestForm-submit");
 
     fireEvent.change(requestorEmailField, { target: { value: "" } });
@@ -82,7 +92,9 @@ describe("RecommendationRequestForm tests", () => {
     fireEvent.click(submitButton);
 
     await screen.findByText(/Requestor Email is required./);
-    expect(screen.getByText(/Professor Email is required./)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Professor Email is required./),
+    ).toBeInTheDocument();
     expect(screen.getByText(/Explanation is required./)).toBeInTheDocument();
     expect(screen.getByText(/Date Requested is required./)).toBeInTheDocument();
     expect(screen.getByText(/Date Needed is required./)).toBeInTheDocument();
@@ -99,30 +111,60 @@ describe("RecommendationRequestForm tests", () => {
     );
     await screen.findByTestId("RecommendationRequestForm-requestorEmail");
 
-    const requestorEmailField = screen.getByTestId("RecommendationRequestForm-requestorEmail");
-    const professorEmailField = screen.getByTestId("RecommendationRequestForm-professorEmail");
-    const explanationField = screen.getByTestId("RecommendationRequestForm-explanation");
-    const dateRequestedField = screen.getByTestId("RecommendationRequestForm-dateRequested");
-    const dateNeededField = screen.getByTestId("RecommendationRequestForm-dateNeeded");
+    const requestorEmailField = screen.getByTestId(
+      "RecommendationRequestForm-requestorEmail",
+    );
+    const professorEmailField = screen.getByTestId(
+      "RecommendationRequestForm-professorEmail",
+    );
+    const explanationField = screen.getByTestId(
+      "RecommendationRequestForm-explanation",
+    );
+    const dateRequestedField = screen.getByTestId(
+      "RecommendationRequestForm-dateRequested",
+    );
+    const dateNeededField = screen.getByTestId(
+      "RecommendationRequestForm-dateNeeded",
+    );
     const doneField = screen.getByTestId("RecommendationRequestForm-done");
     const submitButton = screen.getByTestId("RecommendationRequestForm-submit");
 
-    fireEvent.change(requestorEmailField, { target: { value: "test@ucsb.edu" } });
-    fireEvent.change(professorEmailField, { target: { value: "prof@ucsb.edu" } });
-    fireEvent.change(explanationField, { target: { value: "test explanation" } });
-    fireEvent.change(dateRequestedField, { target: { value: "2022-01-02T12:00" } });
-    fireEvent.change(dateNeededField, { target: { value: "2022-01-02T12:00" } });
+    fireEvent.change(requestorEmailField, {
+      target: { value: "test@ucsb.edu" },
+    });
+    fireEvent.change(professorEmailField, {
+      target: { value: "prof@ucsb.edu" },
+    });
+    fireEvent.change(explanationField, {
+      target: { value: "test explanation" },
+    });
+    fireEvent.change(dateRequestedField, {
+      target: { value: "2022-01-02T12:00" },
+    });
+    fireEvent.change(dateNeededField, {
+      target: { value: "2022-01-02T12:00" },
+    });
     fireEvent.click(doneField);
     expect(doneField).toBeChecked();
     fireEvent.click(submitButton);
 
     await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
 
-    expect(screen.queryByText(/Requestor Email is required./)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Professor Email is required./)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Explanation is required./)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Date Requested is required./)).not.toBeInTheDocument();
-    expect(screen.queryByText(/Date Needed is required./)).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Requestor Email is required./),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Professor Email is required./),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Explanation is required./),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Date Requested is required./),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByText(/Date Needed is required./),
+    ).not.toBeInTheDocument();
     expect(screen.queryByText(/Done is required./)).not.toBeInTheDocument();
   });
 
@@ -148,26 +190,38 @@ describe("RecommendationRequestForm tests", () => {
     );
     await screen.findByTestId("RecommendationRequestForm-requestorEmail");
 
-    const requestorEmailField = screen.getByTestId("RecommendationRequestForm-requestorEmail");
-    const professorEmailField = screen.getByTestId("RecommendationRequestForm-professorEmail");
+    const requestorEmailField = screen.getByTestId(
+      "RecommendationRequestForm-requestorEmail",
+    );
+    const professorEmailField = screen.getByTestId(
+      "RecommendationRequestForm-professorEmail",
+    );
     const submitButton = screen.getByTestId("RecommendationRequestForm-submit");
 
-    fireEvent.change(requestorEmailField, { target: { value: "" } }); // email is empty 
+    fireEvent.change(requestorEmailField, { target: { value: "" } }); // email is empty
     fireEvent.change(professorEmailField, { target: { value: "" } });
     fireEvent.click(submitButton);
 
-    await waitFor(() => {
-      expect(screen.getByText(/Requestor Email is required./)).toBeInTheDocument();
-      expect(screen.getByText(/Professor Email is required./)).toBeInTheDocument();
-    });
+    await screen.findByText(/Requestor Email is required./);
+    await screen.findByText(/Professor Email is required./);
 
-    fireEvent.change(requestorEmailField, { target: { value: "valid@ucsb.edu" } }); // email is valid
-    fireEvent.change(professorEmailField, { target: { value: "valid@ucsb.edu" } });
+    fireEvent.change(requestorEmailField, {
+      target: { value: "valid@ucsb.edu" },
+    }); // email is valid
+    fireEvent.change(professorEmailField, {
+      target: { value: "valid@ucsb.edu" },
+    });
     fireEvent.click(submitButton);
 
     await waitFor(() => {
-      expect(screen.queryByText(/Requestor Email is required./)).not.toBeInTheDocument();
-      expect(screen.queryByText(/Professor Email is required./)).not.toBeInTheDocument();
+      expect(
+        screen.queryByText(/Requestor Email is required./),
+      ).not.toBeInTheDocument();
+    });
+    await waitFor(() => {
+      expect(
+        screen.queryByText(/Professor Email is required./),
+      ).not.toBeInTheDocument();
     });
   });
 
@@ -177,7 +231,7 @@ describe("RecommendationRequestForm tests", () => {
         <Router>
           <RecommendationRequestForm />
         </Router>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
 
     expect(await screen.findByText(/Create/)).toBeInTheDocument();
@@ -185,7 +239,9 @@ describe("RecommendationRequestForm tests", () => {
     fireEvent.click(submitButton);
 
     await screen.findByText(/Requestor Email is required./);
-    expect(screen.getByText(/Professor Email is required./)).toBeInTheDocument();
+    expect(
+      screen.getByText(/Professor Email is required./),
+    ).toBeInTheDocument();
     expect(screen.getByText(/Explanation is required./)).toBeInTheDocument();
     expect(screen.getByText(/Date Requested is required./)).toBeInTheDocument();
     expect(screen.getByText(/Date Needed is required./)).toBeInTheDocument();
