@@ -52,14 +52,14 @@ public class RecommendationRequestController extends ApiController {
 
 
     @Operation(summary = "Create a new recommendation request")
-    @PostMapping("/post")
+    @PostMapping("/post") // Use the data in the input parameters to create a new row in the table and return the data as JSON
     public RecommendationRequest postRecommendationRequest(
-            @RequestParam String requestorEmail,
-            @RequestParam String professorEmail,
-            @RequestParam String explanation,
-            @RequestParam("dateRequested") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateRequested,
-            @RequestParam("dateNeeded") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateNeeded,
-            @RequestParam(name = "done", defaultValue = "false") Boolean done)
+            @Parameter(name="requestorEmail") @RequestParam String requestorEmail,
+            @Parameter(name="professorEmail") @RequestParam String professorEmail,
+            @Parameter(name="explanation") @RequestParam String explanation,
+            @Parameter(name="dateRequested", description="date (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("dateRequested") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateRequested,
+            @Parameter(name="dateNeeded", description="date (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("dateNeeded") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateNeeded,
+            @Parameter(name="done") @RequestParam Boolean done)
             throws JsonProcessingException {
 
         // For an explanation of @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
