@@ -57,7 +57,7 @@ describe("RecommendationRequestCreatePage tests", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByTestId("RecommendationRequestForm-requestorEmail"),
+        screen.getByTestId("RecommendationRequestForm-requesterEmail"),
       ).toBeInTheDocument();
     });
   });
@@ -66,7 +66,7 @@ describe("RecommendationRequestCreatePage tests", () => {
     const queryClient = new QueryClient();
     const recommendationRequest = {
       id: 17,
-      requestorEmail: "test@test.com",
+      requesterEmail: "test@test.com",
       professorEmail: "test@test.com",
       explanation: "test",
       dateRequested: "2022-02-02T00:00",
@@ -88,12 +88,12 @@ describe("RecommendationRequestCreatePage tests", () => {
 
     await waitFor(() => {
       expect(
-        screen.getByTestId("RecommendationRequestForm-requestorEmail"),
+        screen.getByTestId("RecommendationRequestForm-requesterEmail"),
       ).toBeInTheDocument();
     });
 
-    const requestorEmailField = screen.getByTestId(
-      "RecommendationRequestForm-requestorEmail",
+    const requesterEmailField = screen.getByTestId(
+      "RecommendationRequestForm-requesterEmail",
     );
     const professorEmailField = screen.getByTestId(
       "RecommendationRequestForm-professorEmail",
@@ -110,7 +110,7 @@ describe("RecommendationRequestCreatePage tests", () => {
     const doneField = screen.getByTestId("RecommendationRequestForm-done");
     const submitButton = screen.getByTestId("RecommendationRequestForm-submit");
 
-    fireEvent.change(requestorEmailField, {
+    fireEvent.change(requesterEmailField, {
       target: { value: "test@test.com" },
     });
     fireEvent.change(professorEmailField, {
@@ -132,7 +132,7 @@ describe("RecommendationRequestCreatePage tests", () => {
     await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
 
     expect(axiosMock.history.post[0].params).toEqual({
-      requestorEmail: "test@test.com",
+      requesterEmail: "test@test.com",
       professorEmail: "test@test.com",
       explanation: "test",
       dateRequested: "2022-02-02T00:00",

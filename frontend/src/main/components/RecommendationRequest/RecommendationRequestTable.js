@@ -15,7 +15,7 @@ export default function RecommendationRequestTable({
   const navigate = useNavigate();
 
   const editCallback = (cell) => {
-    navigate(`/recommendationrequest/edit/${cell.row.values.id}`);
+    navigate(`/recommendation-requests/edit/${cell.row.values.id}`);
   };
 
   // Stryker disable all : hard to test for query caching
@@ -37,8 +37,8 @@ export default function RecommendationRequestTable({
       accessor: "id", // accessor is the "key" in the data
     },
     {
-      Header: "Requestor Email",
-      accessor: "requestorEmail",
+      Header: "requester Email",
+      accessor: "requesterEmail",
     },
     {
       Header: "Professor Email",

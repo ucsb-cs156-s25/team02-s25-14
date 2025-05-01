@@ -24,7 +24,7 @@ public class RecommendationRequest {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private long id;
-  private String requestorEmail;
+  private String requesterEmail;
   private String professorEmail;
   private String explanation;
   private LocalDateTime dateRequested;
