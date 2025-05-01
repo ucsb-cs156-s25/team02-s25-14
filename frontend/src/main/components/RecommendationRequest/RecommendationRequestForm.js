@@ -149,15 +149,9 @@ function RecommendationRequestForm({
               id="done"
               label="Done"
               data-testid="RecommendationRequestForm-done"
-              isInvalid={Boolean(errors.done)}
               defaultChecked={initialContents?.done}
-              {...register("done", {
-                required: "Done is required.",
-              })}
+              {...register("done")}
             />
-            <Form.Control.Feedback type="invalid">
-              {errors.done?.message}
-            </Form.Control.Feedback>
           </Form.Group>
         </Col>
       </Row>

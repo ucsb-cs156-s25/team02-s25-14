@@ -6,7 +6,7 @@ import { toast } from "react-toastify";
 
 export default function RecommendationRequestCreatePage({ storybook = false }) {
   const objectToAxiosParams = (recommendationRequest) => ({
-    url: "/api/recommendationrequest/post",
+    url: "/api/recommendationrequest",
     method: "POST",
     params: {
       requestorEmail: recommendationRequest.requestorEmail,
