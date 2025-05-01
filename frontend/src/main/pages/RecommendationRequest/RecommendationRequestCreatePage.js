@@ -33,15 +33,8 @@ export default function RecommendationRequestCreatePage({ storybook = false }) {
 
   const { isSuccess } = mutation;
 
-  const fixDateFormat = (str) => (str.length === 16 ? `${str}:00` : str); // adding :00 to the end of the string to make it a valid date
-
   const onSubmit = async (data) => {
-    mutation.mutate({
-      ...data,  
-      dateRequested: fixDateFormat(data.dateRequested),
-      dateNeeded: fixDateFormat(data.dateNeeded),
-      done: String(data.done),
-    });
+    mutation.mutate(data);
   };
 
   if (isSuccess && !storybook) {
