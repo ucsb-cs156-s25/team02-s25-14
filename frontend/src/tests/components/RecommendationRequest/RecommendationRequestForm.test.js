@@ -70,8 +70,12 @@ describe("RecommendationRequestForm tests", () => {
     );
     const submitButton = screen.getByTestId("RecommendationRequestForm-submit");
 
-    fireEvent.change(requesterEmailField, { target: { value: "invalid-email" } });
-    fireEvent.change(professorEmailField, { target: { value: "still-invalid-email" } });
+    fireEvent.change(requesterEmailField, {
+      target: { value: "invalid-email" },
+    });
+    fireEvent.change(professorEmailField, {
+      target: { value: "still-invalid-email" },
+    });
     fireEvent.change(explanationField, { target: { value: "a".repeat(31) } });
     fireEvent.change(dateRequestedField, { target: { value: "" } });
     fireEvent.change(dateNeededField, { target: { value: "" } });
