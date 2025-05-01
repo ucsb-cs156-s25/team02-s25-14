@@ -246,7 +246,13 @@
 <a name='L181'></a><a href='#L181'>181</a>
 <a name='L182'></a><a href='#L182'>182</a>
 <a name='L183'></a><a href='#L183'>183</a>
-<a name='L184'></a><a href='#L184'>184</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L184'></a><a href='#L184'>184</a>
+<a name='L185'></a><a href='#L185'>185</a>
+<a name='L186'></a><a href='#L186'>186</a>
+<a name='L187'></a><a href='#L187'>187</a>
+<a name='L188'></a><a href='#L188'>188</a>
+<a name='L189'></a><a href='#L189'>189</a>
+<a name='L190'></a><a href='#L190'>190</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -260,19 +266,25 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-yes">16x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -476,18 +488,22 @@ function RecommendationRequestForm({
 &nbsp;
         &lt;Col&gt;
           &lt;Form.Group className="mb-3"&gt;
-            &lt;Form.Label htmlFor="requestorEmail"&gt;Requestor Email&lt;/Form.Label&gt;
+            &lt;Form.Label htmlFor="requesterEmail"&gt;Requester Email&lt;/Form.Label&gt;
             &lt;Form.Control
-              data-testid="RecommendationRequestForm-requestorEmail"
-              id="requestorEmail"
+              data-testid="RecommendationRequestForm-requesterEmail"
+              id="requesterEmail"
               type="text"
-              isInvalid={Boolean(errors.requestorEmail)}
-              {...register("requestorEmail", {
-                required: "Requestor Email is required.",
+              isInvalid={Boolean(errors.requesterEmail)}
+              {...register("requesterEmail", {
+                required: "Requester Email is required.",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Requester Email must be a valid email address.",
+                },
               })}
             /&gt;
             &lt;Form.Control.Feedback type="invalid"&gt;
-              {errors.requestorEmail?.message}
+              {errors.requesterEmail?.message}
             &lt;/Form.Control.Feedback&gt;
           &lt;/Form.Group&gt;
         &lt;/Col&gt;
@@ -501,6 +517,10 @@ function RecommendationRequestForm({
               isInvalid={Boolean(errors.professorEmail)}
               {...register("professorEmail", {
                 required: "Professor Email is required.",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Professor Email must be a valid email address.",
+                },
               })}
             /&gt;
             &lt;Form.Control.Feedback type="invalid"&gt;
@@ -521,6 +541,10 @@ function RecommendationRequestForm({
               isInvalid={Boolean(errors.explanation)}
               {...register("explanation", {
                 required: "Explanation is required.",
+                maxLength: {
+                  value: 30,
+                  message: "Explanation must be 30 characters or less.",
+                },
               })}
             /&gt;
             &lt;Form.Control.Feedback type="invalid"&gt;
@@ -580,15 +604,9 @@ function RecommendationRequestForm({
               id="done"
               label="Done"
               data-testid="RecommendationRequestForm-done"
-              isInvalid={Boolean(errors.done)}
               defaultChecked={initialContents?.done}
-              {...register("done", {
-                required: "Done is required.",
-              })}
+              {...register("done")}
             /&gt;
-            &lt;Form.Control.Feedback type="invalid"&gt;
-              {errors.done?.message}
-            &lt;/Form.Control.Feedback&gt;
           &lt;/Form.Group&gt;
         &lt;/Col&gt;
       &lt;/Row&gt;
@@ -619,7 +637,7 @@ export default RecommendationRequestForm;
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2025-05-01T18:49:58.143Z
+                at 2025-05-01T23:12:47.851Z
             </div>
         <script src="../../prettify.js"></script>
         <script>
