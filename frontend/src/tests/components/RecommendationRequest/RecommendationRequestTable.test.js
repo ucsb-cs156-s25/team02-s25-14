@@ -193,7 +193,7 @@ describe("RecommendationRequestTable tests", () => {
 
     const axiosMock = new AxiosMockAdapter(axios);
     axiosMock
-      .onDelete("/api/recommendationrequest")
+      .onDelete("/api/recommendation-requests/delete")
       .reply(200, { message: "RecommendationRequest deleted" });
 
     // act - render the component

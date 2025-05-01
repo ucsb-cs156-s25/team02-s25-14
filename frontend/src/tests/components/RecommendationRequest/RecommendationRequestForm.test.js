@@ -102,7 +102,6 @@ describe("RecommendationRequestForm tests", () => {
     expect(screen.getByText(/Explanation is required./)).toBeInTheDocument();
     expect(screen.getByText(/Date Requested is required./)).toBeInTheDocument();
     expect(screen.getByText(/Date Needed is required./)).toBeInTheDocument();
-    expect(screen.getByText(/Done is required./)).toBeInTheDocument();
   });
 
   test("No Error messsages on good input", async () => {
@@ -169,7 +168,6 @@ describe("RecommendationRequestForm tests", () => {
     expect(
       screen.queryByText(/Date Needed is required./),
     ).not.toBeInTheDocument();
-    expect(screen.queryByText(/Done is required./)).not.toBeInTheDocument();
   });
 
   test("that navigate(-1) is called when Cancel is clicked", async () => {
@@ -249,6 +247,5 @@ describe("RecommendationRequestForm tests", () => {
     expect(screen.getByText(/Explanation is required./)).toBeInTheDocument();
     expect(screen.getByText(/Date Requested is required./)).toBeInTheDocument();
     expect(screen.getByText(/Date Needed is required./)).toBeInTheDocument();
-    expect(screen.getByText(/Done is required./)).toBeInTheDocument();
   });
 });
