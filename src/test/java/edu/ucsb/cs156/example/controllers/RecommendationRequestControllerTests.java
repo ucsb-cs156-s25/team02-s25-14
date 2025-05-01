@@ -77,7 +77,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
             LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
 
             RecommendationRequest recommendationRequest1 = RecommendationRequest.builder()
-                            .requesterEmail("student1@ucsb.edu")
+                            .requestorEmail("student1@ucsb.edu")
                             .professorEmail("prof1@ucsb.edu")
                             .explanation("grad program")
                             .dateRequested(ldt1)
@@ -88,7 +88,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
             LocalDateTime ldt2 = LocalDateTime.parse("2022-03-11T00:00:00");
 
             RecommendationRequest recommendationRequest2 = RecommendationRequest.builder()
-                            .requesterEmail("student2@ucsb.edu")
+                            .requestorEmail("student2@ucsb.edu")
                             .professorEmail("prof2@ucsb.edu")
                             .explanation("grad program")
                             .dateRequested(ldt2)
@@ -119,7 +119,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
             LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
 
             RecommendationRequest recommendationRequest1 = RecommendationRequest.builder()
-                            .requesterEmail("student1@ucsb.edu")
+                            .requestorEmail("student1@ucsb.edu")
                             .professorEmail("prof1@ucsb.edu")
                             .explanation("grad program")
                             .dateRequested(ldt1)
@@ -131,7 +131,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
 
             // act
             MvcResult response = mockMvc.perform(
-                            post("/api/recommendation-requests/post?requesterEmail=student1@ucsb.edu&professorEmail=prof1@ucsb.edu&explanation=grad program&dateRequested=2022-01-03T00:00:00&dateNeeded=2022-01-08T00:00:00&done=false")
+                            post("/api/recommendation-requests/post?requestorEmail=student1@ucsb.edu&professorEmail=prof1@ucsb.edu&explanation=grad program&dateRequested=2022-01-03T00:00:00&dateNeeded=2022-01-08T00:00:00&done=false")
                                             .with(csrf()))
                             .andExpect(status().isOk()).andReturn();
 
@@ -152,7 +152,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
         LocalDateTime ldt = LocalDateTime.parse("2022-01-03T00:00:00");
 
         RecommendationRequest recommendationRequest = RecommendationRequest.builder()
-                        .requesterEmail("student1@ucsb.edu")
+                        .requestorEmail("student1@ucsb.edu")
                         .professorEmail("prof1@ucsb.edu")
                         .explanation("grad program")
                         .dateRequested(ldt)
@@ -200,7 +200,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
                 LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
 
                 RecommendationRequest recommendationRequest1 = RecommendationRequest.builder()
-                                .requesterEmail("stud1@ucsb.edu")
+                                .requestorEmail("stud1@ucsb.edu")
                                 .professorEmail("prof1@ucsb.edu")
                                 .explanation("grad program")
                                 .dateRequested(ldt1)
@@ -254,7 +254,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
                 LocalDateTime ldt2 = LocalDateTime.parse("2023-01-03T00:00:00");
 
                 RecommendationRequest recommendationRequestOrig = RecommendationRequest.builder()
-                                .requesterEmail("stud1@ucsb.edu")
+                                .requestorEmail("stud1@ucsb.edu")
                                 .professorEmail("prof1@ucsb.edu")
                                 .explanation("grad school")
                                 .dateRequested(ldt1)
@@ -263,7 +263,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
                                 .build();
 
                 RecommendationRequest recommendationRequestEdited = RecommendationRequest.builder()
-                                .requesterEmail("stud2@ucsb.edu")
+                                .requestorEmail("stud2@ucsb.edu")
                                 .professorEmail("prof2@ucsb.edu")
                                 .explanation("grad school")
                                 .dateRequested(ldt2)
@@ -299,7 +299,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
                 LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
 
                 RecommendationRequest recommendationRequestEdited = RecommendationRequest.builder()
-                                .requesterEmail("stud1@ucsb.edu")
+                                .requestorEmail("stud1@ucsb.edu")
                                 .professorEmail("prof1@ucsb.edu")
                                 .explanation("grad school")
                                 .dateRequested(ldt1)
@@ -333,7 +333,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
         LocalDateTime ldt = LocalDateTime.parse("2022-01-03T00:00:00");
 
         RecommendationRequest original = RecommendationRequest.builder()
-                .requesterEmail("stud@ucsb.edu")
+                .requestorEmail("stud@ucsb.edu")
                 .professorEmail("prof@ucsb.edu")
                 .explanation("grad school")
                 .dateRequested(ldt)
@@ -342,7 +342,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
                 .build();
 
         RecommendationRequest updated = RecommendationRequest.builder()
-                .requesterEmail("stud@ucsb.edu")
+                .requestorEmail("stud@ucsb.edu")
                 .professorEmail("prof@ucsb.edu")
                 .explanation("phd program")
                 .dateRequested(ldt)

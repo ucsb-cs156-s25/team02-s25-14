@@ -54,7 +54,7 @@ public class RecommendationRequestController extends ApiController {
     @Operation(summary = "Create a new recommendation request")
     @PostMapping("/post") // Use the data in the input parameters to create a new row in the table and return the data as JSON
     public RecommendationRequest postRecommendationRequest(
-            @Parameter(name="requesterEmail") @RequestParam String requesterEmail,
+            @Parameter(name="requestorEmail") @RequestParam String requestorEmail,
             @Parameter(name="professorEmail") @RequestParam String professorEmail,
             @Parameter(name="explanation") @RequestParam String explanation,
             @Parameter(name="dateRequested", description="date (in iso format, e.g. YYYY-mm-ddTHH:MM:SS; see https://en.wikipedia.org/wiki/ISO_8601)") @RequestParam("dateRequested") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME) LocalDateTime dateRequested,
@@ -69,7 +69,7 @@ public class RecommendationRequestController extends ApiController {
         log.info("dateNeeded={}", dateNeeded);
 
         RecommendationRequest recommendationRequest = new RecommendationRequest();
-        recommendationRequest.setRequesterEmail(requesterEmail);
+        recommendationRequest.setRequestorEmail(requestorEmail);
         recommendationRequest.setProfessorEmail(professorEmail);
         recommendationRequest.setExplanation(explanation);
         recommendationRequest.setDateRequested(dateRequested);
@@ -118,7 +118,7 @@ public class RecommendationRequestController extends ApiController {
         RecommendationRequest recommendationRequest = recommendationRequestRepository.findById(id)
                 .orElseThrow(() -> new EntityNotFoundException(RecommendationRequest.class, id));
 
-        recommendationRequest.setRequesterEmail(incoming.getRequesterEmail());
+        recommendationRequest.setRequestorEmail(incoming.getRequestorEmail());
         recommendationRequest.setProfessorEmail(incoming.getProfessorEmail());
         recommendationRequest.setExplanation(incoming.getExplanation());
         recommendationRequest.setDateRequested(incoming.getDateRequested());
