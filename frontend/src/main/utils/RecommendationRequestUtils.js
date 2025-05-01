@@ -1,3 +1,5 @@
+import { toast } from "react-toastify";
+
 export const cellToAxiosParamsDelete = (cell) => ({
   url: "/api/recommendation-requests/delete",
   method: "DELETE",
@@ -6,6 +8,7 @@ export const cellToAxiosParamsDelete = (cell) => ({
   },
 });
 
-export const onDeleteSuccess = (message) => {
-  console.log(message);
+export const onDeleteSuccess = (response) => {
+  console.log(response);
+  toast(response.message);
 };
