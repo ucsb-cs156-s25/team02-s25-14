@@ -37,7 +37,7 @@ export default function RecommendationRequestTable({
       accessor: "id", // accessor is the "key" in the data
     },
     {
-      Header: "requester Email",
+      Header: "Requester Email",
       accessor: "requesterEmail",
     },
     {

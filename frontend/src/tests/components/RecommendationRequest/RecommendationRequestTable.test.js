@@ -33,7 +33,7 @@ describe("RecommendationRequestTable tests", () => {
 
     const expectedHeaders = [
       "id",
-      "requester Email",
+      "Requester Email",
       "Professor Email",
       "Explanation",
       "Date Requested",
@@ -105,7 +105,7 @@ describe("RecommendationRequestTable tests", () => {
 
     const expectedHeaders = [
       "id",
-      "requester Email",
+      "Requester Email",
       "Professor Email",
       "Explanation",
       "Date Requested",

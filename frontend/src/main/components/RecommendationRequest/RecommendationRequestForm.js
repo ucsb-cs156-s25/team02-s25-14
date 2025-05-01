@@ -45,14 +45,14 @@ function RecommendationRequestForm({
 
         <Col>
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="requesterEmail">requester Email</Form.Label>
+            <Form.Label htmlFor="requesterEmail">Requester Email</Form.Label>
             <Form.Control
               data-testid="RecommendationRequestForm-requesterEmail"
               id="requesterEmail"
               type="text"
               isInvalid={Boolean(errors.requesterEmail)}
               {...register("requesterEmail", {
-                required: "requester Email is required.",
+                required: "Requester Email is required.",
               })}
             />
             <Form.Control.Feedback type="invalid">
