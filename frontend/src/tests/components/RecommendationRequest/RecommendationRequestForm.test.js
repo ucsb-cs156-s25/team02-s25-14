@@ -70,6 +70,44 @@ describe("RecommendationRequestForm tests", () => {
     );
     const submitButton = screen.getByTestId("RecommendationRequestForm-submit");
 
+    fireEvent.change(requesterEmailField, { target: { value: "invalid-email" } });
+    fireEvent.change(professorEmailField, { target: { value: "still-invalid-email" } });
+    fireEvent.change(explanationField, { target: { value: "a".repeat(31) } });
+    fireEvent.change(dateRequestedField, { target: { value: "" } });
+    fireEvent.change(dateNeededField, { target: { value: "" } });
+    fireEvent.click(submitButton);
+
+    await screen.findByText(/Requester Email must be a valid email address./);
+    await screen.findByText(/Professor Email must be a valid email address./);
+    await screen.findByText(/Explanation must be 30 characters or less./);
+    await screen.findByText(/Date Requested is required./);
+    await screen.findByText(/Date Needed is required./);
+  });
+
+  test("Correct Error messsages on missing input", async () => {
+    render(
+      <Router>
+        <RecommendationRequestForm />
+      </Router>,
+    );
+    await screen.findByTestId("RecommendationRequestForm-submit");
+    const requesterEmailField = screen.getByTestId(
+      "RecommendationRequestForm-requesterEmail",
+    );
+    const professorEmailField = screen.getByTestId(
+      "RecommendationRequestForm-professorEmail",
+    );
+    const explanationField = screen.getByTestId(
+      "RecommendationRequestForm-explanation",
+    );
+    const dateRequestedField = screen.getByTestId(
+      "RecommendationRequestForm-dateRequested",
+    );
+    const dateNeededField = screen.getByTestId(
+      "RecommendationRequestForm-dateNeeded",
+    );
+    const submitButton = screen.getByTestId("RecommendationRequestForm-submit");
+
     fireEvent.change(requesterEmailField, { target: { value: "" } });
     fireEvent.change(professorEmailField, { target: { value: "" } });
     fireEvent.change(explanationField, { target: { value: "" } });
@@ -82,26 +120,6 @@ describe("RecommendationRequestForm tests", () => {
     await screen.findByText(/Explanation is required./);
     await screen.findByText(/Date Requested is required./);
     await screen.findByText(/Date Needed is required./);
-  });
-
-  test("Correct Error messsages on missing input", async () => {
-    render(
-      <Router>
-        <RecommendationRequestForm />
-      </Router>,
-    );
-    await screen.findByTestId("RecommendationRequestForm-submit");
-    const submitButton = screen.getByTestId("RecommendationRequestForm-submit");
-
-    fireEvent.click(submitButton);
-
-    await screen.findByText(/Requester Email is required./);
-    expect(
-      screen.getByText(/Professor Email is required./),
-    ).toBeInTheDocument();
-    expect(screen.getByText(/Explanation is required./)).toBeInTheDocument();
-    expect(screen.getByText(/Date Requested is required./)).toBeInTheDocument();
-    expect(screen.getByText(/Date Needed is required./)).toBeInTheDocument();
   });
 
   test("No Error messsages on good input", async () => {

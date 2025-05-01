@@ -53,6 +53,10 @@ function RecommendationRequestForm({
               isInvalid={Boolean(errors.requesterEmail)}
               {...register("requesterEmail", {
                 required: "Requester Email is required.",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Requester Email must be a valid email address.",
+                },
               })}
             />
             <Form.Control.Feedback type="invalid">
@@ -70,6 +74,10 @@ function RecommendationRequestForm({
               isInvalid={Boolean(errors.professorEmail)}
               {...register("professorEmail", {
                 required: "Professor Email is required.",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Professor Email must be a valid email address.",
+                },
               })}
             />
             <Form.Control.Feedback type="invalid">
@@ -90,6 +98,10 @@ function RecommendationRequestForm({
               isInvalid={Boolean(errors.explanation)}
               {...register("explanation", {
                 required: "Explanation is required.",
+                maxLength: {
+                  value: 30,
+                  message: "Explanation must be 30 characters or less.",
+                },
               })}
             />
             <Form.Control.Feedback type="invalid">
