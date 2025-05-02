@@ -2,7 +2,11 @@ import { Button, Form, Row, Col } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-function HelpRequestForm({ initialContents, submitAction, buttonLabel = "Create" }) {
+function HelpRequestForm({
+  initialContents,
+  submitAction,
+  buttonLabel = "Create",
+}) {
   // Stryker disable all
 
   const {
@@ -78,7 +82,9 @@ function HelpRequestForm({ initialContents, submitAction, buttonLabel = "Create"
       <Row>
         <Col>
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="tableOrBreakoutRoom">Table or Breakout Room</Form.Label>
+            <Form.Label htmlFor="tableOrBreakoutRoom">
+              Table or Breakout Room
+            </Form.Label>
             <Form.Control
               data-testid="HelpRequestForm-tableOrBreakoutRoom"
               id="tableOrBreakoutRoom"
@@ -167,5 +173,3 @@ function HelpRequestForm({ initialContents, submitAction, buttonLabel = "Create"
 }
 
 export default HelpRequestForm;
-
-
