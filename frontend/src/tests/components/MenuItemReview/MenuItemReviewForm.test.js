@@ -16,7 +16,13 @@ jest.mock("react-router-dom", () => ({
 describe("MenuItemReviewForm tests", () => {
   const queryClient = new QueryClient();
 
-  const expectedHeaders = ["Item Id", "Reviewer Email", "Stars", "Date Reviewed (in UTC)", "Comments"];
+  const expectedHeaders = [
+    "Item Id",
+    "Reviewer Email",
+    "Stars",
+    "Date Reviewed (in UTC)",
+    "Comments",
+  ];
   const testId = "MenuItemReviewForm";
 
   test("renders correctly with no initialContents", async () => {
@@ -40,7 +46,9 @@ describe("MenuItemReviewForm tests", () => {
     render(
       <QueryClientProvider client={queryClient}>
         <Router>
-          <MenuItemReviewForm initialContents={menuItemReviewFixtures.oneReview} />
+          <MenuItemReviewForm
+            initialContents={menuItemReviewFixtures.oneReview}
+          />
         </Router>
       </QueryClientProvider>,
     );
@@ -54,6 +62,10 @@ describe("MenuItemReviewForm tests", () => {
 
     expect(await screen.findByTestId(`${testId}-id`)).toBeInTheDocument();
     expect(screen.getByText(`Id`)).toBeInTheDocument();
+
+    expect(screen.getByLabelText(`Item Id`)).toBeInTheDocument(menuItemReviewFixtures.oneReview.itemId);
+    expect(screen.getByLabelText(`Reviewer Email`)).toBeInTheDocument(menuItemReviewFixtures.oneReview.reviewerEmail);
+    expect(screen.getByText(`Stars`)).toBeInTheDocument(menuItemReviewFixtures.oneReview.stars);
   });
 
   test("that navigate(-1) is called when Cancel is clicked", async () => {
