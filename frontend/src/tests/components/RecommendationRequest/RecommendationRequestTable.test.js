@@ -33,7 +33,7 @@ describe("RecommendationRequestTable tests", () => {
 
     const expectedHeaders = [
       "id",
-      "Requestor Email",
+      "Requester Email",
       "Professor Email",
       "Explanation",
       "Date Requested",
@@ -42,7 +42,7 @@ describe("RecommendationRequestTable tests", () => {
     ];
     const expectedFields = [
       "id",
-      "requestorEmail",
+      "requesterEmail",
       "professorEmail",
       "explanation",
       "dateRequested",
@@ -105,7 +105,7 @@ describe("RecommendationRequestTable tests", () => {
 
     const expectedHeaders = [
       "id",
-      "Requestor Email",
+      "Requester Email",
       "Professor Email",
       "Explanation",
       "Date Requested",
@@ -114,7 +114,7 @@ describe("RecommendationRequestTable tests", () => {
     ];
     const expectedFields = [
       "id",
-      "requestorEmail",
+      "requesterEmail",
       "professorEmail",
       "explanation",
       "dateRequested",
@@ -193,7 +193,7 @@ describe("RecommendationRequestTable tests", () => {
 
     const axiosMock = new AxiosMockAdapter(axios);
     axiosMock
-      .onDelete("/api/recommendationrequest")
+      .onDelete("/api/recommendation-requests/delete")
       .reply(200, { message: "RecommendationRequest deleted" });
 
     // act - render the component

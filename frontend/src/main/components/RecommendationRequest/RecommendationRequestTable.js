@@ -22,7 +22,7 @@ export default function RecommendationRequestTable({
   const deleteMutation = useBackendMutation(
     cellToAxiosParamsDelete,
     { onSuccess: onDeleteSuccess },
-    ["/api/recommendationrequest/all"],
+    ["/api/recommendation-requests/all"],
   );
   // Stryker restore all
 
@@ -37,8 +37,8 @@ export default function RecommendationRequestTable({
       accessor: "id", // accessor is the "key" in the data
     },
     {
-      Header: "Requestor Email",
-      accessor: "requestorEmail",
+      Header: "Requester Email",
+      accessor: "requesterEmail",
     },
     {
       Header: "Professor Email",
