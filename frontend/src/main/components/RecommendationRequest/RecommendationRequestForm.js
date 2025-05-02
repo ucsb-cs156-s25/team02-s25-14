@@ -119,6 +119,7 @@ function RecommendationRequestForm({
               data-testid="RecommendationRequestForm-dateRequested"
               id="dateRequested"
               type="datetime-local"
+              step="1"
               isInvalid={Boolean(errors.dateRequested)}
               {...register("dateRequested", {
                 required: true,
@@ -142,6 +143,7 @@ function RecommendationRequestForm({
               data-testid="RecommendationRequestForm-dateNeeded"
               id="dateNeeded"
               type="datetime-local"
+              step="1"
               isInvalid={Boolean(errors.dateNeeded)}
               {...register("dateNeeded", {
                 required: true,
