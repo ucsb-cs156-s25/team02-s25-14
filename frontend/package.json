@@ -24,6 +24,10 @@
     "react18-json-view": "^0.2.8",
     "web-vitals": "^2.1.4"
   },
+
+  "overrides": {
+    "react-refresh": "0.11.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
