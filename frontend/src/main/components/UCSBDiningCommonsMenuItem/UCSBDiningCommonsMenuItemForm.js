@@ -2,7 +2,7 @@ import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-function UCSBDiningCommonsMenuItemForm ({
+function UCSBDiningCommonsMenuItemForm({
   initialContents,
   submitAction,
   buttonLabel = "Create",
@@ -17,7 +17,7 @@ function UCSBDiningCommonsMenuItemForm ({
 
   const navigate = useNavigate();
 
-  const testIdPrefix = "RestaurantForm";
+  const testIdPrefix = "UCSBDiningCommonsMenuItemForm";
 
   return (
     <Form onSubmit={handleSubmit(submitAction)}>
@@ -72,6 +72,26 @@ function UCSBDiningCommonsMenuItemForm ({
         />
         <Form.Control.Feedback type="invalid">
           {errors.name?.message}
+        </Form.Control.Feedback>
+      </Form.Group>
+
+      <Form.Group className="mb-3">
+        <Form.Label htmlFor="station">Station</Form.Label>
+        <Form.Control
+          data-testid={testIdPrefix + "-station"}
+          id="station"
+          type="text"
+          isInvalid={Boolean(errors.station)}
+          {...register("station", {
+            required: "Station is required.",
+            maxLength: {
+              value: 255,
+              message: "Max length 255 characters",
+            },
+          })}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.station?.message}
         </Form.Control.Feedback>
       </Form.Group>
 
