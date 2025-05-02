@@ -7,12 +7,13 @@ function MenuItemReviewForm({
   submitAction,
   buttonLabel = "Create",
 }) {
+
   // Stryker disable all
   const {
     register,
     formState: { errors },
     handleSubmit,
-  } = useForm({ defaultValues: initialContents || {} });
+  } = useForm({defaultValues: initialContents || {}});
   // Stryker restore all
 
   const navigate = useNavigate();
@@ -51,7 +52,7 @@ function MenuItemReviewForm({
             required: "Item Id is required.",
             maxLength: {
               value: 255,
-              message: "Max length 30 characters",
+              message: "Max length 255 characters",
             },
           })}
         />
@@ -72,7 +73,7 @@ function MenuItemReviewForm({
           })}
         />
         <Form.Control.Feedback type="invalid">
-          {errors.reviewerId?.message}
+          {errors.reviewerEmail?.message}
         </Form.Control.Feedback>
       </Form.Group>
 
@@ -93,7 +94,7 @@ function MenuItemReviewForm({
       </Form.Group>
 
       <Form.Group className="mb-3">
-        <Form.Label htmlFor="dateReviewed">Date Reviewed(in UTC)</Form.Label>
+        <Form.Label htmlFor="dateReviewed">Date Reviewed (in UTC)</Form.Label>
         <Form.Control
           data-testid={testIdPrefix + "-dateReviewed"}
           id="dateReviewed"
