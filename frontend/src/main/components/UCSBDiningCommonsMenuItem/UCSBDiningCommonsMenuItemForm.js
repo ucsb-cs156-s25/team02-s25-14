@@ -2,7 +2,7 @@ import { Button, Form } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
-function UCSBDiningCommonsMenuItemForm({
+function UCSBDiningCommonsMenuItemForm ({
   initialContents,
   submitAction,
   buttonLabel = "Create",
@@ -43,7 +43,7 @@ function UCSBDiningCommonsMenuItemForm({
           type="text"
           isInvalid={Boolean(errors.diningCommonsCode)}
           {...register("diningCommonsCode", {
-            required: "DiningCommonsCode is required.",
+            required: "Dining Commons Code is required.",
             maxLength: {
               value: 255,
               message: "Max length 255 characters",
