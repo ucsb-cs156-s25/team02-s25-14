@@ -53,25 +53,11 @@ describe("HelpRequestForm tests", () => {
 
     fireEvent.click(submitButton);
 
-    await waitFor(() =>
-      expect(
-        screen.getByText(/Requester email is required./),
-      ).toBeInTheDocument(),
-    );
-    await waitFor(() =>
-      expect(screen.getByText(/Team ID is required./)).toBeInTheDocument(),
-    );
-    await waitFor(() =>
-      expect(
-        screen.getByText(/Table or breakout room is required./),
-      ).toBeInTheDocument(),
-    );
-    await waitFor(() =>
-      expect(screen.getByText(/Request Time is required./)).toBeInTheDocument(),
-    );
-    await waitFor(() =>
-      expect(screen.getByText(/Explanation is required./)).toBeInTheDocument(),
-    );
+    await screen.findByText(/Requester email is required./);
+    await screen.findByText(/Team ID is required./);
+    await screen.findByText(/Table or breakout room is required./);
+    await screen.findByText(/Request Time is required./);
+    await screen.findByText(/Explanation is required./);
   });
 
   test("Correct Error messages on missing input", async () => {
@@ -84,25 +70,11 @@ describe("HelpRequestForm tests", () => {
     const submitButton = screen.getByTestId("HelpRequestForm-submit");
     fireEvent.click(submitButton);
 
-    await waitFor(() =>
-      expect(
-        screen.getByText(/Requester email is required./),
-      ).toBeInTheDocument(),
-    );
-    await waitFor(() =>
-      expect(screen.getByText(/Team ID is required./)).toBeInTheDocument(),
-    );
-    await waitFor(() =>
-      expect(
-        screen.getByText(/Table or breakout room is required./),
-      ).toBeInTheDocument(),
-    );
-    await waitFor(() =>
-      expect(screen.getByText(/Request Time is required./)).toBeInTheDocument(),
-    );
-    await waitFor(() =>
-      expect(screen.getByText(/Explanation is required./)).toBeInTheDocument(),
-    );
+    await screen.findByText(/Requester email is required./);
+    await screen.findByText(/Team ID is required./);
+    await screen.findByText(/Table or breakout room is required./);
+    await screen.findByText(/Request Time is required./);
+    await screen.findByText(/Explanation is required./);
   });
 
   test("No Error messages on good input", async () => {
@@ -198,11 +170,7 @@ describe("HelpRequestForm tests", () => {
     for (const date of invalidDates) {
       fireEvent.change(requestTimeField, { target: { value: date } });
       fireEvent.click(submitButton);
-      await waitFor(() => {
-        expect(
-          screen.getByText(/Request Time is required./),
-        ).toBeInTheDocument();
-      });
+      await screen.findByText(/Request Time is required./);
       fireEvent.change(requestTimeField, { target: { value: "" } });
     }
 
