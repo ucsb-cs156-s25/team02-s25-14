@@ -40,9 +40,13 @@ describe("HelpRequestForm tests", () => {
     );
 
     await screen.findByTestId("HelpRequestForm-requestTime");
-    const _requesterEmailField = screen.getByTestId("HelpRequestForm-requesterEmail");
+    const _requesterEmailField = screen.getByTestId(
+      "HelpRequestForm-requesterEmail",
+    );
     const _teamIdField = screen.getByTestId("HelpRequestForm-teamId");
-    const _tableField = screen.getByTestId("HelpRequestForm-tableOrBreakoutRoom");
+    const _tableField = screen.getByTestId(
+      "HelpRequestForm-tableOrBreakoutRoom",
+    );
     const _requestTimeField = screen.getByTestId("HelpRequestForm-requestTime");
     const _explanationField = screen.getByTestId("HelpRequestForm-explanation");
     const submitButton = screen.getByTestId("HelpRequestForm-submit");
@@ -50,19 +54,23 @@ describe("HelpRequestForm tests", () => {
     fireEvent.click(submitButton);
 
     await waitFor(() =>
-      expect(screen.getByText(/Requester email is required./)).toBeInTheDocument()
+      expect(
+        screen.getByText(/Requester email is required./),
+      ).toBeInTheDocument(),
     );
     await waitFor(() =>
-      expect(screen.getByText(/Team ID is required./)).toBeInTheDocument()
+      expect(screen.getByText(/Team ID is required./)).toBeInTheDocument(),
     );
     await waitFor(() =>
-      expect(screen.getByText(/Table or breakout room is required./)).toBeInTheDocument()
+      expect(
+        screen.getByText(/Table or breakout room is required./),
+      ).toBeInTheDocument(),
     );
     await waitFor(() =>
-      expect(screen.getByText(/Request Time is required./)).toBeInTheDocument()
+      expect(screen.getByText(/Request Time is required./)).toBeInTheDocument(),
     );
     await waitFor(() =>
-      expect(screen.getByText(/Explanation is required./)).toBeInTheDocument()
+      expect(screen.getByText(/Explanation is required./)).toBeInTheDocument(),
     );
   });
 
@@ -77,19 +85,23 @@ describe("HelpRequestForm tests", () => {
     fireEvent.click(submitButton);
 
     await waitFor(() =>
-      expect(screen.getByText(/Requester email is required./)).toBeInTheDocument()
+      expect(
+        screen.getByText(/Requester email is required./),
+      ).toBeInTheDocument(),
     );
     await waitFor(() =>
-      expect(screen.getByText(/Team ID is required./)).toBeInTheDocument()
+      expect(screen.getByText(/Team ID is required./)).toBeInTheDocument(),
     );
     await waitFor(() =>
-      expect(screen.getByText(/Table or breakout room is required./)).toBeInTheDocument()
+      expect(
+        screen.getByText(/Table or breakout room is required./),
+      ).toBeInTheDocument(),
     );
     await waitFor(() =>
-      expect(screen.getByText(/Request Time is required./)).toBeInTheDocument()
+      expect(screen.getByText(/Request Time is required./)).toBeInTheDocument(),
     );
     await waitFor(() =>
-      expect(screen.getByText(/Explanation is required./)).toBeInTheDocument()
+      expect(screen.getByText(/Explanation is required./)).toBeInTheDocument(),
     );
   });
 
@@ -102,9 +114,13 @@ describe("HelpRequestForm tests", () => {
       </Router>,
     );
 
-    const requesterEmailField = screen.getByTestId("HelpRequestForm-requesterEmail");
+    const requesterEmailField = screen.getByTestId(
+      "HelpRequestForm-requesterEmail",
+    );
     const teamIdField = screen.getByTestId("HelpRequestForm-teamId");
-    const tableField = screen.getByTestId("HelpRequestForm-tableOrBreakoutRoom");
+    const tableField = screen.getByTestId(
+      "HelpRequestForm-tableOrBreakoutRoom",
+    );
     const requestTimeField = screen.getByTestId("HelpRequestForm-requestTime");
     const explanationField = screen.getByTestId("HelpRequestForm-explanation");
     const submitButton = screen.getByTestId("HelpRequestForm-submit");
