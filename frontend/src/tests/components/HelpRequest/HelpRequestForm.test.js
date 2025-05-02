@@ -40,32 +40,30 @@ describe("HelpRequestForm tests", () => {
     );
 
     await screen.findByTestId("HelpRequestForm-requestTime");
-    const requesterEmailField = screen.getByTestId(
-      "HelpRequestForm-requesterEmail",
-    );
-    const teamIdField = screen.getByTestId("HelpRequestForm-teamId");
-    const tableField = screen.getByTestId(
-      "HelpRequestForm-tableOrBreakoutRoom",
-    );
-    const requestTimeField = screen.getByTestId("HelpRequestForm-requestTime");
-    const explanationField = screen.getByTestId("HelpRequestForm-explanation");
+    const _requesterEmailField = screen.getByTestId("HelpRequestForm-requesterEmail");
+    const _teamIdField = screen.getByTestId("HelpRequestForm-teamId");
+    const _tableField = screen.getByTestId("HelpRequestForm-tableOrBreakoutRoom");
+    const _requestTimeField = screen.getByTestId("HelpRequestForm-requestTime");
+    const _explanationField = screen.getByTestId("HelpRequestForm-explanation");
     const submitButton = screen.getByTestId("HelpRequestForm-submit");
-
-    // Test invalid patterns for all fields
 
     fireEvent.click(submitButton);
 
-    await waitFor(() => {
-      expect(
-        screen.getByText(/Requester email is required./),
-      ).toBeInTheDocument();
-      expect(screen.getByText(/Team ID is required./)).toBeInTheDocument();
-      expect(
-        screen.getByText(/Table or breakout room is required./),
-      ).toBeInTheDocument();
-      expect(screen.getByText(/Request Time is required./)).toBeInTheDocument();
-      expect(screen.getByText(/Explanation is required./)).toBeInTheDocument();
-    });
+    await waitFor(() =>
+      expect(screen.getByText(/Requester email is required./)).toBeInTheDocument()
+    );
+    await waitFor(() =>
+      expect(screen.getByText(/Team ID is required./)).toBeInTheDocument()
+    );
+    await waitFor(() =>
+      expect(screen.getByText(/Table or breakout room is required./)).toBeInTheDocument()
+    );
+    await waitFor(() =>
+      expect(screen.getByText(/Request Time is required./)).toBeInTheDocument()
+    );
+    await waitFor(() =>
+      expect(screen.getByText(/Explanation is required./)).toBeInTheDocument()
+    );
   });
 
   test("Correct Error messages on missing input", async () => {
@@ -78,17 +76,21 @@ describe("HelpRequestForm tests", () => {
     const submitButton = screen.getByTestId("HelpRequestForm-submit");
     fireEvent.click(submitButton);
 
-    await waitFor(() => {
-      expect(
-        screen.getByText(/Requester email is required./),
-      ).toBeInTheDocument();
-      expect(screen.getByText(/Team ID is required./)).toBeInTheDocument();
-      expect(
-        screen.getByText(/Table or breakout room is required./),
-      ).toBeInTheDocument();
-      expect(screen.getByText(/Request Time is required./)).toBeInTheDocument();
-      expect(screen.getByText(/Explanation is required./)).toBeInTheDocument();
-    });
+    await waitFor(() =>
+      expect(screen.getByText(/Requester email is required./)).toBeInTheDocument()
+    );
+    await waitFor(() =>
+      expect(screen.getByText(/Team ID is required./)).toBeInTheDocument()
+    );
+    await waitFor(() =>
+      expect(screen.getByText(/Table or breakout room is required./)).toBeInTheDocument()
+    );
+    await waitFor(() =>
+      expect(screen.getByText(/Request Time is required./)).toBeInTheDocument()
+    );
+    await waitFor(() =>
+      expect(screen.getByText(/Explanation is required./)).toBeInTheDocument()
+    );
   });
 
   test("No Error messages on good input", async () => {
@@ -100,13 +102,9 @@ describe("HelpRequestForm tests", () => {
       </Router>,
     );
 
-    const requesterEmailField = screen.getByTestId(
-      "HelpRequestForm-requesterEmail",
-    );
+    const requesterEmailField = screen.getByTestId("HelpRequestForm-requesterEmail");
     const teamIdField = screen.getByTestId("HelpRequestForm-teamId");
-    const tableField = screen.getByTestId(
-      "HelpRequestForm-tableOrBreakoutRoom",
-    );
+    const tableField = screen.getByTestId("HelpRequestForm-tableOrBreakoutRoom");
     const requestTimeField = screen.getByTestId("HelpRequestForm-requestTime");
     const explanationField = screen.getByTestId("HelpRequestForm-explanation");
     const submitButton = screen.getByTestId("HelpRequestForm-submit");
@@ -152,7 +150,6 @@ describe("HelpRequestForm tests", () => {
     await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith(-1));
   });
 
-  // Enhanced regex validation tests
   test("Validates requestTime ISO format strictly", async () => {
     render(
       <Router>
@@ -164,25 +161,22 @@ describe("HelpRequestForm tests", () => {
     const submitButton = screen.getByTestId("HelpRequestForm-submit");
 
     const invalidDates = [
-      // Date part variations
-      "202-12-31T23:59", // 3-digit year
-      "20244-12-31T23:59", // 5-digit year
-      "2024-13-01T12:00", // Invalid month
-      "2024-00-01T12:00", // Invalid month
-      "2024-12-32T12:00", // Invalid day
-      "2024-02-30T12:00", // Invalid day for February
-      // Time part variations
-      "2024-12-31T24:00", // Invalid hour
-      "2024-12-31T23:60", // Invalid minute
-      "2024-12-31T23:59:60", // Invalid second
-      "2024-12-31T23:59:59.ABC", // Invalid milliseconds
-      // Format variations
-      "2024/12/31T23:59", // Wrong date separator
-      "2024-12-31 23:59", // Missing T separator
-      "2024-12-31T23", // Missing minutes
-      "2024-12-31T23:5", // Single-digit minute
-      "2024-1-31T23:59", // Single-digit month
-      "2024-12-3T23:59", // Single-digit day
+      "202-12-31T23:59",
+      "20244-12-31T23:59",
+      "2024-13-01T12:00",
+      "2024-00-01T12:00",
+      "2024-12-32T12:00",
+      "2024-02-30T12:00",
+      "2024-12-31T24:00",
+      "2024-12-31T23:60",
+      "2024-12-31T23:59:60",
+      "2024-12-31T23:59:59.ABC",
+      "2024/12/31T23:59",
+      "2024-12-31 23:59",
+      "2024-12-31T23",
+      "2024-12-31T23:5",
+      "2024-1-31T23:59",
+      "2024-12-3T23:59",
     ];
 
     for (const date of invalidDates) {
@@ -196,13 +190,12 @@ describe("HelpRequestForm tests", () => {
       fireEvent.change(requestTimeField, { target: { value: "" } });
     }
 
-    // Test valid format variations
     const validDates = [
-      "2024-02-01T14:30", // Basic valid format
-      "2024-12-31T23:59:59", // With seconds
-      "2024-06-15T08:05:30.123", // With milliseconds
-      "2024-07-01T00:00", // Midnight
-      "2024-08-20T12:30:00.000", // Full precision
+      "2024-02-01T14:30",
+      "2024-12-31T23:59:59",
+      "2024-06-15T08:05:30.123",
+      "2024-07-01T00:00",
+      "2024-08-20T12:30:00.000",
     ];
 
     for (const date of validDates) {
