@@ -1,7 +1,7 @@
 import React from "react";
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
-import { recommendationRequestsFixtures } from "fixtures/recommendationRequestsFixtures";
+import { recommendationRequestFixtures } from "fixtures/recommendationRequestFixtures";
 import { http, HttpResponse } from "msw";
 
 import RecommendationRequestIndexPage from "main/pages/RecommendationRequest/RecommendationRequestIndexPage";
@@ -43,7 +43,7 @@ ThreeItemsOrdinaryUser.parameters = {
       return HttpResponse.json(systemInfoFixtures.showingNeither);
     }),
     http.get("/api/recommendation-requests/all", () => {
-      return HttpResponse.json(recommendationRequestsFixtures.threeRequests);
+      return HttpResponse.json(recommendationRequestFixtures.threeRequests);
     }),
   ],
 };
@@ -59,7 +59,7 @@ ThreeItemsAdminUser.parameters = {
       return HttpResponse.json(systemInfoFixtures.showingNeither);
     }),
     http.get("/api/recommendation-requests/all", () => {
-      return HttpResponse.json(recommendationRequestsFixtures.threeRequests);
+      return HttpResponse.json(recommendationRequestFixtures.threeRequests);
     }),
     http.delete("/api/recommendation-requests", () => {
       return HttpResponse.json({}, { status: 200 });
