@@ -223,7 +223,7 @@ describe("RecommendationRequestEditPage tests", () => {
 
       await waitFor(() => expect(mockToast).toBeCalled());
       expect(mockToast).toBeCalledWith(
-        "RecommendationRequest Updated - id: 17 requesterEmail: test1@test.com professorEmail: test1@test.com explanation: test1 dateRequested: 2024-03-14T15:00 dateNeeded: 2025-12-25T08:00 done: true",
+        "RecommendationRequest Updated - id: 17",
       );
       expect(mockNavigate).toBeCalledWith({ to: "/recommendationrequest" });
 
