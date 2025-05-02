@@ -212,7 +212,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
 
                 // act
                 MvcResult response = mockMvc.perform(
-                                delete("/api/recommendation-requests?id=15")
+                                delete("/api/recommendation-requests/delete?id=15")
                                                 .with(csrf()))
                                 .andExpect(status().isOk()).andReturn();
 
@@ -234,7 +234,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
 
                 // act
                 MvcResult response = mockMvc.perform(
-                                delete("/api/recommendation-requests?id=15")
+                                delete("/api/recommendation-requests/delete?id=15")
                                                 .with(csrf()))
                                 .andExpect(status().isNotFound()).andReturn();
 
