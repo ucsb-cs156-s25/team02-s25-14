@@ -19,8 +19,8 @@ function MenuItemReviewForm({
 
   const testIdPrefix = "MenuItemReviewForm";
 
-    // Stryker disable Regex
-    const isodate_regex =
+  // Stryker disable Regex
+  const isodate_regex =
     /(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d\.\d+)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d:[0-5]\d)|(\d{4}-[01]\d-[0-3]\dT[0-2]\d:[0-5]\d)/i;
   // Stryker restore Regex
 
@@ -75,7 +75,7 @@ function MenuItemReviewForm({
           {errors.reviewerId?.message}
         </Form.Control.Feedback>
       </Form.Group>
-    
+
       <Form.Group className="mb-3">
         <Form.Label htmlFor="stars">Stars</Form.Label>
         <Form.Control
@@ -93,24 +93,21 @@ function MenuItemReviewForm({
       </Form.Group>
 
       <Form.Group className="mb-3">
-            <Form.Label htmlFor="dateReviewed">Date Reviewed(in UTC)</Form.Label>
-            <Form.Control
-              data-testid={testIdPrefix + "-dateReviewed"}
-              id="dateReviewed"
-              type="datetime-local"
-              isInvalid={Boolean(errors.dateReviewed)}
-              {...register("dateReviewed", {
-                required: true,
-                pattern: isodate_regex,
-              })}
-            />
-            <Form.Control.Feedback type="invalid">
-              {errors.dateReviewed && "Date Reviewed is required. "}
-            </Form.Control.Feedback>
-          </Form.Group>
-
-
-
+        <Form.Label htmlFor="dateReviewed">Date Reviewed(in UTC)</Form.Label>
+        <Form.Control
+          data-testid={testIdPrefix + "-dateReviewed"}
+          id="dateReviewed"
+          type="datetime-local"
+          isInvalid={Boolean(errors.dateReviewed)}
+          {...register("dateReviewed", {
+            required: true,
+            pattern: isodate_regex,
+          })}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.dateReviewed && "Date Reviewed is required. "}
+        </Form.Control.Feedback>
+      </Form.Group>
 
       <Form.Group className="mb-3">
         <Form.Label htmlFor="comments">Comments</Form.Label>
@@ -127,7 +124,6 @@ function MenuItemReviewForm({
           {errors.comments?.message}
         </Form.Control.Feedback>
       </Form.Group>
-
 
       <Button type="submit" data-testid={testIdPrefix + "-submit"}>
         {buttonLabel}
