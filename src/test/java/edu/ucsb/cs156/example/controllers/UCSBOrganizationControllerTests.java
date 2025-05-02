@@ -2,7 +2,7 @@ package edu.ucsb.cs156.example.controllers;
 
 import edu.ucsb.cs156.example.ControllerTestCase;
 import edu.ucsb.cs156.example.entities.UCSBOrganization;
-import edu.ucsb.cs156.example.repositories.UCSBOrganizationsRepository;
+import edu.ucsb.cs156.example.repositories.UCSBOrganizationRepository;
 import edu.ucsb.cs156.example.repositories.UserRepository;
 import edu.ucsb.cs156.example.testconfig.TestConfig;
 
@@ -36,7 +36,7 @@ import static org.mockito.Mockito.when;
 @Import(TestConfig.class)
 public class UCSBOrganizationControllerTests extends ControllerTestCase {
     @MockBean
-    UCSBOrganizationsRepository ucsbOrganizationRepository;
+    UCSBOrganizationRepository ucsbOrganizationRepository;
     @MockBean
     UserRepository userRepository;
 

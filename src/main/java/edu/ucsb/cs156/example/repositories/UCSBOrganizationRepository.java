@@ -9,5 +9,5 @@ Repository for UCSB Organization entities.
 */
 
 @Repository
-public interface UCSBOrganizationsRepository extends JpaRepository<UCSBOrganization, String> {
+public interface UCSBOrganizationRepository extends JpaRepository<UCSBOrganization, String> {
 }
