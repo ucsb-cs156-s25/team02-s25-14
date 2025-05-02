@@ -253,7 +253,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
                 LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
                 LocalDateTime ldt2 = LocalDateTime.parse("2023-01-03T00:00:00");
 
-                RecommendationRequest recommendationRequestOrig = RecommendationRequest.builder()
+                RecommendationRequest recommendationrequesterig = RecommendationRequest.builder()
                                 .requesterEmail("stud1@ucsb.edu")
                                 .professorEmail("prof1@ucsb.edu")
                                 .explanation("grad school")
@@ -273,7 +273,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
 
                 String requestBody = mapper.writeValueAsString(recommendationRequestEdited);
 
-                when(recommendationRequestRepository.findById(eq(67L))).thenReturn(Optional.of(recommendationRequestOrig));
+                when(recommendationRequestRepository.findById(eq(67L))).thenReturn(Optional.of(recommendationrequesterig));
 
                 // act
                 MvcResult response = mockMvc.perform(

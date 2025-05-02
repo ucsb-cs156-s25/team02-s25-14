@@ -45,18 +45,22 @@ function RecommendationRequestForm({
 
         <Col>
           <Form.Group className="mb-3">
-            <Form.Label htmlFor="requestorEmail">Requestor Email</Form.Label>
+            <Form.Label htmlFor="requesterEmail">Requester Email</Form.Label>
             <Form.Control
-              data-testid="RecommendationRequestForm-requestorEmail"
-              id="requestorEmail"
+              data-testid="RecommendationRequestForm-requesterEmail"
+              id="requesterEmail"
               type="text"
-              isInvalid={Boolean(errors.requestorEmail)}
-              {...register("requestorEmail", {
-                required: "Requestor Email is required.",
+              isInvalid={Boolean(errors.requesterEmail)}
+              {...register("requesterEmail", {
+                required: "Requester Email is required.",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Requester Email must be a valid email address.",
+                },
               })}
             />
             <Form.Control.Feedback type="invalid">
-              {errors.requestorEmail?.message}
+              {errors.requesterEmail?.message}
             </Form.Control.Feedback>
           </Form.Group>
         </Col>
@@ -70,6 +74,10 @@ function RecommendationRequestForm({
               isInvalid={Boolean(errors.professorEmail)}
               {...register("professorEmail", {
                 required: "Professor Email is required.",
+                pattern: {
+                  value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                  message: "Professor Email must be a valid email address.",
+                },
               })}
             />
             <Form.Control.Feedback type="invalid">
@@ -90,6 +98,10 @@ function RecommendationRequestForm({
               isInvalid={Boolean(errors.explanation)}
               {...register("explanation", {
                 required: "Explanation is required.",
+                maxLength: {
+                  value: 30,
+                  message: "Explanation must be 30 characters or less.",
+                },
               })}
             />
             <Form.Control.Feedback type="invalid">
@@ -149,15 +161,9 @@ function RecommendationRequestForm({
               id="done"
               label="Done"
               data-testid="RecommendationRequestForm-done"
-              isInvalid={Boolean(errors.done)}
               defaultChecked={initialContents?.done}
-              {...register("done", {
-                required: "Done is required.",
-              })}
+              {...register("done")}
             />
-            <Form.Control.Feedback type="invalid">
-              {errors.done?.message}
-            </Form.Control.Feedback>
           </Form.Group>
         </Col>
       </Row>
