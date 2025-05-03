@@ -62,7 +62,7 @@ describe("UCSBDiningCommonsMenuItemCreatePage tests", () => {
     });
   });
 
-  test("on submit, makes request to backend, and redirects to /restaurants", async () => {
+  test("on submit, makes request to backend, and redirects to /ucsbdiningcommonsmenuitem", async () => {
     const queryClient = new QueryClient();
     const ucsbDiningCommonsMenuItem = {
       id: 1,
