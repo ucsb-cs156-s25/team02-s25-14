@@ -87,9 +87,9 @@ describe("MenuItemReviewIndexPage tests", () => {
       expect(screen.queryByText(/Create/)).not.toBeInTheDocument();
     });
 
-    expect(
-      screen.getByTestId(`${testId}-cell-row-0-col-id`),
-    ).toHaveTextContent("6");
+    expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
+      "6",
+    );
     expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
       "7",
     );
