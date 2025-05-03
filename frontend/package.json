@@ -24,7 +24,6 @@
     "react18-json-view": "^0.2.8",
     "web-vitals": "^2.1.4"
   },
-
   "overrides": {
     "react-refresh": "0.11.0"
   },
@@ -76,7 +75,7 @@
     "msw": "^2.3.5",
     "msw-storybook-addon": "^2.0.3",
     "nyc": "^17.0.0",
-    "prettier": "^3.3.3",
+    "prettier": "^3.5.3",
     "prop-types": "^15.8.1",
     "storybook": "^8.2.9",
     "typescript-eslint": "^8.2.0",

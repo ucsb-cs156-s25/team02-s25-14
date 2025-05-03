@@ -14,7 +14,7 @@ describe("UCSBOrganizationForm tests", () => {
     render(
       <Router>
         <UCSBOrganizationForm />
-      </Router>
+      </Router>,
     );
     await screen.findByText(/Org Translation Short/);
     await screen.findByText(/Create/);
@@ -31,12 +31,12 @@ describe("UCSBOrganizationForm tests", () => {
     render(
       <Router>
         <UCSBOrganizationForm initialContents={initialContents} />
-      </Router>
+      </Router>,
     );
     await screen.findByTestId(/UCSBOrganizationForm-orgCode/);
     expect(screen.getByText(/Org Code/)).toBeInTheDocument();
     expect(screen.getByTestId(/UCSBOrganizationForm-orgCode/)).toHaveValue(
-      "RHA"
+      "RHA",
     );
   });
 
@@ -44,14 +44,14 @@ describe("UCSBOrganizationForm tests", () => {
     render(
       <Router>
         <UCSBOrganizationForm />
-      </Router>
+      </Router>,
     );
     await screen.findByTestId("UCSBOrganizationForm-orgTranslationShort");
     const orgTranslationShortField = screen.getByTestId(
-      "UCSBOrganizationForm-orgTranslationShort"
+      "UCSBOrganizationForm-orgTranslationShort",
     );
     const orgTranslationField = screen.getByTestId(
-      "UCSBOrganizationForm-orgTranslation"
+      "UCSBOrganizationForm-orgTranslation",
     );
     const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
 
@@ -69,15 +69,15 @@ describe("UCSBOrganizationForm tests", () => {
     render(
       <Router>
         <UCSBOrganizationForm submitAction={mockSubmitAction} />
-      </Router>
+      </Router>,
     );
     await screen.findByTestId("UCSBOrganizationForm-orgTranslationShort");
 
     const orgTranslationShortField = screen.getByTestId(
-      "UCSBOrganizationForm-orgTranslationShort"
+      "UCSBOrganizationForm-orgTranslationShort",
     );
     const orgTranslationField = screen.getByTestId(
-      "UCSBOrganizationForm-orgTranslation"
+      "UCSBOrganizationForm-orgTranslation",
     );
     const inactiveField = screen.getByTestId("UCSBOrganizationForm-inactive");
     const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
@@ -94,10 +94,10 @@ describe("UCSBOrganizationForm tests", () => {
     await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
 
     expect(
-      screen.queryByText(/Org Translation Short is required./)
+      screen.queryByText(/Org Translation Short is required./),
     ).not.toBeInTheDocument();
     expect(
-      screen.queryByText(/Org Translation is required./)
+      screen.queryByText(/Org Translation is required./),
     ).not.toBeInTheDocument();
   });
 
@@ -105,7 +105,7 @@ describe("UCSBOrganizationForm tests", () => {
     render(
       <Router>
         <UCSBOrganizationForm />
-      </Router>
+      </Router>,
     );
     await screen.findByTestId("UCSBOrganizationForm-cancel");
     const cancelButton = screen.getByTestId("UCSBOrganizationForm-cancel");
