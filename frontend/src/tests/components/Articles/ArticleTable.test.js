@@ -17,8 +17,22 @@ jest.mock("react-router-dom", () => ({
 describe("ArticleTable tests", () => {
   const queryClient = new QueryClient();
 
-  const expectedHeaders = ["id", "Title", "URL", "Explanation", "Email", "Date Added (iso format)"];
-  const expectedFields = ["id", "title", "url", "explanation", "email", "dateAdded"];
+  const expectedHeaders = [
+    "id",
+    "Title",
+    "URL",
+    "Explanation",
+    "Email",
+    "Date Added (iso format)",
+  ];
+  const expectedFields = [
+    "id",
+    "title",
+    "url",
+    "explanation",
+    "email",
+    "dateAdded",
+  ];
   const testId = "ArticleTable";
 
   test("renders empty table correctly", () => {
@@ -130,12 +144,12 @@ describe("ArticleTable tests", () => {
     });
 
     expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
-        "1",
-      );
+      "1",
+    );
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-title`),
     ).toHaveTextContent("Ranking UCSB’s most vegetarian-friendly dining halls");
-  
+
     expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
       "3",
     );
@@ -143,10 +157,8 @@ describe("ArticleTable tests", () => {
       screen.getByTestId(`${testId}-cell-row-1-col-explanation`),
     ).toHaveTextContent("Daily Nexus article 2");
 
-
     expect(screen.queryByText("Delete")).not.toBeInTheDocument();
     expect(screen.queryByText("Edit")).not.toBeInTheDocument();
-
   });
 
   test("Edit button navigates to the edit page", async () => {

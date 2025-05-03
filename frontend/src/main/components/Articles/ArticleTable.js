@@ -49,19 +49,18 @@ export default function ArticleTable({
       accessor: "url",
     },
     {
-        Header: "Explanation",
-        accessor: "explanation",
+      Header: "Explanation",
+      accessor: "explanation",
     },
     {
-        Header: "Email",
-        accessor: "email",
+      Header: "Email",
+      accessor: "email",
     },
     {
-        Header: "Date Added (iso format)",
-        accessor: "dateAdded",
+      Header: "Date Added (iso format)",
+      accessor: "dateAdded",
     },
   ];
-
 
   if (hasRole(currentUser, "ROLE_ADMIN")) {
     columns.push(ButtonColumn("Edit", "primary", editCallback, testIdPrefix));
@@ -70,7 +69,5 @@ export default function ArticleTable({
     );
   }
 
-  return (
-    <OurTable data={articles} columns={columns} testid={testIdPrefix} />
-  );
+  return <OurTable data={articles} columns={columns} testid={testIdPrefix} />;
 }
