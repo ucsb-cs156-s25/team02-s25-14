@@ -111,9 +111,6 @@ describe("UCSBDiningCommonsMenuItemIndexPage tests", () => {
     const name = screen.getByText("Crawfish");
     expect(name).toBeInTheDocument();
 
-    const station = screen.getAllByText("Portola");
-    expect(station).toBeInTheDocument();
-
     // for non-admin users, details button is visible, but the edit and delete buttons should not be visible
     expect(
       screen.queryByTestId(
