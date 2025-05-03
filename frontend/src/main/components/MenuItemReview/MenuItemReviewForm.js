@@ -45,14 +45,10 @@ function MenuItemReviewForm({
         <Form.Control
           data-testid={testIdPrefix + "-itemId"}
           id="itemId"
-          type="text"
+          type="number"
           isInvalid={Boolean(errors.itemId)}
           {...register("itemId", {
             required: "Item Id is required.",
-            maxLength: {
-              value: 255,
-              message: "Max length 255 characters",
-            },
           })}
         />
         <Form.Control.Feedback type="invalid">
@@ -79,7 +75,7 @@ function MenuItemReviewForm({
         <Form.Label htmlFor="stars">Stars</Form.Label>
         <Form.Control
           id="stars"
-          type="text"
+          type="number"
           isInvalid={Boolean(errors.stars)}
           {...register("stars", {
             required: "Stars is required.",
@@ -109,11 +105,16 @@ function MenuItemReviewForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="comments">Comments</Form.Label>
         <Form.Control
+          data-testid={testIdPrefix + "-comments"}
           id="comments"
           type="text"
           isInvalid={Boolean(errors.comments)}
           {...register("comments", {
             required: "Comments is required.",
+            maxLength: {
+              value: 255,
+              message: "Max length 255 characters",
+            },
           })}
         />
         <Form.Control.Feedback type="invalid">
