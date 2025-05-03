@@ -3,7 +3,7 @@
 <html lang="en">
 
 <head>
-    <title>Code coverage report for components/MenuItemReview/MenuItemReviewForm.js</title>
+    <title>Code coverage report for components/Articles/ArticleForm.js</title>
     <meta charset="utf-8" />
     <link rel="stylesheet" href="../../prettify.css" />
     <link rel="stylesheet" href="../../base.css" />
@@ -19,7 +19,7 @@
 <body>
 <div class='wrapper'>
     <div class='pad1'>
-        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/MenuItemReview</a> MenuItemReviewForm.js</h1>
+        <h1><a href="../../index.html">All files</a> / <a href="index.html">components/Articles</a> ArticleForm.js</h1>
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
@@ -339,7 +339,7 @@
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 &nbsp;
-function MenuItemReviewForm({
+function ArticleForm({
   initialContents,
   submitAction,
   buttonLabel = "Create",
@@ -354,7 +354,7 @@ function MenuItemReviewForm({
 &nbsp;
   const navigate = useNavigate();
 &nbsp;
-  const testIdPrefix = "MenuItemReviewForm";
+  const testIdPrefix = "ArticleForm";
 &nbsp;
   // Stryker disable Regex
   const isodate_regex =
@@ -378,14 +378,14 @@ function MenuItemReviewForm({
       )}
 &nbsp;
       &lt;Form.Group className="mb-3"&gt;
-        &lt;Form.Label htmlFor="itemId"&gt;Item Id&lt;/Form.Label&gt;
+        &lt;Form.Label htmlFor="title"&gt;Title&lt;/Form.Label&gt;
         &lt;Form.Control
-          data-testid={testIdPrefix + "-itemId"}
-          id="itemId"
+          data-testid={testIdPrefix + "-title"}
+          id="title"
           type="text"
-          isInvalid={Boolean(errors.itemId)}
-          {...register("itemId", {
-            required: "Item Id is required.",
+          isInvalid={Boolean(errors.title)}
+          {...register("title", {
+            required: "Title is required.",
             maxLength: {
               value: 255,
               message: "Max length 255 characters",
@@ -393,68 +393,68 @@ function MenuItemReviewForm({
           })}
         /&gt;
         &lt;Form.Control.Feedback type="invalid"&gt;
-          {errors.itemId?.message}
+          {errors.title?.message}
         &lt;/Form.Control.Feedback&gt;
       &lt;/Form.Group&gt;
 &nbsp;
       &lt;Form.Group className="mb-3"&gt;
-        &lt;Form.Label htmlFor="reviewerEmail"&gt;Reviewer Email&lt;/Form.Label&gt;
+        &lt;Form.Label htmlFor="url"&gt;Url&lt;/Form.Label&gt;
         &lt;Form.Control
-          id="reviewerEmail"
+          id="url"
           type="text"
-          isInvalid={Boolean(errors.reviewerId)}
-          {...register("reviewerEmail", {
-            required: "Reviewer Email is required.",
+          isInvalid={Boolean(errors.url)}
+          {...register("url", {
+            required: "Url is required.",
           })}
         /&gt;
         &lt;Form.Control.Feedback type="invalid"&gt;
-          {errors.reviewerEmail?.message}
+          {errors.url?.message}
         &lt;/Form.Control.Feedback&gt;
       &lt;/Form.Group&gt;
 &nbsp;
       &lt;Form.Group className="mb-3"&gt;
-        &lt;Form.Label htmlFor="stars"&gt;Stars&lt;/Form.Label&gt;
+        &lt;Form.Label htmlFor="explanation"&gt;Explanation&lt;/Form.Label&gt;
         &lt;Form.Control
-          id="stars"
+          id="explanation"
           type="text"
-          isInvalid={Boolean(errors.stars)}
-          {...register("stars", {
-            required: "Stars is required.",
+          isInvalid={Boolean(errors.explanation)}
+          {...register("explanation", {
+            required: "Explanation is required.",
           })}
         /&gt;
         &lt;Form.Control.Feedback type="invalid"&gt;
-          {errors.stars?.message}
+          {errors.explanation?.message}
         &lt;/Form.Control.Feedback&gt;
       &lt;/Form.Group&gt;
 &nbsp;
       &lt;Form.Group className="mb-3"&gt;
-        &lt;Form.Label htmlFor="dateReviewed"&gt;Date Reviewed (in UTC)&lt;/Form.Label&gt;
+        &lt;Form.Label htmlFor="email"&gt;Email&lt;/Form.Label&gt;
         &lt;Form.Control
-          id="dateReviewed"
+          id="email"
+          type="text"
+          isInvalid={Boolean(errors.email)}
+          {...register("email", {
+            required: "Email is required.",
+          })}
+        /&gt;
+        &lt;Form.Control.Feedback type="invalid"&gt;
+          {errors.email?.message}
+        &lt;/Form.Control.Feedback&gt;
+      &lt;/Form.Group&gt;
+&nbsp;
+      &lt;Form.Group className="mb-3"&gt;
+        &lt;Form.Label htmlFor="dateAdded"&gt;Date Added (iso format)&lt;/Form.Label&gt;
+        &lt;Form.Control
+          id="dateAdded"
           type="datetime-local"
-          isInvalid={Boolean(errors.dateReviewed)}
-          {...register("dateReviewed", {
+          isInvalid={Boolean(errors.dateAdded)}
+          {...register("dateAdded", {
             required: true,
             pattern: isodate_regex,
           })}
         /&gt;
         &lt;Form.Control.Feedback type="invalid"&gt;
-          {errors.dateReviewed &amp;&amp; "Date Reviewed is required. "}
-        &lt;/Form.Control.Feedback&gt;
-      &lt;/Form.Group&gt;
-&nbsp;
-      &lt;Form.Group className="mb-3"&gt;
-        &lt;Form.Label htmlFor="comments"&gt;Comments&lt;/Form.Label&gt;
-        &lt;Form.Control
-          id="comments"
-          type="text"
-          isInvalid={Boolean(errors.comments)}
-          {...register("comments", {
-            required: "Comments is required.",
-          })}
-        /&gt;
-        &lt;Form.Control.Feedback type="invalid"&gt;
-          {errors.comments?.message}
+          {errors.dateAdded &amp;&amp; "Date Added is required. "}
         &lt;/Form.Control.Feedback&gt;
       &lt;/Form.Group&gt;
 &nbsp;
@@ -470,7 +470,7 @@ function MenuItemReviewForm({
   );
 }
 &nbsp;
-export default MenuItemReviewForm;
+export default ArticleForm;
 &nbsp;</pre></td></tr></table></pre>
 
                 <div class='push'></div><!-- for sticky footer -->
