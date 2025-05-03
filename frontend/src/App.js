@@ -19,6 +19,12 @@ import RecommendationRequestIndexPage from "main/pages/RecommendationRequest/Rec
 import RecommendationRequestCreatePage from "main/pages/RecommendationRequest/RecommendationRequestCreatePage";
 import RecommendationRequestEditPage from "main/pages/RecommendationRequest/RecommendationRequestEditPage";
 
+import ArticleIndexPage from "main/pages/Articles/ArticleIndexPage";
+import ArticleCreatePage from "main/pages/Articles/ArticleCreatePage";
+import ArticleEditPage from "main/pages/Articles/ArticleEditPage";
+
+
+
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
 
 import "bootstrap/dist/css/bootstrap.css";
@@ -51,6 +57,25 @@ function App() {
               exact
               path="/ucsbdates/create"
               element={<UCSBDatesCreatePage />}
+            />
+          </>
+        )}
+        {hasRole(currentUser, "ROLE_USER") && (
+          <>
+            <Route exact path="/articles" element={<ArticleIndexPage />} />
+          </>
+        )}
+        {hasRole(currentUser, "ROLE_ADMIN") && (
+          <>
+            <Route
+              exact
+              path="/articles/edit/:id"
+              element={<ArticleEditPage />}
+            />
+            <Route
+              exact
+              path="/articles/create"
+              element={<ArticleCreatePage />}
             />
           </>
         )}
