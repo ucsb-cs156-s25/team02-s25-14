@@ -17,10 +17,6 @@ jest.mock("react-router-dom", () => ({
 describe("MenuItemReviewTable tests", () => {
   const queryClient = new QueryClient();
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 7d038e06 (fixing formatting)
   const expectedHeaders = [
     "id",
     "Item Id",
@@ -37,13 +33,6 @@ describe("MenuItemReviewTable tests", () => {
     "dateReviewed",
     "comments",
   ];
-<<<<<<< HEAD
-=======
-  const expectedHeaders = ["id", "Item Id", "Reviewer Email", "Stars", "Date Reviewed","Comments"];
-  const expectedFields = ["id", "itemId", "reviewerEmail", "stars", "dateReviewed","comments"];
->>>>>>> 9f9fd184 (adding menuitemreview table, story, and tests)
-=======
->>>>>>> 7d038e06 (fixing formatting)
   const testId = "MenuItemReviewTable";
 
   test("renders empty table correctly", () => {
@@ -107,10 +96,6 @@ describe("MenuItemReviewTable tests", () => {
       screen.getByTestId(`${testId}-cell-row-0-col-itemId`),
     ).toHaveTextContent("20");
     expect(
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 7d038e06 (fixing formatting)
       screen.getByTestId(`${testId}-cell-row-0-col-reviewerEmail`),
     ).toHaveTextContent("somwest@gmail.com");
     expect(
@@ -122,29 +107,11 @@ describe("MenuItemReviewTable tests", () => {
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-comments`),
     ).toHaveTextContent("it was alright");
-<<<<<<< HEAD
-=======
-        screen.getByTestId(`${testId}-cell-row-0-col-reviewerEmail`),
-      ).toHaveTextContent("somwest@gmail.com");
-      expect(
-        screen.getByTestId(`${testId}-cell-row-0-col-stars`),
-      ).toHaveTextContent("3");
-      expect(
-        screen.getByTestId(`${testId}-cell-row-0-col-dateReviewed`),
-      ).toHaveTextContent("2025-05-01T22:48:12");
-      expect(
-        screen.getByTestId(`${testId}-cell-row-0-col-comments`),
-      ).toHaveTextContent("it was alright");
->>>>>>> 9f9fd184 (adding menuitemreview table, story, and tests)
-=======
->>>>>>> 7d038e06 (fixing formatting)
 
     expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
       "7",
     );
     expect(
-<<<<<<< HEAD
-<<<<<<< HEAD
       screen.getByTestId(`${testId}-cell-row-1-col-itemId`),
     ).toHaveTextContent("25");
     expect(
@@ -160,31 +127,6 @@ describe("MenuItemReviewTable tests", () => {
       screen.getByTestId(`${testId}-cell-row-1-col-comments`),
     ).toHaveTextContent("good price, great taste");
 
-=======
-        screen.getByTestId(`${testId}-cell-row-1-col-itemId`),
-      ).toHaveTextContent("25");
-=======
-      screen.getByTestId(`${testId}-cell-row-1-col-itemId`),
-    ).toHaveTextContent("25");
->>>>>>> 7d038e06 (fixing formatting)
-    expect(
-      screen.getByTestId(`${testId}-cell-row-1-col-reviewerEmail`),
-    ).toHaveTextContent("swaggypomme@gmail.com");
-    expect(
-      screen.getByTestId(`${testId}-cell-row-1-col-stars`),
-    ).toHaveTextContent("5");
-    expect(
-      screen.getByTestId(`${testId}-cell-row-1-col-dateReviewed`),
-    ).toHaveTextContent("2025-05-24T11:40:00");
-    expect(
-      screen.getByTestId(`${testId}-cell-row-1-col-comments`),
-    ).toHaveTextContent("good price, great taste");
-
-<<<<<<< HEAD
-
->>>>>>> 9f9fd184 (adding menuitemreview table, story, and tests)
-=======
->>>>>>> 7d038e06 (fixing formatting)
     const editButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Edit-button`,
     );
@@ -216,10 +158,6 @@ describe("MenuItemReviewTable tests", () => {
 
     // assert
     expectedHeaders.forEach((headerText) => {
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 7d038e06 (fixing formatting)
       const header = screen.getByText(headerText);
       expect(header).toBeInTheDocument();
     });
@@ -266,57 +204,6 @@ describe("MenuItemReviewTable tests", () => {
     expect(
       screen.getByTestId(`${testId}-cell-row-1-col-comments`),
     ).toHaveTextContent("good price, great taste");
-<<<<<<< HEAD
-=======
-        const header = screen.getByText(headerText);
-        expect(header).toBeInTheDocument();
-      });
-  
-      expectedFields.forEach((field) => {
-        const header = screen.getByTestId(`${testId}-cell-row-0-col-${field}`);
-        expect(header).toBeInTheDocument();
-      });
-  
-      expect(screen.getByTestId(`${testId}-cell-row-0-col-id`)).toHaveTextContent(
-        "6",
-      );
-      expect(
-        screen.getByTestId(`${testId}-cell-row-0-col-itemId`),
-      ).toHaveTextContent("20");
-      expect(
-          screen.getByTestId(`${testId}-cell-row-0-col-reviewerEmail`),
-        ).toHaveTextContent("somwest@gmail.com");
-        expect(
-          screen.getByTestId(`${testId}-cell-row-0-col-stars`),
-        ).toHaveTextContent("3");
-        expect(
-          screen.getByTestId(`${testId}-cell-row-0-col-dateReviewed`),
-        ).toHaveTextContent("2025-05-01T22:48:12");
-        expect(
-          screen.getByTestId(`${testId}-cell-row-0-col-comments`),
-        ).toHaveTextContent("it was alright");
-  
-      expect(screen.getByTestId(`${testId}-cell-row-1-col-id`)).toHaveTextContent(
-        "7",
-      );
-      expect(
-          screen.getByTestId(`${testId}-cell-row-1-col-itemId`),
-        ).toHaveTextContent("25");
-      expect(
-          screen.getByTestId(`${testId}-cell-row-1-col-reviewerEmail`),
-      ).toHaveTextContent("swaggypomme@gmail.com");
-      expect(
-          screen.getByTestId(`${testId}-cell-row-1-col-stars`),
-      ).toHaveTextContent("5");
-      expect(
-          screen.getByTestId(`${testId}-cell-row-1-col-dateReviewed`),
-      ).toHaveTextContent("2025-05-24T11:40:00");
-      expect(
-          screen.getByTestId(`${testId}-cell-row-1-col-comments`),
-      ).toHaveTextContent("good price, great taste");
->>>>>>> 9f9fd184 (adding menuitemreview table, story, and tests)
-=======
->>>>>>> 7d038e06 (fixing formatting)
 
     expect(screen.queryByText("Delete")).not.toBeInTheDocument();
     expect(screen.queryByText("Edit")).not.toBeInTheDocument();
@@ -343,10 +230,6 @@ describe("MenuItemReviewTable tests", () => {
       await screen.findByTestId(`${testId}-cell-row-0-col-id`),
     ).toHaveTextContent("6");
     expect(
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 7d038e06 (fixing formatting)
       screen.getByTestId(`${testId}-cell-row-0-col-itemId`),
     ).toHaveTextContent("20");
     expect(
@@ -361,25 +244,6 @@ describe("MenuItemReviewTable tests", () => {
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-comments`),
     ).toHaveTextContent("it was alright");
-<<<<<<< HEAD
-=======
-        screen.getByTestId(`${testId}-cell-row-0-col-itemId`),
-      ).toHaveTextContent("20");
-      expect(
-          screen.getByTestId(`${testId}-cell-row-0-col-reviewerEmail`),
-        ).toHaveTextContent("somwest@gmail.com");
-        expect(
-          screen.getByTestId(`${testId}-cell-row-0-col-stars`),
-        ).toHaveTextContent("3");
-        expect(
-          screen.getByTestId(`${testId}-cell-row-0-col-dateReviewed`),
-        ).toHaveTextContent("2025-05-01T22:48:12");
-        expect(
-          screen.getByTestId(`${testId}-cell-row-0-col-comments`),
-        ).toHaveTextContent("it was alright");
->>>>>>> 9f9fd184 (adding menuitemreview table, story, and tests)
-=======
->>>>>>> 7d038e06 (fixing formatting)
 
     const editButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Edit-button`,
@@ -418,10 +282,6 @@ describe("MenuItemReviewTable tests", () => {
 
     // assert - check that the expected content is rendered
     expect(
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
->>>>>>> 7d038e06 (fixing formatting)
       await screen.findByTestId(`${testId}-cell-row-0-col-id`),
     ).toHaveTextContent("6");
     expect(
@@ -439,28 +299,6 @@ describe("MenuItemReviewTable tests", () => {
     expect(
       screen.getByTestId(`${testId}-cell-row-0-col-comments`),
     ).toHaveTextContent("it was alright");
-<<<<<<< HEAD
-=======
-        await screen.findByTestId(`${testId}-cell-row-0-col-id`),
-      ).toHaveTextContent("6");
-      expect(
-          screen.getByTestId(`${testId}-cell-row-0-col-itemId`),
-        ).toHaveTextContent("20");
-        expect(
-            screen.getByTestId(`${testId}-cell-row-0-col-reviewerEmail`),
-          ).toHaveTextContent("somwest@gmail.com");
-          expect(
-            screen.getByTestId(`${testId}-cell-row-0-col-stars`),
-          ).toHaveTextContent("3");
-          expect(
-            screen.getByTestId(`${testId}-cell-row-0-col-dateReviewed`),
-          ).toHaveTextContent("2025-05-01T22:48:12");
-          expect(
-            screen.getByTestId(`${testId}-cell-row-0-col-comments`),
-          ).toHaveTextContent("it was alright");
->>>>>>> 9f9fd184 (adding menuitemreview table, story, and tests)
-=======
->>>>>>> 7d038e06 (fixing formatting)
 
     const deleteButton = screen.getByTestId(
       `${testId}-cell-row-0-col-Delete-button`,
