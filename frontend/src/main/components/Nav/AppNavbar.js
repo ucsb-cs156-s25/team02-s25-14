@@ -69,9 +69,12 @@ export default function AppNavbar({
                   <Nav.Link as={Link} to="/placeholder">
                     Placeholder
                   </Nav.Link>
+<<<<<<< HEAD
                   <Nav.Link as={Link} to="/recommendationrequest">
                     Recommendation Requests
                   </Nav.Link>
+=======
+>>>>>>> 8676fdf6d23a5026ed04550cacb829e4ec982ef9
                   <Nav.Link as={Link} to="/menuitemreview">
                     MenuItemReview
                   </Nav.Link>
