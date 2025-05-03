@@ -49,6 +49,7 @@ export default function MenuItemReviewTable({
       accessor: "reviewerEmail",
     },
     {
+<<<<<<< HEAD
       Header: "Stars",
       accessor: "stars",
     },
@@ -59,6 +60,18 @@ export default function MenuItemReviewTable({
     {
       Header: "Comments",
       accessor: "comments",
+=======
+        Header: "Stars",
+        accessor: "stars",
+    },
+    {
+        Header: "Date Reviewed",
+        accessor: "dateReviewed",
+    },
+    {
+        Header: "Comments",
+        accessor: "comments",
+>>>>>>> 9f9fd184 (adding menuitemreview table, story, and tests)
     },
   ];
 
