@@ -29,7 +29,7 @@ export default function MenuItemReviewIndexPage() {
           href="/menuitemreview/create"
           style={{ float: "right" }}
         >
-          Create Restaurant
+          Create Menu Item Review
         </Button>
       );
     }
