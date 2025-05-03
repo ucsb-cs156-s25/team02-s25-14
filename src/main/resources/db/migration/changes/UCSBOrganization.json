@@ -9,7 +9,7 @@
               "not": [
                 {
                   "tableExists": {
-                    "tableName": "UCSBOrganizations"
+                    "tableName": "UCSBOrganization"
                   }
                 }
               ]
@@ -48,7 +48,7 @@
                     }
                   }
                 ],
-                "tableName": "UCSBOrganizations"
+                "tableName": "UCSBOrganization"
               }
             }
           ]
