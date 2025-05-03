@@ -6,7 +6,6 @@ import { MemoryRouter } from "react-router-dom";
 import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 
-
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
 
@@ -46,7 +45,6 @@ describe("UCSBDiningCommonsMenuItemCreatePage tests", () => {
     axiosMock
       .onGet("/api/systemInfo")
       .reply(200, systemInfoFixtures.showingNeither);
-
   });
 
   const queryClient = new QueryClient();
@@ -73,7 +71,9 @@ describe("UCSBDiningCommonsMenuItemCreatePage tests", () => {
       station: "Portola",
     };
 
-    axiosMock.onPost("/api/ucsbdiningcommonsmenuitem/post").reply(202, ucsbDiningCommonsMenuItem);
+    axiosMock
+      .onPost("/api/ucsbdiningcommonsmenuitem/post")
+      .reply(202, ucsbDiningCommonsMenuItem);
 
     render(
       <QueryClientProvider client={queryClient}>
@@ -82,7 +82,6 @@ describe("UCSBDiningCommonsMenuItemCreatePage tests", () => {
         </MemoryRouter>
       </QueryClientProvider>,
     );
-
 
     await waitFor(() => {
       expect(screen.getByLabelText("Name")).toBeInTheDocument();
@@ -119,7 +118,8 @@ describe("UCSBDiningCommonsMenuItemCreatePage tests", () => {
     expect(mockToast).toHaveBeenCalledWith(
       "New UCSB Dining Commons Menu Item Created - id: 1 name: Sauce",
     );
-    expect(mockNavigate).toHaveBeenCalledWith({ to: "/ucsbdiningcommonsmenuitem" });
-
+    expect(mockNavigate).toHaveBeenCalledWith({
+      to: "/ucsbdiningcommonsmenuitem",
+    });
   });
 });
