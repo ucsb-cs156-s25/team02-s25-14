@@ -23,16 +23,26 @@ function UCSBOrganizationForm({
     <Form onSubmit={handleSubmit(submitAction)}>
       {initialContents && (
         <Form.Group className="mb-3">
-          <Form.Label htmlFor="orgCode">Org Code</Form.Label>
-          <Form.Control
-            data-testid={testIdPrefix + "-orgCode"}
-            id="orgCode"
-            type="text"
-            {...register("orgCode")}
-            value={initialContents.orgCode}
-            disabled
-          />
-        </Form.Group>
+        <Form.Label htmlFor="orgCode">Org Code</Form.Label>
+        <Form.Control
+          data-testid={testIdPrefix + "-orgCode"}
+          id="orgCode"
+          type="text"
+          {...register("orgCode", {
+            required: "Org Code is required.",
+            maxLength: {
+              value: 10,
+              message: "Max length 10 characters",
+            },
+          })}
+          defaultValue={initialContents?.orgCode || ""}
+          disabled={Boolean(initialContents)} // Disable only if editing
+          isInvalid={Boolean(errors.orgCode)}
+        />
+        <Form.Control.Feedback type="invalid">
+          {errors.orgCode?.message}
+        </Form.Control.Feedback>
+      </Form.Group>
       )}
 
       <Form.Group className="mb-3">
