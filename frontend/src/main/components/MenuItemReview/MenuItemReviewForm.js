@@ -63,6 +63,10 @@ function MenuItemReviewForm({
           isInvalid={Boolean(errors.reviewerId)}
           {...register("reviewerEmail", {
             required: "Reviewer Email is required.",
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: "Reviewer Email must be a valid email address.",
+            },
           })}
         />
         <Form.Control.Feedback type="invalid">
@@ -78,6 +82,14 @@ function MenuItemReviewForm({
           isInvalid={Boolean(errors.stars)}
           {...register("stars", {
             required: "Stars is required.",
+            min: {
+              value: 1,
+              message: "Stars must be at least 1.",
+            },
+            max: {
+              value: 5,
+              message: "Stars must be at most 5.",
+            },
           })}
         />
         <Form.Control.Feedback type="invalid">
