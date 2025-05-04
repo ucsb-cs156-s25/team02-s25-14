@@ -8,7 +8,7 @@ import { menuItemReviewFixtures } from "fixtures/menuItemReviewFixtures";
 
 export default {
   title: "pages/MenuItemReview/MenuItemReviewEditPage",
-  id: 'pages-restaurants-restauranteditpage-1',
+  id: "pages-restaurants-restauranteditpage-1",
   component: MenuItemReviewEditPage,
 };
 

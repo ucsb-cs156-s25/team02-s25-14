@@ -41,7 +41,9 @@ export default function MenuItemReviewEditPage({ storybook = false }) {
   });
 
   const onSuccess = (menuitemreview) => {
-    toast(`MenuItemReview Updated - id: ${menuitemreview.id} item id: ${menuitemreview.itemId} reviewer email: ${menuitemreview.reviewerEmail} stars: ${menuitemreview.stars} date reviewed: ${menuitemreview.dateReviewed} comments: ${menuitemreview.comments}`);
+    toast(
+      `MenuItemReview Updated - id: ${menuitemreview.id} item id: ${menuitemreview.itemId} reviewer email: ${menuitemreview.reviewerEmail} stars: ${menuitemreview.stars} date reviewed: ${menuitemreview.dateReviewed} comments: ${menuitemreview.comments}`,
+    );
   };
 
   const mutation = useBackendMutation(
@@ -76,4 +78,3 @@ export default function MenuItemReviewEditPage({ storybook = false }) {
     </BasicLayout>
   );
 }
-

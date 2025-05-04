@@ -63,7 +63,9 @@ describe("MenuItemReviewEditPage tests", () => {
         </QueryClientProvider>,
       );
       await screen.findByText("Edit Menu Item Review");
-      expect(screen.queryByTestId("MenuItemReviewForm-itemId")).not.toBeInTheDocument();
+      expect(
+        screen.queryByTestId("MenuItemReviewForm-itemId"),
+      ).not.toBeInTheDocument();
       restoreConsole();
     });
   });
@@ -80,14 +82,16 @@ describe("MenuItemReviewEditPage tests", () => {
       axiosMock
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock.onGet("/api/MenuItemReview", { params: { id: 17 } }).reply(200, {
-        id: 17,
-        itemId: 20,
-        reviewerEmail: "somwest@gmail.com",
-        stars: 3,
-        dateReviewed: "2025-05-01T22:48:12",
-        comments: "it was alright",
-      });
+      axiosMock
+        .onGet("/api/MenuItemReview", { params: { id: 17 } })
+        .reply(200, {
+          id: 17,
+          itemId: 20,
+          reviewerEmail: "somwest@gmail.com",
+          stars: 3,
+          dateReviewed: "2025-05-01T22:48:12",
+          comments: "it was alright",
+        });
       axiosMock.onPut("/api/MenuItemReview").reply(200, {
         id: 17,
         itemId: 20,
@@ -113,7 +117,9 @@ describe("MenuItemReviewEditPage tests", () => {
 
       const idField = screen.getByTestId("MenuItemReviewForm-id");
       const itemIdField = screen.getByLabelText("Item Id");
-      const reviewerEmailField = screen.getByTestId("MenuItemReviewForm-reviewerEmail");
+      const reviewerEmailField = screen.getByTestId(
+        "MenuItemReviewForm-reviewerEmail",
+      );
       const starField = screen.getByTestId("MenuItemReviewForm-stars");
       const dateReviewedField = screen.getByLabelText("Date Reviewed (in UTC)");
       const commentsField = screen.getByTestId("MenuItemReviewForm-comments");
@@ -177,7 +183,5 @@ describe("MenuItemReviewEditPage tests", () => {
 
       expect(mockNavigate).toHaveBeenCalledWith({ to: "/menuitemreview" });
     });
-
   });
 });
-
