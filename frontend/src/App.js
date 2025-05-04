@@ -117,7 +117,7 @@ function App() {
             />
             <Route
               exact
-              path="/restaurants/create"
+              path="/helprequests/create"
               element={<HelpRequestCreatePage />}
             />
           </>
