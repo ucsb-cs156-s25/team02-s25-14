@@ -11,16 +11,14 @@ Deployments:
 * Prod: <https://team02.dokku-14.cs.ucsb.edu>
 * QA: <https://team02-qa.dokku-14.cs.ucsb.edu>
 
-TODO: Fill in this table with correct information. 
-
-| Table                     | Name         | Github Id |
-|---------------------------|--------------|-----------|
-| UCSBDiningCommonsMenuItem |              |           |
-| UCSBOrganization          |              |           |
-| RecommendationRequest     |              |           |
-| MenuItemReview            |              |           |
-| HelpRequest               |              |           |
-| Articles                  |              |           |
+| Table                     | Name                      | Github Id          |
+|---------------------------|---------------------------|--------------------|
+| UCSBDiningCommonsMenuItem | Ryan Choi                 | ryanchoi07         |
+| UCSBOrganization          | Andrew Zhang              | andrewzhang0708    |
+| RecommendationRequest     | Chloe Andersen            | chloeandersen-ucsb |
+| MenuItemReview            | Shruthi Santhosh Unnithan | shruthiunnithan    |
+| HelpRequest               | Siddhi Mundhra            | siddhimundhra1     |
+| Articles                  | Karen Yuan                | karenlyuan         |
 
 Remember though, that in spite of these initial  assignments, it is still
 a team project.  Please help other team members to finish their work
