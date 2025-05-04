@@ -212,7 +212,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
 
                 // act
                 MvcResult response = mockMvc.perform(
-                                delete("/api/recommendation-requests?id=15")
+                                delete("/api/recommendation-requests/delete?id=15")
                                                 .with(csrf()))
                                 .andExpect(status().isOk()).andReturn();
 
@@ -234,7 +234,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
 
                 // act
                 MvcResult response = mockMvc.perform(
-                                delete("/api/recommendation-requests?id=15")
+                                delete("/api/recommendation-requests/delete?id=15")
                                                 .with(csrf()))
                                 .andExpect(status().isNotFound()).andReturn();
 
@@ -253,7 +253,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
                 LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
                 LocalDateTime ldt2 = LocalDateTime.parse("2023-01-03T00:00:00");
 
-                RecommendationRequest recommendationRequestOrig = RecommendationRequest.builder()
+                RecommendationRequest recommendationrequesterig = RecommendationRequest.builder()
                                 .requesterEmail("stud1@ucsb.edu")
                                 .professorEmail("prof1@ucsb.edu")
                                 .explanation("grad school")
@@ -273,7 +273,7 @@ public class RecommendationRequestControllerTests extends ControllerTestCase {
 
                 String requestBody = mapper.writeValueAsString(recommendationRequestEdited);
 
-                when(recommendationRequestRepository.findById(eq(67L))).thenReturn(Optional.of(recommendationRequestOrig));
+                when(recommendationRequestRepository.findById(eq(67L))).thenReturn(Optional.of(recommendationrequesterig));
 
                 // act
                 MvcResult response = mockMvc.perform(
