@@ -63,6 +63,52 @@ describe("UCSBOrganizationForm tests", () => {
     await screen.findByText(/Org Translation is required./);
   });
 
+  test("shows error when orgTranslationShort exceeds max length", async () => {
+    render(
+      <Router>
+        <UCSBOrganizationForm />
+      </Router>
+    );
+  
+    const orgTranslationShortField = screen.getByTestId(
+      "UCSBOrganizationForm-orgTranslationShort"
+    );
+    const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
+  
+    // Input exceeding max length
+    fireEvent.change(orgTranslationShortField, {
+      target: { value: "A".repeat(31) }, // 31 characters, exceeding the max length of 30
+    });
+    fireEvent.click(submitButton);
+  
+    // Expect error message
+    await screen.findByText(/Max length 30 characters/);
+  });
+
+  test("does not show error when orgTranslationShort is exactly max length", async () => {
+    render(
+      <Router>
+        <UCSBOrganizationForm />
+      </Router>
+    );
+  
+    const orgTranslationShortField = screen.getByTestId(
+      "UCSBOrganizationForm-orgTranslationShort"
+    );
+    const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
+  
+    // Input exactly at max length
+    fireEvent.change(orgTranslationShortField, {
+      target: { value: "A".repeat(30) }, // 30 characters
+    });
+    fireEvent.click(submitButton);
+  
+    // Expect no error message
+    expect(
+      screen.queryByText(/Max length 30 characters/)
+    ).not.toBeInTheDocument();
+  });
+
   test("No Error messages on good input", async () => {
     const mockSubmitAction = jest.fn();
 
