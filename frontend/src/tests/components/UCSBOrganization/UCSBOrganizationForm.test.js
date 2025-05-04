@@ -2,7 +2,49 @@ import { render, waitFor, fireEvent, screen } from "@testing-library/react";
 import UCSBOrganizationForm from "main/components/UCSBOrganization/UCSBOrganizationForm";
 import { BrowserRouter as Router } from "react-router-dom";
 
+import { onDeleteSuccess } from "main/utils/UCSBOrganizationUtils";
+import { toast } from "react-toastify";
+import { cellToAxiosParamsDelete } from "main/utils/UCSBOrganizationUtils";
+
+jest.mock("react-toastify", () => ({
+  toast: jest.fn(),
+}));
+
 const mockedNavigate = jest.fn();
+
+describe("UCSBOrganizationUtils tests", () => {
+  test("onDeleteSuccess logs message and shows toast", () => {
+    const consoleSpy = jest.spyOn(console, "log").mockImplementation();
+    const message = "Organization deleted successfully";
+
+    onDeleteSuccess(message);
+
+    expect(consoleSpy).toHaveBeenCalledWith(message);
+    expect(toast).toHaveBeenCalledWith(message);
+
+    consoleSpy.mockRestore();
+  });
+
+  test("cellToAxiosParamsDelete generates correct Axios params", () => {
+    const cell = {
+      row: {
+        values: {
+          orgCode: "RHA",
+        },
+      },
+    };
+
+    const result = cellToAxiosParamsDelete(cell);
+
+    expect(result).toEqual({
+      url: "/api/ucsborganizations",
+      method: "DELETE",
+      params: {
+        id: "RHA",
+      },
+    });
+  });
+});
 
 jest.mock("react-router-dom", () => ({
   ...jest.requireActual("react-router-dom"),
