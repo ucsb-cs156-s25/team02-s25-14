@@ -9,6 +9,7 @@
  */
 
 
+
 const PACKAGE_VERSION = '2.7.5'
 const INTEGRITY_CHECKSUM = '00729d72e3b82faf54ca8b9621dbb96f'
 const IS_MOCKED_RESPONSE = Symbol('isMockedResponse')
@@ -63,6 +64,7 @@ self.addEventListener('message', async function (event) {
 
       sendToClient(client, {
 
+
         type: 'MOCKING_ENABLED',
         payload: {
           client: {
@@ -70,6 +72,7 @@ self.addEventListener('message', async function (event) {
             frameType: client.frameType,
           },
         },
+
 
       })
       break
@@ -168,6 +171,7 @@ async function resolveMainClient(event) {
   }
 
 
+
   if (client?.frameType === 'top-level') {
     return client
   }
@@ -199,11 +203,13 @@ async function getResponse(event, client, requestId) {
     // Cast the request headers to a new Headers instance
     // so the headers can be manipulated with.
 
+
     const headers = new Headers(requestClone.headers)
 
     // Remove the "accept" header value that marked this request as passthrough.
     // This prevents request alteration and also keeps it compliant with the
     // user-defined CORS policies.
+
 
     const acceptHeader = headers.get('accept')
     if (acceptHeader) {
@@ -308,6 +314,7 @@ async function respondWithMock(response) {
     value: true,
     enumerable: true,
   })
+
 
 
   return mockedResponse
