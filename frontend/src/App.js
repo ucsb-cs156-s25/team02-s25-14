@@ -39,9 +39,6 @@ import { hasRole, useCurrentUser } from "main/utils/currentUser";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "react-toastify/dist/ReactToastify.css";
-import HelpRequestEditPage from "main/pages/HelpRequest/HelpRequestEditPage";
-import HelpRequestIndexPage from "main/pages/HelpRequest/HelpRequestIndexPage";
-import HelpRequestCreatePage from "main/pages/HelpRequest/HelpRequestCreatePage";
 
 function App() {
   const { data: currentUser } = useCurrentUser();
@@ -211,9 +208,8 @@ function App() {
           <>
             <Route
               exact
-              path="/helprequests"
-              element={<HelpRequestIndexPage />}
-
+              path="/recommendationrequest"
+              element={<RecommendationRequestIndexPage />}
             />
           </>
         )}
@@ -221,14 +217,36 @@ function App() {
           <>
             <Route
               exact
-              path="/helprequests/edit/:id"
-              element={<HelpRequestEditPage />}
+              path="/recommendationrequest/edit/:id"
+              element={<RecommendationRequestEditPage />}
             />
             <Route
               exact
-              path="/helprequests/create"
-              element={<HelpRequestCreatePage />}
-
+              path="/recommendationrequest/create"
+              element={<RecommendationRequestCreatePage />}
+            />
+          </>
+        )}
+        {hasRole(currentUser, "ROLE_USER") && (
+          <>
+            <Route
+              exact
+              path="/ucsborganization"
+              element={<UCSBOrganizationIndexPage />}
+            />
+          </>
+        )}
+        {hasRole(currentUser, "ROLE_ADMIN") && (
+          <>
+            <Route
+              exact
+              path="/ucsborganization/edit/:id"
+              element={<UCSBOrganizationEditPage />}
+            />
+            <Route
+              exact
+              path="/ucsborganization/create"
+              element={<UCSBOrganizationCreatePage />}
             />
           </>
         )}
