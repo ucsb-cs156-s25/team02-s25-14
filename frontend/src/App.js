@@ -214,7 +214,6 @@ function App() {
               exact
               path="/helprequests"
               element={<HelpRequestIndexPage />}
-
             />
           </>
         )}
@@ -229,7 +228,6 @@ function App() {
               exact
               path="/helprequests/create"
               element={<HelpRequestCreatePage />}
-
             />
           </>
         )}
