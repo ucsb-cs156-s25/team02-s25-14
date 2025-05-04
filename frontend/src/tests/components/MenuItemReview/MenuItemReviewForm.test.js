@@ -97,7 +97,7 @@ describe("MenuItemReviewForm tests", () => {
       </Router>,
     );
 
-    const starsInput = screen.getByLabelText(/Stars/);
+    const starsInput = screen.getByTestId("MenuItemReviewForm-stars");
     const submitButton = screen.getByText(/Create/);
     fireEvent.click(submitButton);
 
@@ -145,6 +145,54 @@ describe("MenuItemReviewForm tests", () => {
         screen.queryByText(/Reviewer Email is required./),
       ).not.toBeInTheDocument();
     });
+  });
+
+  test("rejects emails that pass without start/end anchors", async () => {
+    render(
+      <Router>
+        <MenuItemReviewForm />
+      </Router>,
+    );
+
+    const reviewerEmailField = screen.getByTestId(
+      "MenuItemReviewForm-reviewerEmail",
+    );
+    const submitButton = screen.getByText(/Create/);
+
+    const invalidEmails = [
+      " abc@ucsb.edu", // leading space (fails without ^)
+      "abc@ucsb.edu extra", // trailing text (fails without $)
+      "hello abc@ucsb.edu", // prefix text
+      "abc@ucsb.edu\n", // newline at end
+    ];
+
+    for (const email of invalidEmails) {
+      fireEvent.change(reviewerEmailField, { target: { value: email } });
+      fireEvent.click(submitButton);
+
+      await screen.findByText(/Reviewer Email must be a valid email address/);
+    }
+  });
+
+  test("shows error for invalid email format", async () => {
+    render(
+      <Router>
+        <MenuItemReviewForm />
+      </Router>,
+    );
+
+    const reviewerEmailField = screen.getByTestId(
+      "MenuItemReviewForm-reviewerEmail",
+    );
+    const submitButton = screen.getByText(/Create/);
+
+    fireEvent.change(reviewerEmailField, {
+      target: { value: "abc@ucsb.edu extra" }, // would pass if `$` is missing
+    });
+
+    fireEvent.click(submitButton);
+
+    await screen.findByText(/Reviewer Email must be a valid email address/);
   });
 
   test("that the correct validations are performed", async () => {
