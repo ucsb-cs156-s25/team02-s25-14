@@ -160,6 +160,7 @@ async function handleRequest(event, requestId) {
 async function resolveMainClient(event) {
   const client = await self.clients.get(event.clientId)
 
+
   if (activeClientIds.has(event.clientId)) {
     return client
   }
@@ -304,4 +305,5 @@ async function respondWithMock(response) {
   })
 
   return mockedResponse
+
 }

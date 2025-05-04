@@ -9,7 +9,7 @@ describe("RecommendationRequestUtils", () => {
 
     const result = cellToAxiosParamsDelete(cell);
 
-    expect(result.url).toEqual("/api/recommendationrequest");
+    expect(result.url).toEqual("/api/recommendation-requests/delete");
     expect(result.method).toEqual("DELETE");
     expect(result.params).toEqual({ id: 42 });
   });
