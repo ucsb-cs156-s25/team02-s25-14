@@ -90,6 +90,111 @@ describe("MenuItemReviewForm tests", () => {
     await waitFor(() => expect(mockedNavigate).toHaveBeenCalledWith(-1));
   });
 
+  test("shows error if stars is less than 1 or greater than 5", async () => {
+    render(
+      <Router>
+        <MenuItemReviewForm />
+      </Router>,
+    );
+
+    const starsInput = screen.getByTestId("MenuItemReviewForm-stars");
+    const submitButton = screen.getByText(/Create/);
+    fireEvent.click(submitButton);
+
+    fireEvent.change(starsInput, { target: { value: "0" } });
+    fireEvent.blur(starsInput); // trigger validation
+
+    await waitFor(() => {
+      expect(screen.getByText(/Stars must be at least 1./)).toBeInTheDocument();
+    });
+
+    fireEvent.change(starsInput, { target: { value: "6" } });
+    fireEvent.blur(starsInput);
+
+    await waitFor(() => {
+      expect(screen.getByText(/Stars must be at most 5./)).toBeInTheDocument();
+    });
+  });
+
+  test("Email validation works", async () => {
+    render(
+      <Router>
+        <MenuItemReviewForm />
+      </Router>,
+    );
+    const submitButton = screen.getByText(/Create/);
+    fireEvent.click(submitButton);
+
+    await screen.findByTestId("MenuItemReviewForm-reviewerEmail");
+
+    const reviewerEmailField = screen.getByTestId(
+      "MenuItemReviewForm-reviewerEmail",
+    );
+
+    fireEvent.change(reviewerEmailField, { target: { value: "" } });
+
+    await screen.findByText(/Reviewer Email is required./);
+
+    fireEvent.change(reviewerEmailField, {
+      target: { value: "valid@ucsb.edu" },
+    });
+    fireEvent.click(submitButton);
+
+    await waitFor(() => {
+      expect(
+        screen.queryByText(/Reviewer Email is required./),
+      ).not.toBeInTheDocument();
+    });
+  });
+
+  test("rejects emails that pass without start/end anchors", async () => {
+    render(
+      <Router>
+        <MenuItemReviewForm />
+      </Router>,
+    );
+
+    const reviewerEmailField = screen.getByTestId(
+      "MenuItemReviewForm-reviewerEmail",
+    );
+    const submitButton = screen.getByText(/Create/);
+
+    const invalidEmails = [
+      " abc@ucsb.edu", // leading space (fails without ^)
+      "abc@ucsb.edu extra", // trailing text (fails without $)
+      "hello abc@ucsb.edu", // prefix text
+      "abc@ucsb.edu\n", // newline at end
+    ];
+
+    for (const email of invalidEmails) {
+      fireEvent.change(reviewerEmailField, { target: { value: email } });
+      fireEvent.click(submitButton);
+
+      await screen.findByText(/Reviewer Email must be a valid email address/);
+    }
+  });
+
+  test("shows error for invalid email format", async () => {
+    render(
+      <Router>
+        <MenuItemReviewForm />
+      </Router>,
+    );
+
+    const reviewerEmailField = screen.getByTestId(
+      "MenuItemReviewForm-reviewerEmail",
+    );
+    const submitButton = screen.getByText(/Create/);
+
+    fireEvent.change(reviewerEmailField, {
+      target: { value: "abc@ucsb.edu extra" }, // would pass if `$` is missing
+    });
+
+    fireEvent.click(submitButton);
+
+    await screen.findByText(/Reviewer Email must be a valid email address/);
+  });
+
   test("that the correct validations are performed", async () => {
     render(
       <QueryClientProvider client={queryClient}>
