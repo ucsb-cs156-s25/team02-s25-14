@@ -23,22 +23,15 @@ import UCSBDiningCommonsMenuItemIndexPage from "main/pages/UCSBDiningCommonsMenu
 import UCSBDiningCommonsMenuItemCreatePage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemCreatePage";
 import UCSBDiningCommonsMenuItemEditPage from "main/pages/UCSBDiningCommonsMenuItem/UCSBDiningCommonsMenuItemEditPage";
 
-import RecommendationRequestIndexPage from "main/pages/RecommendationRequest/RecommendationRequestIndexPage";
-import RecommendationRequestCreatePage from "main/pages/RecommendationRequest/RecommendationRequestCreatePage";
-import RecommendationRequestEditPage from "main/pages/RecommendationRequest/RecommendationRequestEditPage";
-
 import ArticleIndexPage from "main/pages/Articles/ArticleIndexPage";
 import ArticleCreatePage from "main/pages/Articles/ArticleCreatePage";
 import ArticleEditPage from "main/pages/Articles/ArticleEditPage";
-
-import UCSBOrganizationIndexPage from "main/pages/UCSBOrganization/UCSBOrganizationIndexPage";
-import UCSBOrganizationEditPage from "main/pages/UCSBOrganization/UCSBOrganizationEditPage";
-import UCSBOrganizationCreatePage from "main/pages/UCSBOrganization/UCSBOrganizationCreatePage";
 
 import { hasRole, useCurrentUser } from "main/utils/currentUser";
 
 import "bootstrap/dist/css/bootstrap.css";
 import "react-toastify/dist/ReactToastify.css";
+
 import HelpRequestIndexPage from "main/pages/HelpRequest/HelpRequestIndexPage";
 import HelpRequestEditPage from "main/pages/HelpRequest/HelpRequestEditPage";
 import HelpRequestCreatePage from "main/pages/HelpRequest/HelpRequestCreatePage";
@@ -204,52 +197,6 @@ function App() {
               exact
               path="/placeholder/create"
               element={<PlaceholderCreatePage />}
-            />
-          </>
-        )}
-        {hasRole(currentUser, "ROLE_USER") && (
-          <>
-            <Route
-              exact
-              path="/recommendationrequest"
-              element={<RecommendationRequestIndexPage />}
-            />
-          </>
-        )}
-        {hasRole(currentUser, "ROLE_ADMIN") && (
-          <>
-            <Route
-              exact
-              path="/recommendationrequest/edit/:id"
-              element={<RecommendationRequestEditPage />}
-            />
-            <Route
-              exact
-              path="/recommendationrequest/create"
-              element={<RecommendationRequestCreatePage />}
-            />
-          </>
-        )}
-        {hasRole(currentUser, "ROLE_USER") && (
-          <>
-            <Route
-              exact
-              path="/ucsborganization"
-              element={<UCSBOrganizationIndexPage />}
-            />
-          </>
-        )}
-        {hasRole(currentUser, "ROLE_ADMIN") && (
-          <>
-            <Route
-              exact
-              path="/ucsborganization/edit/:id"
-              element={<UCSBOrganizationEditPage />}
-            />
-            <Route
-              exact
-              path="/ucsborganization/create"
-              element={<UCSBOrganizationCreatePage />}
             />
           </>
         )}
