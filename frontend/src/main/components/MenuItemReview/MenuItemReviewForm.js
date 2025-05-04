@@ -58,6 +58,7 @@ function MenuItemReviewForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="reviewerEmail">Reviewer Email</Form.Label>
         <Form.Control
+          data-testid={testIdPrefix + "-reviewerEmail"}
           id="reviewerEmail"
           type="text"
           isInvalid={Boolean(errors.reviewerId)}
@@ -77,6 +78,7 @@ function MenuItemReviewForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="stars">Stars</Form.Label>
         <Form.Control
+          data-testid={testIdPrefix + "-stars"}
           id="stars"
           type="number"
           isInvalid={Boolean(errors.stars)}

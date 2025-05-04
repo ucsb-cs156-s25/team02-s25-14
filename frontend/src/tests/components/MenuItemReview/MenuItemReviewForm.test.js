@@ -97,20 +97,22 @@ describe("MenuItemReviewForm tests", () => {
       </Router>,
     );
 
-    const starsInput = screen.getByLabelText(/Stars/i);
+    const starsInput = screen.getByLabelText(/Stars/);
+    const submitButton = screen.getByText(/Create/);
+    fireEvent.click(submitButton);
 
     fireEvent.change(starsInput, { target: { value: "0" } });
     fireEvent.blur(starsInput); // trigger validation
 
     await waitFor(() => {
-      expect(screen.getByText(/Stars must be at least 1/)).toBeInTheDocument();
+      expect(screen.getByText(/Stars must be at least 1./)).toBeInTheDocument();
     });
 
     fireEvent.change(starsInput, { target: { value: "6" } });
     fireEvent.blur(starsInput);
 
     await waitFor(() => {
-      expect(screen.getByText(/Stars must be at most 5/)).toBeInTheDocument();
+      expect(screen.getByText(/Stars must be at most 5./)).toBeInTheDocument();
     });
   });
 
@@ -120,16 +122,16 @@ describe("MenuItemReviewForm tests", () => {
         <MenuItemReviewForm />
       </Router>,
     );
+    const submitButton = screen.getByText(/Create/);
+    fireEvent.click(submitButton);
+
     await screen.findByTestId("MenuItemReviewForm-reviewerEmail");
 
     const reviewerEmailField = screen.getByTestId(
       "MenuItemReviewForm-reviewerEmail",
     );
 
-    const submitButton = screen.getByTestId("MenuItemReviewForm-submit");
-
     fireEvent.change(reviewerEmailField, { target: { value: "" } });
-    fireEvent.click(submitButton);
 
     await screen.findByText(/Reviewer Email is required./);
 
