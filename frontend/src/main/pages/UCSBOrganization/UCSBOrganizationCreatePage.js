@@ -8,7 +8,7 @@ export default function UCSBOrganizationCreatePage({ storybook = false }) {
   const objectToAxiosParams = (ucsbOrganization) => ({
     url: "/api/ucsborganizations/post",
     method: "POST",
-    data: {
+    params: {
       orgCode: ucsbOrganization.orgCode,
       orgTranslationShort: ucsbOrganization.orgTranslationShort,
       orgTranslation: ucsbOrganization.orgTranslation,
