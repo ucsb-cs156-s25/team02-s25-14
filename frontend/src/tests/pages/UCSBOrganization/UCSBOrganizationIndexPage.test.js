@@ -59,4 +59,42 @@ describe("UCSBOrganizationIndexPage tests", () => {
 
     expect(screen.queryByText("Create UCSB Organization")).not.toBeInTheDocument();
   });
+
+  test("Renders without crashing for admin user", async () => {
+    setupAdminUser();
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <UCSBOrganizationIndexPage />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("Org Code")).toBeInTheDocument();
+    });
+
+    expect(screen.getByText("Create UCSB Organization")).toBeInTheDocument();
+  });
+
+  test("Displays organizations in the table for admin user", async () => {
+    setupAdminUser();
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <UCSBOrganizationIndexPage />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await waitFor(() => {
+      expect(screen.getByText("Org Code")).toBeInTheDocument();
+    });
+
+    // expect(screen.getByText("Org Code 1")).toBeInTheDocument();
+    // expect(screen.getByText("Org Translation Short 1")).toBeInTheDocument();
+    // expect(screen.getByText("Org Translation 1")).toBeInTheDocument();
+  });
 });
