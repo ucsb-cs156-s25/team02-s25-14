@@ -6,21 +6,19 @@ import { useBackend, useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
 export default function UCSBOrganizationEditPage({ storybook = false }) {
-  let { id } = useParams();
+  let { orgCode } = useParams(); // Use orgCode instead of id
 
   const {
     data: ucsbOrganization,
-    _error,
-    _status,
+    error: _error,
+    status: _status,
   } = useBackend(
-    // Stryker disable next-line all : don't test internal caching of React Query
-    [`/api/ucsborganizations?id=${id}`],
+    [`/api/ucsborganizations?orgCode=${orgCode}`], // Use orgCode as the query parameter
     {
-      // Stryker disable next-line all : GET is the default, so mutating this to "" doesn't introduce a bug
       method: "GET",
       url: `/api/ucsborganizations`,
       params: {
-        id,
+        orgCode, // Pass orgCode to the backend
       },
     },
   );
@@ -29,7 +27,7 @@ export default function UCSBOrganizationEditPage({ storybook = false }) {
     url: "/api/ucsborganizations",
     method: "PUT",
     params: {
-      id: ucsbOrganization.id,
+      orgCode: ucsbOrganization.orgCode, // Use orgCode instead of id
     },
     data: {
       orgCode: ucsbOrganization.orgCode,
@@ -41,15 +39,14 @@ export default function UCSBOrganizationEditPage({ storybook = false }) {
 
   const onSuccess = (ucsbOrganization) => {
     toast(
-      `UCSB Organization Updated - id: ${ucsbOrganization.id} orgCode: ${ucsbOrganization.orgCode}`,
+      `UCSB Organization Updated - orgCode: ${ucsbOrganization.orgCode} orgTranslationShort: ${ucsbOrganization.orgTranslationShort}`,
     );
   };
 
   const mutation = useBackendMutation(
     objectToAxiosPutParams,
     { onSuccess },
-    // Stryker disable next-line all : hard to set up test for caching
-    [`/api/ucsborganizations?id=${id}`],
+    [`/api/ucsborganizations?orgCode=${orgCode}`], // Use orgCode in the cache key
   );
 
   const { isSuccess } = mutation;
@@ -57,6 +54,27 @@ export default function UCSBOrganizationEditPage({ storybook = false }) {
   const onSubmit = async (data) => {
     mutation.mutate(data);
   };
+
+  if (_status === "loading") {
+    return (
+      <BasicLayout>
+        <div className="pt-2">
+          <h1>Loading...</h1>
+        </div>
+      </BasicLayout>
+    );
+  }
+
+  if (_error) {
+    return (
+      <BasicLayout>
+        <div className="pt-2">
+          <h1>Error</h1>
+          <p>Unable to fetch UCSB Organization. Please try again later.</p>
+        </div>
+      </BasicLayout>
+    );
+  }
 
   if (isSuccess && !storybook) {
     return <Navigate to="/ucsborganizations" />;
