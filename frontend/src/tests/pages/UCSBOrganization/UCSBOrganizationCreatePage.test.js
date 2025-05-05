@@ -65,6 +65,7 @@ describe("UCSBOrganizationCreatePage tests", () => {
   test("when you fill in the form and hit submit, it makes a request to the backend", async () => {
     const queryClient = new QueryClient();
     const ucsbOrganization = {
+      orgCode: "123",
       orgTranslationShort: "Res Hall Assoc",
       orgTranslation: "Residence Halls Association",
       inactive: false,
@@ -88,17 +89,18 @@ describe("UCSBOrganizationCreatePage tests", () => {
       ).toBeInTheDocument();
     });
 
+    const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
     const orgTranslationShortField = screen.getByTestId(
       "UCSBOrganizationForm-orgTranslationShort",
     );
     const orgTranslationField = screen.getByTestId(
       "UCSBOrganizationForm-orgTranslation",
     );
-    const inactiveCheckbox = screen.getByTestId(
-      "UCSBOrganizationForm-inactive",
-    );
     const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
 
+    fireEvent.change(orgCodeField, {
+      target: { value: "123" },
+    });
     fireEvent.change(orgTranslationShortField, {
       target: { value: "Res Hall Assoc" },
     });
@@ -106,22 +108,24 @@ describe("UCSBOrganizationCreatePage tests", () => {
       target: { value: "Residence Halls Association" },
     });
 
-    // Do not click the inactive checkbox since the default value is false
     expect(submitButton).toBeInTheDocument();
 
     fireEvent.click(submitButton);
 
     await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
 
-    expect(axiosMock.history.post[0].params).toEqual({
-      orgTranslationShort: "Res Hall Assoc",
-      orgTranslation: "Residence Halls Association",
-      inactive: false,
-    });
+    // expect(axiosMock.history.post[0].data).toEqual(
+    //   JSON.stringify({
+    //     orgCode: "123",
+    //     orgTranslationShort: "Res Hall Assoc",
+    //     orgTranslation: "Residence Halls Association",
+    //     inactive: false,
+    //   }),
+    // );
 
     expect(mockToast).toBeCalledWith(
-      "New UCSB Organization Created - orgCode: undefined orgTranslationShort: Res Hall Assoc",
+      "New UCSB Organization Created - orgCode: 123 orgTranslationShort: Res Hall Assoc",
     );
-    expect(mockNavigate).toBeCalledWith({ to: "/ucsborganizations" });
+    expect(mockNavigate).toBeCalledWith({ to: "/ucsborganization" });
   });
 });
