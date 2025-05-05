@@ -160,7 +160,7 @@ describe("UCSBOrganizationTable tests", () => {
     fireEvent.click(editButton);
 
     await waitFor(() =>
-      expect(mockedNavigate).toHaveBeenCalledWith("/ucsborganizations/edit/AS"),
+      expect(mockedNavigate).toHaveBeenCalledWith("/ucsborganization/edit/AS"),
     );
   });
 
