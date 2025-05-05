@@ -36,7 +36,7 @@ function UCSBOrganizationForm({
             },
           })}
           defaultValue={initialContents?.orgCode || ""}
-          disabled={Boolean(initialContents)} // Disable only if editing
+          disabled={false} // Disable only if editing
           isInvalid={Boolean(errors.orgCode)}
         />
         <Form.Control.Feedback type="invalid">
