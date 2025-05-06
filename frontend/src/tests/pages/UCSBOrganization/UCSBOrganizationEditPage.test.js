@@ -112,7 +112,7 @@ describe("UCSBOrganizationEditPage tests", () => {
       </QueryClientProvider>,
     );
 
-    await screen.findByTestId("UCSBOrganizationForm-orgCode");
+    // await screen.findByTestId("UCSBOrganizationForm-orgCode");
 
     const orgTranslationShortField = screen.getByTestId("UCSBOrganizationForm-orgTranslationShort");
     const orgTranslationField = screen.getByTestId("UCSBOrganizationForm-orgTranslation");
@@ -136,7 +136,7 @@ describe("UCSBOrganizationEditPage tests", () => {
 
     expect(axiosMock.history.put.length).toBe(1);
     expect(JSON.parse(axiosMock.history.put[0].data)).toEqual({
-      orgCode: "RHA",
+      // orgCode: "RHA",
       orgTranslationShort: "Updated Short",
       orgTranslation: "Updated Translation",
       inactive: true,

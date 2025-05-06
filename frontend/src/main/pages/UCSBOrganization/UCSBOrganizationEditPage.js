@@ -27,10 +27,9 @@ export default function UCSBOrganizationEditPage({ storybook = false }) {
     url: "/api/ucsborganizations",
     method: "PUT",
     params: {
-      orgCode: ucsbOrganization.orgCode, // Use orgCode instead of id
     },
     data: {
-      orgCode: ucsbOrganization.orgCode,
+      // orgCode: ucsbOrganization.orgCode,
       orgTranslationShort: ucsbOrganization.orgTranslationShort,
       orgTranslation: ucsbOrganization.orgTranslation,
       inactive: ucsbOrganization.inactive,
