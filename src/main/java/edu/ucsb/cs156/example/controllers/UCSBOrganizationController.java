@@ -120,7 +120,7 @@ public class UCSBOrganizationController extends ApiController {
     @PutMapping("")
     public UCSBOrganization updateOrganization(
             @RequestParam(required = false) String id,
-            @RequestParam(required = false) String orgCode,
+            @RequestParam(required = true) String orgCode,
             @RequestBody @Valid UCSBOrganization incoming) {
 
         String identifier = id != null ? id : orgCode;
@@ -131,6 +131,7 @@ public class UCSBOrganizationController extends ApiController {
         UCSBOrganization organization = ucsbOrganizationRepository.findById(identifier)
                 .orElseThrow(() -> new EntityNotFoundException(UCSBOrganization.class, identifier));
 
+        // organization.setOrgCode(incoming.getOrgCode());
         organization.setOrgTranslationShort(incoming.getOrgTranslationShort());
         organization.setOrgTranslation(incoming.getOrgTranslation());
         organization.setInactive(incoming.getInactive());
