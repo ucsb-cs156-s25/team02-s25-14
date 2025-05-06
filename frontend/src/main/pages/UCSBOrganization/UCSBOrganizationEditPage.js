@@ -21,6 +21,7 @@ export default function UCSBOrganizationEditPage({ storybook = false }) {
         orgCode, // Pass orgCode to the backend
       },
     },
+    console.log("orgCode: ", orgCode)
   );
 
   const objectToAxiosPutParams = (ucsbOrganization) => ({
