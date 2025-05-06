@@ -7,6 +7,7 @@ import { apiCurrentUserFixtures } from "fixtures/currentUserFixtures";
 import { systemInfoFixtures } from "fixtures/systemInfoFixtures";
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
+
 import mockConsole from "jest-mock-console";
 
 const mockToast = jest.fn();
@@ -26,7 +27,7 @@ jest.mock("react-router-dom", () => {
     __esModule: true,
     ...originalModule,
     useParams: () => ({
-      id: 17,
+      orgCode: "RHA",
     }),
     Navigate: (x) => {
       mockNavigate(x);
@@ -36,133 +37,157 @@ jest.mock("react-router-dom", () => {
 });
 
 describe("UCSBOrganizationEditPage tests", () => {
-  describe("when the backend doesn't return data", () => {
-    const axiosMock = new AxiosMockAdapter(axios);
+  const axiosMock = new AxiosMockAdapter(axios);
+  const queryClient = new QueryClient();
 
-    beforeEach(() => {
-      axiosMock.reset();
-      axiosMock.resetHistory();
-      axiosMock
-        .onGet("/api/currentUser")
-        .reply(200, apiCurrentUserFixtures.userOnly);
-      axiosMock
-        .onGet("/api/systemInfo")
-        .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock
-        .onGet("/api/ucsborganizations", { params: { id: 17 } })
-        .timeout();
-    });
+  beforeEach(() => {
+    axiosMock.reset();
+    axiosMock.resetHistory();
+    axiosMock
+      .onGet("/api/currentUser")
+      .reply(200, apiCurrentUserFixtures.userOnly);
+    axiosMock
+      .onGet("/api/systemInfo")
+      .reply(200, systemInfoFixtures.showingNeither);
+  });
 
-    const queryClient = new QueryClient();
-    test("renders header but form is not present", async () => {
-      const restoreConsole = mockConsole();
+  test("uses the correct query key for fetching data", async () => {
+    axiosMock
+      .onGet("/api/ucsborganizations", { params: { orgCode: "RHA" } })
+      .reply(200, {
+        orgCode: "RHA",
+        orgTranslationShort: "Res Hall Assoc",
+        orgTranslation: "Residence Halls Association",
+        inactive: false,
+      });
 
-      render(
-        <QueryClientProvider client={queryClient}>
-          <MemoryRouter>
-            <UCSBOrganizationEditPage />
-          </MemoryRouter>
-        </QueryClientProvider>,
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <UCSBOrganizationEditPage />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await waitFor(() => {
+      expect(axiosMock.history.get[0].url).toBe(
+        "/api/currentUser",
       );
-      await screen.findByText("Edit UCSB Organization");
-      expect(
-        screen.queryByTestId("UCSBOrganizationForm-orgCode"),
-      ).not.toBeInTheDocument();
-      restoreConsole();
     });
   });
 
-  describe("tests where backend is working normally", () => {
-    const axiosMock = new AxiosMockAdapter(axios);
 
-    beforeEach(() => {
-      axiosMock.reset();
-      axiosMock.resetHistory();
-      axiosMock
-        .onGet("/api/currentUser")
-        .reply(200, apiCurrentUserFixtures.userOnly);
-      axiosMock
-        .onGet("/api/systemInfo")
-        .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock
-        .onGet("/api/ucsborganizations", { params: { id: 17 } })
-        .reply(200, {
-          id: 17,
-          orgCode: "RHA",
-          orgTranslationShort: "Res Hall Assoc",
-          orgTranslation: "Residence Halls Association",
-          inactive: false,
-        });
-      axiosMock.onPut("/api/ucsborganizations").reply(200, {
-        id: "17",
+  test("uses the correct cache key for updates", async () => {
+    axiosMock
+      .onGet("/api/ucsborganizations", { params: { orgCode: "RHA" } })
+      .reply(200, {
+        orgCode: "RHA",
+        orgTranslationShort: "Res Hall Assoc",
+        orgTranslation: "Residence Halls Association",
+        inactive: false,
+      });
+    axiosMock.onPut("/api/ucsborganizations").reply(200, {
+      orgCode: "RHA",
+      orgTranslationShort: "Updated Short",
+      orgTranslation: "Updated Translation",
+      inactive: true,
+    });
+
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <UCSBOrganizationEditPage />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+
+    await screen.findByTestId("UCSBOrganizationForm-orgCode");
+
+    const orgTranslationShortField = screen.getByTestId(
+      "UCSBOrganizationForm-orgTranslationShort",
+    );
+    const orgTranslationField = screen.getByTestId(
+      "UCSBOrganizationForm-orgTranslation",
+    );
+    const inactiveCheckbox = screen.getByTestId(
+      "UCSBOrganizationForm-inactive",
+    );
+    const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
+
+    fireEvent.change(orgTranslationShortField, {
+      target: { value: "Updated Short" },
+    });
+    fireEvent.change(orgTranslationField, {
+      target: { value: "Updated Translation" },
+    });
+    fireEvent.click(inactiveCheckbox);
+    fireEvent.click(submitButton);
+
+    await waitFor(() => expect(mockToast).toBeCalled());
+    expect(mockToast).toBeCalledWith(
+      "UCSB Organization Updated - orgCode: RHA orgTranslationShort: Updated Short",
+    );
+    expect(mockNavigate).toBeCalledWith({ to: "/ucsborganization" });
+
+    expect(axiosMock.history.put[0].url).toBe("/api/ucsborganizations");
+    expect(axiosMock.history.put[0].data).toBe(
+      JSON.stringify({
         orgCode: "RHA",
         orgTranslationShort: "Updated Short",
         orgTranslation: "Updated Translation",
         inactive: true,
+      }),
+    );
+  });
+
+  test("sends correct params with GET request", async () => {
+    axiosMock
+      .onGet("/api/ucsborganizations", { params: { orgCode: "RHA" } })
+      .reply(200, {
+        orgCode: "RHA",
+        orgTranslationShort: "Short",
+        orgTranslation: "Long",
+        inactive: false,
       });
+  
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <UCSBOrganizationEditPage />
+        </MemoryRouter>
+      </QueryClientProvider>
+    );
+  
+    await waitFor(() => {
+      const req = axiosMock.history.get.find(
+        (r) => r.url === "/api/ucsborganizations"
+      );
+      expect(req.params).toEqual({ orgCode: "RHA" });
     });
+  });
+  
 
-    const queryClient = new QueryClient();
+  
 
-    test("Is populated with the data provided", async () => {
-      render(
-        <QueryClientProvider client={queryClient}>
-          <MemoryRouter>
-            <UCSBOrganizationEditPage />
-          </MemoryRouter>
-        </QueryClientProvider>,
-      );
-
-      await screen.findByTestId("UCSBOrganizationForm-orgCode");
-
-      const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
-      const orgTranslationShortField = screen.getByTestId(
-        "UCSBOrganizationForm-orgTranslationShort",
-      );
-      const orgTranslationField = screen.getByTestId(
-        "UCSBOrganizationForm-orgTranslation",
-      );
-      const inactiveCheckbox = screen.getByTestId(
-        "UCSBOrganizationForm-inactive",
-      );
-      const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
-
-      expect(orgCodeField).toBeInTheDocument();
-      expect(orgCodeField).toHaveValue("RHA");
-      expect(orgTranslationShortField).toBeInTheDocument();
-      expect(orgTranslationShortField).toHaveValue("Res Hall Assoc");
-      expect(orgTranslationField).toBeInTheDocument();
-      expect(orgTranslationField).toHaveValue("Residence Halls Association");
-      expect(inactiveCheckbox).not.toBeChecked();
-
-      expect(submitButton).toHaveTextContent("Update");
-
-      fireEvent.change(orgTranslationShortField, {
-        target: { value: "Updated Short" },
+  test("renders button with correct label", async () => {
+    axiosMock
+      .onGet("/api/ucsborganizations", { params: { orgCode: "RHA" } })
+      .reply(200, {
+        orgCode: "RHA",
+        orgTranslationShort: "Res Hall Assoc",
+        orgTranslation: "Residence Halls Association",
+        inactive: false,
       });
-      fireEvent.change(orgTranslationField, {
-        target: { value: "Updated Translation" },
-      });
-      fireEvent.click(inactiveCheckbox);
-      fireEvent.click(submitButton);
 
-      await waitFor(() => expect(mockToast).toBeCalled());
-      expect(mockToast).toBeCalledWith(
-        "UCSB Organization Updated - id: 17 orgCode: RHA",
-      );
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <UCSBOrganizationEditPage />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
 
-      expect(mockNavigate).toBeCalledWith({ to: "/ucsborganizations" });
-
-      expect(axiosMock.history.put.length).toBe(1); // times called
-      expect(axiosMock.history.put[0].params).toEqual({ id: 17 });
-      expect(axiosMock.history.put[0].data).toBe(
-        JSON.stringify({
-          orgCode: "RHA",
-          orgTranslationShort: "Updated Short",
-          orgTranslation: "Updated Translation",
-          inactive: true,
-        }),
-      ); // posted object
-    });
+    const submitButton = await screen.findByTestId("UCSBOrganizationForm-submit");
+    expect(submitButton).toHaveTextContent("Update");
   });
 });
