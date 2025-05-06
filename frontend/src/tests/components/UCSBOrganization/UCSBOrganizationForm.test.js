@@ -1,10 +1,6 @@
-import { render, waitFor, fireEvent, screen } from "@testing-library/react";
+import { render, fireEvent, screen } from "@testing-library/react";
 import UCSBOrganizationForm from "main/components/UCSBOrganization/UCSBOrganizationForm";
 import { BrowserRouter as Router } from "react-router-dom";
-
-import { toast } from "react-toastify";
-
-const mockSubmitAction = jest.fn();
 
 jest.mock("react-toastify", () => {
   return {
@@ -37,18 +33,22 @@ describe("UCSBOrganizationForm tests", () => {
       orgTranslation: "Residence Halls Association",
       inactive: false,
     };
-  
+
     render(
       <Router>
         <UCSBOrganizationForm initialContents={initialContents} />
       </Router>,
     );
-  
+
     await screen.findByTestId(/UCSBOrganizationForm-orgCode/);
     expect(screen.getByText(/Org Code/)).toBeInTheDocument();
-    expect(screen.getByTestId(/UCSBOrganizationForm-orgCode/)).toHaveValue("RHA");
-    expect(screen.getByTestId("UCSBOrganizationForm-orgCode")).not.toHaveValue("");
-    });
+    expect(screen.getByTestId(/UCSBOrganizationForm-orgCode/)).toHaveValue(
+      "RHA",
+    );
+    expect(screen.getByTestId("UCSBOrganizationForm-orgCode")).not.toHaveValue(
+      "",
+    );
+  });
 
   test("Correct Error messages on bad input", async () => {
     render(
@@ -121,10 +121,10 @@ describe("UCSBOrganizationForm tests", () => {
         <UCSBOrganizationForm />
       </Router>,
     );
-  
+
     const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
     fireEvent.click(submitButton);
-  
+
     await screen.findByText(/Org Code is required./);
   });
 
@@ -134,13 +134,13 @@ describe("UCSBOrganizationForm tests", () => {
         <UCSBOrganizationForm />
       </Router>,
     );
-  
+
     const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
     const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
-  
+
     fireEvent.change(orgCodeField, { target: { value: "A".repeat(11) } }); // over max length of 10
     fireEvent.click(submitButton);
-  
+
     await screen.findByText(/Max length 10 characters/);
   });
 
@@ -151,13 +151,13 @@ describe("UCSBOrganizationForm tests", () => {
       orgTranslation: "Residence Halls Association",
       inactive: false,
     };
-  
+
     render(
       <Router>
         <UCSBOrganizationForm initialContents={initialContents} />
       </Router>,
     );
-  
+
     const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
     expect(orgCodeField).toHaveValue("RHA");
   });
@@ -168,10 +168,10 @@ describe("UCSBOrganizationForm tests", () => {
         <UCSBOrganizationForm />
       </Router>,
     );
-  
+
     const cancelButton = screen.getByTestId("UCSBOrganizationForm-cancel");
     fireEvent.click(cancelButton);
-  
+
     expect(mockedNavigate).toHaveBeenCalledWith(-1);
   });
 
@@ -179,34 +179,12 @@ describe("UCSBOrganizationForm tests", () => {
     render(
       <Router>
         <UCSBOrganizationForm />
-      </Router>
-    );
-  
-    const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
-  
-    expect(orgCodeField).toHaveValue("");
-  });
-  
-
-  test("orgCode field is editable when editing", async () => {
-    const initialContents = {
-      orgCode: "RHA",
-      orgTranslationShort: "Res Hall Assoc",
-      orgTranslation: "Residence Halls Association",
-      inactive: false,
-    };
-  
-    render(
-      <Router>
-        <UCSBOrganizationForm initialContents={initialContents} />
       </Router>,
     );
-  
+
     const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
-  
-    expect(orgCodeField).not.toBeDisabled();
-    fireEvent.change(orgCodeField, { target: { value: "NEWCODE" } });
-    expect(orgCodeField).toHaveValue("NEWCODE");
+
+    expect(orgCodeField).toHaveValue("");
   });
 
   test("No Error messages on good input", async () => {
@@ -274,17 +252,6 @@ describe("UCSBOrganizationForm tests", () => {
     expect(orgCodeField).not.toBeDisabled();
   });
 
-  test("cancel button navigates back", async () => {
-    render(
-      <Router>
-        <UCSBOrganizationForm />
-      </Router>,
-    );
-
-    const cancelButton = screen.getByTestId("UCSBOrganizationForm-cancel");
-    fireEvent.click(cancelButton);
-  });
-
   test("data-testid attributes are correctly set", async () => {
     render(
       <Router>
@@ -292,15 +259,19 @@ describe("UCSBOrganizationForm tests", () => {
       </Router>,
     );
 
-    expect(screen.getByTestId("UCSBOrganizationForm-cancel")).toBeInTheDocument();
-    expect(screen.getByTestId("UCSBOrganizationForm-submit")).toBeInTheDocument();
+    expect(
+      screen.getByTestId("UCSBOrganizationForm-cancel"),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByTestId("UCSBOrganizationForm-submit"),
+    ).toBeInTheDocument();
   });
 
   test("renders with empty initialContents", () => {
     render(
       <Router>
         <UCSBOrganizationForm />
-      </Router>
+      </Router>,
     );
 
     const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
@@ -311,7 +282,7 @@ describe("UCSBOrganizationForm tests", () => {
     render(
       <Router>
         <UCSBOrganizationForm initialContents={null} />
-      </Router>
+      </Router>,
     );
 
     const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
@@ -322,7 +293,7 @@ describe("UCSBOrganizationForm tests", () => {
     render(
       <Router>
         <UCSBOrganizationForm initialContents={undefined} />
-      </Router>
+      </Router>,
     );
 
     const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
@@ -333,7 +304,7 @@ describe("UCSBOrganizationForm tests", () => {
     render(
       <Router>
         <UCSBOrganizationForm initialContents={{}} />
-      </Router>
+      </Router>,
     );
 
     const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
@@ -345,13 +316,13 @@ test("throws error if orgCode is blank when initialContents has value", () => {
   const initialContents = {
     orgCode: "RHA",
     orgTranslationShort: "test",
-    orgTranslation: "test"
+    orgTranslation: "test",
   };
 
   render(
     <Router>
       <UCSBOrganizationForm initialContents={initialContents} />
-    </Router>
+    </Router>,
   );
 
   const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");

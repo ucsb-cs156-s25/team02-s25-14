@@ -22,7 +22,7 @@ function UCSBOrganizationForm({
 
   return (
     <Form onSubmit={handleSubmit(submitAction)}>
-        <Form.Group className="mb-3">
+      <Form.Group className="mb-3">
         <Form.Label htmlFor="orgCode">Org Code</Form.Label>
         <Form.Control
           data-testid={testIdPrefix + "-orgCode"}

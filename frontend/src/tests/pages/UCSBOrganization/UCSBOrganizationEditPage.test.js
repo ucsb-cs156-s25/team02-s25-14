@@ -48,7 +48,9 @@ describe("UCSBOrganizationEditPage tests", () => {
       axiosMock
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock.onGet("/api/ucsborganization", { params: { orgCode: "RHA" } }).timeout();
+      axiosMock
+        .onGet("/api/ucsborganization", { params: { orgCode: "RHA" } })
+        .timeout();
     });
 
     const queryClient = new QueryClient();
@@ -63,7 +65,9 @@ describe("UCSBOrganizationEditPage tests", () => {
         </QueryClientProvider>,
       );
       await screen.findByText("Edit UCSB Organization");
-      expect(screen.queryByTestId("UCSBOrganizationForm-orgCode")).not.toBeInTheDocument();
+      expect(
+        screen.queryByTestId("UCSBOrganizationForm-orgCode"),
+      ).not.toBeInTheDocument();
       restoreConsole();
     });
   });
@@ -80,12 +84,14 @@ describe("UCSBOrganizationEditPage tests", () => {
       axiosMock
         .onGet("/api/systemInfo")
         .reply(200, systemInfoFixtures.showingNeither);
-      axiosMock.onGet("/api/ucsborganization", { params: { orgCode: "RHA" } }).reply(200, {
-        orgCode: "RHA",
-        orgTranslationShort: "Residence Halls Association",
-        orgTranslation: "Residence Halls Association",
-        inactive: false,
-      });
+      axiosMock
+        .onGet("/api/ucsborganization", { params: { orgCode: "RHA" } })
+        .reply(200, {
+          orgCode: "RHA",
+          orgTranslationShort: "Residence Halls Association",
+          orgTranslation: "Residence Halls Association",
+          inactive: false,
+        });
       axiosMock.onPut("/api/ucsborganization").reply(200, {
         orgCode: "RHA",
         orgTranslationShort: "Residence Halls Association",
@@ -108,8 +114,12 @@ describe("UCSBOrganizationEditPage tests", () => {
       await screen.findByTestId("UCSBOrganizationForm-orgCode");
 
       const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
-      const orgTranslationShortField = screen.getByTestId("UCSBOrganizationForm-orgTranslationShort");
-      const orgTranslationField = screen.getByTestId("UCSBOrganizationForm-orgTranslation");
+      const orgTranslationShortField = screen.getByTestId(
+        "UCSBOrganizationForm-orgTranslationShort",
+      );
+      const orgTranslationField = screen.getByTestId(
+        "UCSBOrganizationForm-orgTranslation",
+      );
       const inactiveField = screen.getByTestId("UCSBOrganizationForm-inactive");
       const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
 
@@ -117,7 +127,9 @@ describe("UCSBOrganizationEditPage tests", () => {
       expect(orgCodeField).toHaveValue("RHA");
       expect(orgCodeField).toBeDisabled();
       expect(orgTranslationShortField).toBeInTheDocument();
-      expect(orgTranslationShortField).toHaveValue("Residence Halls Association");
+      expect(orgTranslationShortField).toHaveValue(
+        "Residence Halls Association",
+      );
       expect(orgTranslationField).toBeInTheDocument();
       expect(orgTranslationField).toHaveValue("Residence Halls Association");
       expect(inactiveField).toBeInTheDocument();
@@ -134,7 +146,7 @@ describe("UCSBOrganizationEditPage tests", () => {
 
       await waitFor(() => expect(mockToast).toBeCalled());
       expect(mockToast).toBeCalledWith(
-        "UCSB Organization Updated - orgCode: RHA orgTranslationShort: Residence Halls Association orgTranslation: Residence Halls Association inactive: true"
+        "UCSB Organization Updated - orgCode: RHA orgTranslationShort: Residence Halls Association orgTranslation: Residence Halls Association inactive: true",
       );
 
       expect(mockNavigate).toBeCalledWith({ to: "/ucsborganization" });
@@ -163,14 +175,20 @@ describe("UCSBOrganizationEditPage tests", () => {
       await screen.findByTestId("UCSBOrganizationForm-orgCode");
 
       const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
-      const orgTranslationShortField = screen.getByTestId("UCSBOrganizationForm-orgTranslationShort");
-      const orgTranslationField = screen.getByTestId("UCSBOrganizationForm-orgTranslation");
+      const orgTranslationShortField = screen.getByTestId(
+        "UCSBOrganizationForm-orgTranslationShort",
+      );
+      const orgTranslationField = screen.getByTestId(
+        "UCSBOrganizationForm-orgTranslation",
+      );
       const inactiveField = screen.getByTestId("UCSBOrganizationForm-inactive");
       const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
 
       expect(orgCodeField).toHaveValue("RHA");
       expect(orgCodeField).toBeDisabled();
-      expect(orgTranslationShortField).toHaveValue("Residence Halls Association");
+      expect(orgTranslationShortField).toHaveValue(
+        "Residence Halls Association",
+      );
       expect(orgTranslationField).toHaveValue("Residence Halls Association");
       expect(submitButton).toBeInTheDocument();
 
@@ -186,7 +204,7 @@ describe("UCSBOrganizationEditPage tests", () => {
 
       await waitFor(() => expect(mockToast).toBeCalled());
       expect(mockToast).toBeCalledWith(
-        "UCSB Organization Updated - orgCode: RHA orgTranslationShort: Residence Halls Association orgTranslation: Residence Halls Association inactive: true"
+        "UCSB Organization Updated - orgCode: RHA orgTranslationShort: Residence Halls Association orgTranslation: Residence Halls Association inactive: true",
       );
       expect(mockNavigate).toBeCalledWith({ to: "/ucsborganization" });
     });

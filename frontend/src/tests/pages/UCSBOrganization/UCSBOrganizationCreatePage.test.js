@@ -105,16 +105,16 @@ describe("UCSBOrganizationCreatePage tests", () => {
 
     await waitFor(() => expect(axiosMock.history.post.length).toBe(1));
 
-      // Verify the parameters sent in the request
-  const postRequest = axiosMock.history.post[0];
-  expect(postRequest).toBeDefined();
+    // Verify the parameters sent in the request
+    const postRequest = axiosMock.history.post[0];
+    expect(postRequest).toBeDefined();
 
-  expect(postRequest.params).toEqual({
-    orgCode: "123",
-    orgTranslationShort: "Res Hall Assoc",
-    orgTranslation: "Residence Halls Association",
-    inactive: false,
-  });
+    expect(postRequest.params).toEqual({
+      orgCode: "123",
+      orgTranslationShort: "Res Hall Assoc",
+      orgTranslation: "Residence Halls Association",
+      inactive: false,
+    });
 
     expect(mockToast).toBeCalledWith(
       "New UCSB Organization Created - orgCode: 123 orgTranslationShort: Res Hall Assoc",
