@@ -46,7 +46,7 @@ export default function UCSBOrganizationEditPage({ storybook = false }) {
   const mutation = useBackendMutation(
     objectToAxiosPutParams,
     { onSuccess },
-    [`/api/ucsborganizations?id=${orgCode}`], // Use orgCode in the cache key
+    [], // Use orgCode in the cache key
   );
 
   const { isSuccess } = mutation;

@@ -33,13 +33,13 @@ export default function UCSBOrganizationIndexPage() {
     { method: "GET", url: "/api/ucsborganizations/all" },
     [],
   );
-  
+
   return (
     <BasicLayout>
       <div className="pt-2">
         {createButton()}
         <h1>UCSB Organizations</h1>
-        <UCSBOrganizationTable organizations={organizations || []} currentUser={currentUser} />
+        <UCSBOrganizationTable organizations={organizations} currentUser={currentUser} />
       </div>
     </BasicLayout>
   );
