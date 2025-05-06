@@ -93,13 +93,19 @@ public class UCSBOrganizationController extends ApiController {
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @DeleteMapping("")
     public Object deleteOrganization(
-            @Parameter(name="orgCode") @RequestParam String orgCode) {
-        UCSBOrganization organization = ucsbOrganizationRepository.findById(orgCode)
-                .orElseThrow(() -> new EntityNotFoundException(UCSBOrganization.class, orgCode));
-
-        ucsbOrganizationRepository.delete(organization);
-        return genericMessage("UCSBOrganization with id %s deleted".formatted(orgCode));
+        @RequestParam(required = false) String id,
+        @RequestParam(required = false) String orgCode) {
+    String identifier = id != null ? id : orgCode;
+    if (identifier == null) {
+        throw new IllegalArgumentException("Either id or orgCode must be provided");
     }
+
+    UCSBOrganization organization = ucsbOrganizationRepository.findById(identifier)
+            .orElseThrow(() -> new EntityNotFoundException(UCSBOrganization.class, identifier));
+
+    ucsbOrganizationRepository.delete(organization);
+    return genericMessage("UCSBOrganization with id %s deleted".formatted(identifier));
+}
 
     /**
      * Update a single ucsborganization.
