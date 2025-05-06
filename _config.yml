@@ -20,4 +20,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-s25/team02-s25-14
 owner: ucsb-cs156-s25
 repo_name: team02-s25-14
-pull_requests: []
+pull_requests: [{"author":{"id":"U_kgDOB3D-ww","is_bot":false,"login":"chloeandersen-ucsb","name":""},"headRefName":"chloe-bugs","number":120,"title":"fixing delete functionality for menu item review","url":"https://github.com/ucsb-cs156-s25/team02-s25-14/pull/120"}]
