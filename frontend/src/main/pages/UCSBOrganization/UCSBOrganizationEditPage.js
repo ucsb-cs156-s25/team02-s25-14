@@ -29,7 +29,7 @@ export default function UCSBOrganizationEditPage({ storybook = false }) {
     params: {
     },
     data: {
-      // orgCode: ucsbOrganization.orgCode,
+      orgCode: ucsbOrganization.orgCode,
       orgTranslationShort: ucsbOrganization.orgTranslationShort,
       orgTranslation: ucsbOrganization.orgTranslation,
       inactive: ucsbOrganization.inactive,
