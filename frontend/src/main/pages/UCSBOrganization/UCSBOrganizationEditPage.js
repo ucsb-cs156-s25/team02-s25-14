@@ -1,18 +1,24 @@
+import BasicLayout from "main/layouts/BasicLayout/BasicLayout";
+import { useParams } from "react-router-dom";
+import UCSBOrganizationForm from "main/components/UCSBOrganization/UCSBOrganizationForm";
+import { Navigate } from "react-router-dom";
+import { useBackend, useBackendMutation } from "main/utils/useBackend";
+import { toast } from "react-toastify";
+
 export default function UCSBOrganizationEditPage({ storybook = false }) {
-  let { orgCode } = useParams();
-  console.log("orgCode:", orgCode); // Debugging
+  let { orgCode } = useParams(); // Use orgCode instead of id
 
   const {
     data: ucsbOrganization,
     error: _error,
     status: _status,
   } = useBackend(
-    [`/api/ucsborganizations?orgCode=${orgCode}`],
+    [`/api/ucsborganizations?orgCode=${orgCode}`], // Use orgCode as the query parameter
     {
       method: "GET",
       url: `/api/ucsborganizations`,
       params: {
-        orgCode,
+        orgCode, // Pass orgCode to the backend
       },
     },
   );
@@ -21,7 +27,7 @@ export default function UCSBOrganizationEditPage({ storybook = false }) {
     url: "/api/ucsborganizations",
     method: "PUT",
     params: {
-      orgCode: ucsbOrganization.orgCode,
+      orgCode: ucsbOrganization.orgCode, // Use orgCode instead of id
     },
     data: {
       orgCode: ucsbOrganization.orgCode,
@@ -40,7 +46,7 @@ export default function UCSBOrganizationEditPage({ storybook = false }) {
   const mutation = useBackendMutation(
     objectToAxiosPutParams,
     { onSuccess },
-    [`/api/ucsborganizations?orgCode=${orgCode}`],
+    [`/api/ucsborganizations?id=${orgCode}`], // Use orgCode in the cache key
   );
 
   const { isSuccess } = mutation;
@@ -60,7 +66,6 @@ export default function UCSBOrganizationEditPage({ storybook = false }) {
   }
 
   if (_error) {
-    console.error("Error fetching UCSB Organization:", _error); // Debugging
     return (
       <BasicLayout>
         <div className="pt-2">
