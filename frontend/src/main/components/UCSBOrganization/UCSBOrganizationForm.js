@@ -6,6 +6,7 @@ function UCSBOrganizationForm({
   initialContents,
   submitAction,
   buttonLabel = "Create",
+  disabledFields = {},
 }) {
   // Stryker disable all
   const {
@@ -35,7 +36,7 @@ function UCSBOrganizationForm({
             },
           })}
           defaultValue={initialContents?.orgCode || ""}
-          disabled={false} // Disable only if editing
+          disabled={disabledFields.orgCode || false} // Disable only if editing
           isInvalid={Boolean(errors.orgCode)}
         />
         <Form.Control.Feedback type="invalid">
