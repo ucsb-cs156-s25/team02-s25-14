@@ -75,6 +75,7 @@ describe("UCSBOrganizationEditPage tests", () => {
 
     expect(orgCodeField).toBeInTheDocument();
     expect(orgCodeField).toHaveValue("RHA");
+    expect(orgCodeField).toBeDisabled();
     expect(orgTranslationShortField).toBeInTheDocument();
     expect(orgTranslationShortField).toHaveValue("Res Hall Assoc");
     expect(orgTranslationField).toBeInTheDocument();
@@ -99,6 +100,9 @@ describe("UCSBOrganizationEditPage tests", () => {
       expect(getRequest).toBeDefined();
       expect(getRequest.url).toContain("/api/ucsborganizations");
       expect(getRequest.params).toEqual({ orgCode: "RHA" });
+      expect(screen.getByTestId("UCSBOrganizationForm-orgCode")).toHaveValue("RHA");
+      expect(getRequest.method).toBe("get");
+
     });
   });
   
