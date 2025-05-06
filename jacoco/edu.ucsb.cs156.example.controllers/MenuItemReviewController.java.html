@@ -144,7 +144,7 @@ import java.time.LocalDateTime;
      */
     @Operation(summary= &quot;Delete a MenuItemReview&quot;)
     @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
-    @DeleteMapping(&quot;&quot;)
+    @DeleteMapping(&quot;/delete&quot;)
     public Object deleteMenuItemReview(
             @Parameter(name=&quot;id&quot;) @RequestParam Long id) {
 <span class="fc" id="L150">        MenuItemReview menuItemReview = menuItemReviewRepository.findById(id)</span>
