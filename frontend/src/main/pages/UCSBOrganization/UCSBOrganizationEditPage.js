@@ -13,7 +13,7 @@ export default function UCSBOrganizationEditPage({ storybook = false }) {
     error: _error,
     status: _status,
   } = useBackend(
-    [], // Use orgCode as the query parameter
+    ["ucsborganizations", orgCode], // Use orgCode as the query parameter
     {
       method: "GET",
       url: `/api/ucsborganizations`,
@@ -46,7 +46,7 @@ export default function UCSBOrganizationEditPage({ storybook = false }) {
   const mutation = useBackendMutation(
     objectToAxiosPutParams,
     { onSuccess },
-    [], // Use orgCode in the cache key
+    ["ucsborganizations", orgCode], // Use orgCode in the cache key
   );
 
   const { isSuccess } = mutation;

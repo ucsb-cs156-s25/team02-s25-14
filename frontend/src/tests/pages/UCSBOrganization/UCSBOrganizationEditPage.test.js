@@ -106,6 +106,42 @@ describe("UCSBOrganizationEditPage tests", () => {
     });
   });
   
+  
+  test("calls mutate and invalidates correct cache key", async () => {
+    const invalidateSpy = jest.spyOn(queryClient, "invalidateQueries");
+  
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <UCSBOrganizationEditPage />
+        </MemoryRouter>
+      </QueryClientProvider>,
+    );
+  
+    const orgTranslationShortField = await screen.findByTestId("UCSBOrganizationForm-orgTranslationShort");
+    const orgTranslationField = screen.getByTestId("UCSBOrganizationForm-orgTranslation");
+    const inactiveCheckbox = screen.getByTestId("UCSBOrganizationForm-inactive");
+    const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
+  
+    fireEvent.change(orgTranslationShortField, {
+      target: { value: "Updated Short" },
+    });
+    fireEvent.change(orgTranslationField, {
+      target: { value: "Updated Translation" },
+    });
+    fireEvent.click(inactiveCheckbox);
+    fireEvent.click(submitButton);
+  
+    await waitFor(() => {
+      expect(mockToast).toBeCalled();
+      expect(mockNavigate).toBeCalled();
+    });
+  
+    // ✅ Now spy works correctly
+    expect(invalidateSpy).toHaveBeenCalledWith(["ucsborganizations", "RHA"]);
+  });
+  
+  
 
   test("handles form submission and updates data", async () => {
     render(
