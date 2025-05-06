@@ -50,7 +50,7 @@ export default function UCSBOrganizationTable({
     {
       Header: "Inactive",
       accessor: "inactive",
-      Cell: ({ value }) => (value ? "Yes" : "No"), // ✅ custom renderer
+      Cell: ({ value }) => (value ? "Yes" : "No"),
     }
     
   ];

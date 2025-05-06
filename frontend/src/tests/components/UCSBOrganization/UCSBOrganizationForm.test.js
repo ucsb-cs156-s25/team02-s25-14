@@ -4,6 +4,8 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import { toast } from "react-toastify";
 
+const mockSubmitAction = jest.fn();
+
 jest.mock("react-toastify", () => {
   return {
     toast: jest.fn(),
@@ -35,18 +37,18 @@ describe("UCSBOrganizationForm tests", () => {
       orgTranslation: "Residence Halls Association",
       inactive: false,
     };
-
+  
     render(
       <Router>
         <UCSBOrganizationForm initialContents={initialContents} />
       </Router>,
     );
+  
     await screen.findByTestId(/UCSBOrganizationForm-orgCode/);
     expect(screen.getByText(/Org Code/)).toBeInTheDocument();
-    expect(screen.getByTestId(/UCSBOrganizationForm-orgCode/)).toHaveValue(
-      "RHA",
-    );
-  });
+    expect(screen.getByTestId(/UCSBOrganizationForm-orgCode/)).toHaveValue("RHA");
+    expect(screen.getByTestId("UCSBOrganizationForm-orgCode")).not.toHaveValue("");
+    });
 
   test("Correct Error messages on bad input", async () => {
     render(
@@ -83,13 +85,11 @@ describe("UCSBOrganizationForm tests", () => {
     );
     const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
 
-    // Input exceeding max length
     fireEvent.change(orgTranslationShortField, {
-      target: { value: "A".repeat(31) }, // 31 characters, exceeding the max length of 30
+      target: { value: "A".repeat(31) }, // 31 characters, over max length of 30
     });
     fireEvent.click(submitButton);
 
-    // Expect error message
     await screen.findByText(/Max length 30 characters/);
   });
 
@@ -105,13 +105,11 @@ describe("UCSBOrganizationForm tests", () => {
     );
     const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
 
-    // Input exactly at max length
     fireEvent.change(orgTranslationShortField, {
       target: { value: "A".repeat(30) }, // 30 characters
     });
     fireEvent.click(submitButton);
 
-    // Expect no error message
     expect(
       screen.queryByText(/Max length 30 characters/),
     ).not.toBeInTheDocument();
@@ -140,7 +138,7 @@ describe("UCSBOrganizationForm tests", () => {
     const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
     const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
   
-    fireEvent.change(orgCodeField, { target: { value: "A".repeat(11) } }); // Exceeds max length of 10
+    fireEvent.change(orgCodeField, { target: { value: "A".repeat(11) } }); // over max length of 10
     fireEvent.click(submitButton);
   
     await screen.findByText(/Max length 10 characters/);
@@ -186,7 +184,6 @@ describe("UCSBOrganizationForm tests", () => {
   
     const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
   
-    // ✅ If the mutant changes `|| ""` to `&& ""`, this will fail
     expect(orgCodeField).toHaveValue("");
   });
   
@@ -207,13 +204,8 @@ describe("UCSBOrganizationForm tests", () => {
   
     const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
   
-    // Ensure the field is editable
     expect(orgCodeField).not.toBeDisabled();
-  
-    // Simulate changing the value
     fireEvent.change(orgCodeField, { target: { value: "NEWCODE" } });
-  
-    // Verify the value has been updated
     expect(orgCodeField).toHaveValue("NEWCODE");
   });
 
@@ -244,8 +236,6 @@ describe("UCSBOrganizationForm tests", () => {
     });
     fireEvent.click(inactiveField);
     fireEvent.click(submitButton);
-
-    //await waitFor(() => expect(mockSubmitAction).toHaveBeenCalled());
 
     expect(
       screen.queryByText(/Org Translation Short is required./),
@@ -293,8 +283,6 @@ describe("UCSBOrganizationForm tests", () => {
 
     const cancelButton = screen.getByTestId("UCSBOrganizationForm-cancel");
     fireEvent.click(cancelButton);
-
-    //expect(mockedNavigate).toHaveBeenCalledWith(-1);
   });
 
   test("data-testid attributes are correctly set", async () => {
@@ -307,4 +295,71 @@ describe("UCSBOrganizationForm tests", () => {
     expect(screen.getByTestId("UCSBOrganizationForm-cancel")).toBeInTheDocument();
     expect(screen.getByTestId("UCSBOrganizationForm-submit")).toBeInTheDocument();
   });
+
+  test("renders with empty initialContents", () => {
+    render(
+      <Router>
+        <UCSBOrganizationForm />
+      </Router>
+    );
+
+    const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
+    expect(orgCodeField).toHaveValue("");
+  });
+
+  test("renders with null initialContents", () => {
+    render(
+      <Router>
+        <UCSBOrganizationForm initialContents={null} />
+      </Router>
+    );
+
+    const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
+    expect(orgCodeField).toHaveValue("");
+  });
+
+  test("renders with undefined initialContents", () => {
+    render(
+      <Router>
+        <UCSBOrganizationForm initialContents={undefined} />
+      </Router>
+    );
+
+    const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
+    expect(orgCodeField).toHaveValue("");
+  });
+
+  test("renders with empty object initialContents", () => {
+    render(
+      <Router>
+        <UCSBOrganizationForm initialContents={{}} />
+      </Router>
+    );
+
+    const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
+    expect(orgCodeField).toHaveValue("");
+  });
+});
+
+test("throws error if orgCode is blank when initialContents has value", () => {
+  const initialContents = {
+    orgCode: "RHA",
+    orgTranslationShort: "test",
+    orgTranslation: "test"
+  };
+
+  render(
+    <Router>
+      <UCSBOrganizationForm initialContents={initialContents} />
+    </Router>
+  );
+
+  const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
+  const value = orgCodeField.value;
+
+  if (value === "") {
+    throw new Error("Mutation detected: orgCode was blank but should be 'RHA'");
+  }
+
+  expect(value).toBe("RHA");
 });

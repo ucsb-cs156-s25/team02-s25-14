@@ -35,8 +35,7 @@ function UCSBOrganizationForm({
               message: "Max length 10 characters",
             },
           })}
-          defaultValue={initialContents?.orgCode || ""}
-          disabled={disabledFields.orgCode || false} // Disable only if editing
+          disabled={disabledFields.orgCode || false}
           isInvalid={Boolean(errors.orgCode)}
         />
         <Form.Control.Feedback type="invalid">

@@ -163,7 +163,6 @@ describe("UCSBOrganizationTable tests", () => {
       </QueryClientProvider>
     );
   
-    // ✅ Assert explicit text content for "inactive" column
     const row0Inactive = screen.getByTestId("UCSBOrganizationTable-cell-row-0-col-inactive");
     const row1Inactive = screen.getByTestId("UCSBOrganizationTable-cell-row-1-col-inactive");
   
@@ -233,6 +232,6 @@ describe("UCSBOrganizationTable tests", () => {
     fireEvent.click(deleteButton);
 
     await waitFor(() => expect(axiosMock.history.delete.length).toBe(1));
-    expect(axiosMock.history.delete[0].params).toEqual({ id: "AS" });
+    expect(axiosMock.history.delete[0].params).toEqual({ orgCode: "AS" });
   });
 });

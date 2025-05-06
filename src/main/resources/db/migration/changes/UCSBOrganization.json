@@ -9,7 +9,7 @@
               "not": [
                 {
                   "tableExists": {
-                    "tableName": "UCSBORGANIZATION"
+                    "tableName": "ucsborganization"
                   }
                 }
               ]
@@ -25,31 +25,30 @@
                         "primaryKey": true,
                         "primaryKeyName": "UCSBORGANIZATIONS_PK"
                       },
-                      "name": "ORG_CODE",
+                      "name": "org_code",
                       "type": "VARCHAR(255)"
                     }
                   },
                   {
                     "column": {
-                      "name": "ORG_TRANSLATION_SHORT",
+                      "name": "org_translation_short",
                       "type": "VARCHAR(255)"
                     }
                   },
                   {
                     "column": {
-                      "name": "ORG_TRANSLATION",
+                      "name": "org_translation",
                       "type": "VARCHAR(255)"
                     }
                   },
                   {
                     "column": {
-                      "name": "INACTIVE",
+                      "name": "inactive",
                       "type": "BOOLEAN"
                     }
                   }
                 ],
-                "tableName": "UCSBORGANIZATION"
-                
+                "tableName": "ucsborganization"
               }
             }
           ]
