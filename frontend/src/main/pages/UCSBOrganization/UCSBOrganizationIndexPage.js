@@ -33,7 +33,7 @@ export default function UCSBOrganizationIndexPage() {
     { method: "GET", url: "/api/ucsborganizations/all" },
     [],
   );
-
+  
   return (
     <BasicLayout>
       <div className="pt-2">

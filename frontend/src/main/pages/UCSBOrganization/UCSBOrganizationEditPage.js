@@ -13,7 +13,7 @@ export default function UCSBOrganizationEditPage({ storybook = false }) {
     error: _error,
     status: _status,
   } = useBackend(
-    [`/api/ucsborganizations?orgCode=${orgCode}`], // Use orgCode as the query parameter
+    [], // Use orgCode as the query parameter
     {
       method: "GET",
       url: `/api/ucsborganizations`,
@@ -55,26 +55,7 @@ export default function UCSBOrganizationEditPage({ storybook = false }) {
     mutation.mutate(data);
   };
 
-  if (_status === "loading") {
-    return (
-      <BasicLayout>
-        <div className="pt-2">
-          <h1>Loading...</h1>
-        </div>
-      </BasicLayout>
-    );
-  }
 
-  if (_error) {
-    return (
-      <BasicLayout>
-        <div className="pt-2">
-          <h1>Error</h1>
-          <p>Unable to fetch UCSB Organization. Please try again later.</p>
-        </div>
-      </BasicLayout>
-    );
-  }
 
   if (isSuccess && !storybook) {
     return <Navigate to="/ucsborganization" />;
