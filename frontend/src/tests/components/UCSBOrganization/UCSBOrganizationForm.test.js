@@ -177,6 +177,20 @@ describe("UCSBOrganizationForm tests", () => {
     expect(mockedNavigate).toHaveBeenCalledWith(-1);
   });
 
+  test("orgCode field has empty string defaultValue when initialContents is missing", async () => {
+    render(
+      <Router>
+        <UCSBOrganizationForm />
+      </Router>
+    );
+  
+    const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
+  
+    // ✅ If the mutant changes `|| ""` to `&& ""`, this will fail
+    expect(orgCodeField).toHaveValue("");
+  });
+  
+
   test("orgCode field is editable when editing", async () => {
     const initialContents = {
       orgCode: "RHA",

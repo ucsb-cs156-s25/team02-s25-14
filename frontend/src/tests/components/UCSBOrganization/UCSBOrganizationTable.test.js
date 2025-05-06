@@ -134,6 +134,44 @@ describe("UCSBOrganizationTable tests", () => {
     expect(screen.queryByText("Edit")).not.toBeInTheDocument();
   });
 
+  test("renders 'Yes' or 'No' in the Inactive column", () => {
+    const currentUser = currentUserFixtures.userOnly;
+  
+    const testData = [
+      {
+        orgCode: "ON",
+        orgTranslationShort: "On",
+        orgTranslation: "Organization On",
+        inactive: true, // should render "Yes"
+      },
+      {
+        orgCode: "OFF",
+        orgTranslationShort: "Off",
+        orgTranslation: "Organization Off",
+        inactive: false, // should render "No"
+      },
+    ];
+  
+    render(
+      <QueryClientProvider client={queryClient}>
+        <MemoryRouter>
+          <UCSBOrganizationTable
+            organizations={testData}
+            currentUser={currentUser}
+          />
+        </MemoryRouter>
+      </QueryClientProvider>
+    );
+  
+    // ✅ Assert explicit text content for "inactive" column
+    const row0Inactive = screen.getByTestId("UCSBOrganizationTable-cell-row-0-col-inactive");
+    const row1Inactive = screen.getByTestId("UCSBOrganizationTable-cell-row-1-col-inactive");
+  
+    expect(row0Inactive).toHaveTextContent("Yes");
+    expect(row1Inactive).toHaveTextContent("No");
+  });
+  
+
   test("Edit button navigates to the edit page", async () => {
     const currentUser = currentUserFixtures.adminUser;
 
