@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 
 @Tag(name = "UCSBOrganizations")
-@RequestMapping("/api/ucsborganizations")
+@RequestMapping({"/api/ucsborganizations", "/api/ucsborganization"})
 @RestController
 @Slf4j
 public class UCSBOrganizationController extends ApiController {
@@ -37,7 +37,7 @@ public class UCSBOrganizationController extends ApiController {
      */
     @Operation(summary = "List all UCSB Organizations")
     @PreAuthorize("hasRole('ROLE_USER')")
-    @GetMapping("/all")
+    @GetMapping({"/all", "/all"})
     public Iterable<UCSBOrganization> allOrganizations() {
         return ucsbOrganizationRepository.findAll();
     }
@@ -51,7 +51,7 @@ public class UCSBOrganizationController extends ApiController {
      */
     @Operation(summary = "Get a single UCSB Organization")
     @PreAuthorize("hasRole('ROLE_USER')")
-    @GetMapping("")
+    @GetMapping({"", ""})
     public UCSBOrganization getById(
             @RequestParam(required = false) String id,
             @RequestParam(required = false) String orgCode) {
@@ -70,7 +70,7 @@ public class UCSBOrganizationController extends ApiController {
      */
     @Operation(summary = "Create a new UCSB Organization")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping("/post")
+    @PostMapping({"/post", "/post"})
     public UCSBOrganization postOrganization(
             @Parameter(name = "orgCode") @RequestParam String orgCode,
             @Parameter(name = "orgTranslationShort") @RequestParam String orgTranslationShort,
@@ -94,7 +94,7 @@ public class UCSBOrganizationController extends ApiController {
      */
     @Operation(summary = "Delete a UCSB Organization")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @DeleteMapping("")
+    @DeleteMapping({"", ""})
     public Object deleteOrganization(
             @RequestParam(required = false) String id,
             @RequestParam(required = false) String orgCode) {
@@ -117,7 +117,7 @@ public class UCSBOrganizationController extends ApiController {
      */
     @Operation(summary = "Update a single UCSB Organization")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PutMapping("")
+    @PutMapping({"", ""})
     public UCSBOrganization updateOrganization(
             @RequestParam(required = false) String id,
             @RequestParam(required = true) String orgCode,

@@ -245,6 +245,7 @@ public class UCSBOrganizationControllerTests extends ControllerTestCase {
             String requestBody = mapper.writeValueAsString(ucsbOrganizationEdited);
 
             when(ucsbOrganizationRepository.findById(eq("stud1@ucsb.edu"))).thenReturn(Optional.of(ucsbOrganizationOrig));
+            when(ucsbOrganizationRepository.save(eq(ucsbOrganizationEdited))).thenReturn(ucsbOrganizationEdited);
 
             // act
             MvcResult response = mockMvc.perform(
