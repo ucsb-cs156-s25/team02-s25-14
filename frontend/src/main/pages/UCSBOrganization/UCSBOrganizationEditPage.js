@@ -6,21 +6,19 @@ import { useBackend, useBackendMutation } from "main/utils/useBackend";
 import { toast } from "react-toastify";
 
 export default function UCSBOrganizationEditPage({ storybook = false }) {
-  let { id } = useParams();
+  let { orgCode } = useParams(); // Use orgCode instead of id
 
   const {
     data: ucsbOrganization,
-    _error,
-    _status,
+    error: _error,
+    status: _status,
   } = useBackend(
-    // Stryker disable next-line all : don't test internal caching of React Query
-    [`/api/ucsborganizations?id=${id}`],
+    ["ucsborganizations", orgCode], // Use orgCode as the query parameter
     {
-      // Stryker disable next-line all : GET is the default, so mutating this to "" doesn't introduce a bug
       method: "GET",
       url: `/api/ucsborganizations`,
       params: {
-        id,
+        orgCode, // Pass orgCode to the backend
       },
     },
   );
@@ -29,7 +27,7 @@ export default function UCSBOrganizationEditPage({ storybook = false }) {
     url: "/api/ucsborganizations",
     method: "PUT",
     params: {
-      id: ucsbOrganization.id,
+      orgCode: ucsbOrganization.orgCode,
     },
     data: {
       orgCode: ucsbOrganization.orgCode,
@@ -41,15 +39,14 @@ export default function UCSBOrganizationEditPage({ storybook = false }) {
 
   const onSuccess = (ucsbOrganization) => {
     toast(
-      `UCSB Organization Updated - id: ${ucsbOrganization.id} orgCode: ${ucsbOrganization.orgCode}`,
+      `UCSB Organization Updated - orgCode: ${ucsbOrganization.orgCode} orgTranslationShort: ${ucsbOrganization.orgTranslationShort}`,
     );
   };
 
   const mutation = useBackendMutation(
     objectToAxiosPutParams,
     { onSuccess },
-    // Stryker disable next-line all : hard to set up test for caching
-    [`/api/ucsborganizations?id=${id}`],
+    ["ucsborganizations", orgCode], // Use orgCode in the cache key
   );
 
   const { isSuccess } = mutation;
@@ -58,8 +55,10 @@ export default function UCSBOrganizationEditPage({ storybook = false }) {
     mutation.mutate(data);
   };
 
+
+
   if (isSuccess && !storybook) {
-    return <Navigate to="/ucsborganizations" />;
+    return <Navigate to="/ucsborganization" />;
   }
 
   return (
@@ -71,6 +70,7 @@ export default function UCSBOrganizationEditPage({ storybook = false }) {
             submitAction={onSubmit}
             buttonLabel={"Update"}
             initialContents={ucsbOrganization}
+            disabledFields={{ orgCode: true }}
           />
         )}
       </div>
