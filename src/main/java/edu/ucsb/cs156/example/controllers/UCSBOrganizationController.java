@@ -55,11 +55,7 @@ public class UCSBOrganizationController extends ApiController {
     public UCSBOrganization getById(
             @RequestParam(required = false) String id,
             @RequestParam(required = false) String orgCode) {
-        String identifier = id != null ? id : orgCode;
-        if (identifier == null) {
-            throw new IllegalArgumentException("Either id or orgCode must be provided");
-        }
-
+        String identifier = orgCode;
         return ucsbOrganizationRepository.findById(identifier)
                 .orElseThrow(() -> new EntityNotFoundException(UCSBOrganization.class, identifier));
     }
@@ -98,10 +94,7 @@ public class UCSBOrganizationController extends ApiController {
     public Object deleteOrganization(
             @RequestParam(required = false) String id,
             @RequestParam(required = false) String orgCode) {
-        String identifier = id != null ? id : orgCode;
-        if (identifier == null) {
-            throw new IllegalArgumentException("Either id or orgCode must be provided");
-        }
+        String identifier = orgCode;
 
         UCSBOrganization organization = ucsbOrganizationRepository.findById(identifier)
                 .orElseThrow(() -> new EntityNotFoundException(UCSBOrganization.class, identifier));
@@ -118,15 +111,12 @@ public class UCSBOrganizationController extends ApiController {
     @Operation(summary = "Update a single UCSB Organization")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     @PutMapping("")
-    public UCSBOrganization updateOrganization(
+    public String updateOrganization(
             @RequestParam(required = false) String id,
             @RequestParam(required = true) String orgCode,
             @RequestBody @Valid UCSBOrganization incoming) {
 
-        String identifier = id != null ? id : orgCode;
-        if (identifier == null) {
-            throw new IllegalArgumentException("Either id or orgCode must be provided");
-        }
+        String identifier = orgCode;
 
         UCSBOrganization organization = ucsbOrganizationRepository.findById(identifier)
                 .orElseThrow(() -> new EntityNotFoundException(UCSBOrganization.class, identifier));
@@ -136,6 +126,8 @@ public class UCSBOrganizationController extends ApiController {
         organization.setOrgTranslation(incoming.getOrgTranslation());
         organization.setInactive(incoming.getInactive());
 
-        return ucsbOrganizationRepository.save(organization);
+        ucsbOrganizationRepository.save(organization);
+
+        return "Success!";
     }
 }

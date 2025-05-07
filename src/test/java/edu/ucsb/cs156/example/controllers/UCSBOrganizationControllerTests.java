@@ -259,8 +259,8 @@ public class UCSBOrganizationControllerTests extends ControllerTestCase {
             verify(ucsbOrganizationRepository, times(1)).findById("stud1@ucsb.edu");
             verify(ucsbOrganizationRepository, times(1)).save(ucsbOrganizationEdited); // should be saved with updated info
             String responseString = response.getResponse().getContentAsString();
-            responseString = "{\"orgCode\":\"stud1@ucsb.edu\",\"orgTranslationShort\":\"prof2@ucsb.edu\",\"orgTranslation\":\"undergrad program\",\"inactive\":true}";
-            assertEquals(requestBody, responseString);
+            assertEquals("Success!", responseString);
+            
     }
 
     @WithMockUser(roles = { "ADMIN", "USER" })

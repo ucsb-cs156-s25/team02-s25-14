@@ -151,8 +151,9 @@ describe("UCSBOrganizationEditPage tests", () => {
 
     await waitFor(() => {
       expect(mockToast).toBeCalled();
-      expect(mockNavigate).toBeCalled();
     });
+
+    expect(mockNavigate).toBeCalled();
 
     // ✅ Now spy works correctly
     expect(invalidateSpy).toHaveBeenCalledWith(["RHA"]);
