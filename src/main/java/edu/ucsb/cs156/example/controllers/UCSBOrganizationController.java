@@ -3,7 +3,6 @@ package edu.ucsb.cs156.example.controllers;
 import edu.ucsb.cs156.example.entities.UCSBOrganization;
 import edu.ucsb.cs156.example.errors.EntityNotFoundException;
 import edu.ucsb.cs156.example.repositories.UCSBOrganizationRepository;
-
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -22,120 +21,106 @@ import org.springframework.web.bind.annotation.RestController;
 
 import jakarta.validation.Valid;
 
-@Tag(name = "UCSBOrganizations")
-@RequestMapping({"/api/ucsborganizations", "/api/ucsborganization"})
+/**
+ * This is a REST controller for UCSB Organizations
+ */
+
+@Tag(name = "UCSB Organizations")
+@RequestMapping("/api/ucsborganizations")
 @RestController
-@Slf4j
 public class UCSBOrganizationController extends ApiController {
 
     @Autowired
     UCSBOrganizationRepository ucsbOrganizationRepository;
 
     /**
-     * This method returns a list of all UCSB organizations.
-     * @return a list of all UCSB organizations
+     * This method returns a list of all UCSB Organizations.
+     * @return a list of all UCSB Organizations
      */
     @Operation(summary = "List all UCSB Organizations")
     @PreAuthorize("hasRole('ROLE_USER')")
-    @GetMapping({"/all", "/all"})
-    public Iterable<UCSBOrganization> allOrganizations() {
-        return ucsbOrganizationRepository.findAll();
+    @GetMapping("/all")
+    public Iterable<UCSBOrganization> allUCSBOrganizations() {
+        Iterable<UCSBOrganization> ucsbOrganizations = ucsbOrganizationRepository.findAll();
+        return ucsbOrganizations;
     }
 
     /**
-     * This method returns a single UCSB organization.
-     * Accepts both `id` and `orgCode` as parameters.
-     * @param id the id of the UCSB organization
-     * @param orgCode the orgCode of the UCSB organization
-     * @return a single UCSB organization
+     * This method returns a single UCSB Organization.
+     * @param id id of the UCSB Organization to get
+     * @return a single UCSB Organization
      */
     @Operation(summary = "Get a single UCSB Organization")
     @PreAuthorize("hasRole('ROLE_USER')")
-    @GetMapping({"", ""})
+    @GetMapping("")
     public UCSBOrganization getById(
-            @RequestParam(required = false) String id,
-            @RequestParam(required = false) String orgCode) {
-        String identifier = id != null ? id : orgCode;
-        if (identifier == null) {
-            throw new IllegalArgumentException("Either id or orgCode must be provided");
-        }
+            @Parameter(name = "orgCode") @RequestParam String orgCode) {
+        UCSBOrganization ucsbOrganization = ucsbOrganizationRepository.findById(orgCode)
+                .orElseThrow(() -> new EntityNotFoundException(UCSBOrganization.class, orgCode));
 
-        return ucsbOrganizationRepository.findById(identifier)
-                .orElseThrow(() -> new EntityNotFoundException(UCSBOrganization.class, identifier));
+        return ucsbOrganization;
     }
 
     /**
-     * This method creates a new UCSB organization.
-     * Accessible only to users with the role "ROLE_ADMIN".
+     * This method creates a new UCSB Organization. Accessible only to users with the role "ROLE_ADMIN".
+     * @param orgCode orgCode of the UCSB Organization
+     * @param orgTranslationShort orgTranslationShort of the UCSB Organization
+     * @param orgTranslation orgTranslation of the UCSB Organization
+     * @return the save UCSB Organization (with it's id field set by the database)
      */
     @Operation(summary = "Create a new UCSB Organization")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PostMapping({"/post", "/post"})
-    public UCSBOrganization postOrganization(
+    @PostMapping("/post")
+    public UCSBOrganization postUCSBOrganization(
             @Parameter(name = "orgCode") @RequestParam String orgCode,
             @Parameter(name = "orgTranslationShort") @RequestParam String orgTranslationShort,
-            @Parameter(name = "orgTranslation") @RequestParam String orgTranslation,
-            @Parameter(name = "inactive") @RequestParam boolean inactive) {
+            @Parameter(name = "orgTranslation") @RequestParam String orgTranslation) {
+        UCSBOrganization ucsbOrganization = new UCSBOrganization();
 
-        UCSBOrganization organization = UCSBOrganization.builder()
-                .orgCode(orgCode)
-                .orgTranslationShort(orgTranslationShort)
-                .orgTranslation(orgTranslation)
-                .inactive(inactive)
-                .build();
-
-        return ucsbOrganizationRepository.save(organization);
+        ucsbOrganization.setOrgCode(orgCode);
+        ucsbOrganization.setOrgTranslationShort(orgTranslationShort);
+        ucsbOrganization.setOrgTranslation(orgTranslation);
+        
+        UCSBOrganization savedUCSBOrganization = ucsbOrganizationRepository.save(ucsbOrganization);
+        return savedUCSBOrganization;
     }
 
     /**
-     * Delete a UCSB organization.
-     * Accessible only to users with the role "ROLE_ADMIN".
-     * Accepts both `id` and `orgCode` as parameters.
+     * Deletes a UCSB Organization. Accessible only to users with the role "ROLE_ADMIN".
+     * @param orgCode orgCode of the UCSB Organization to delete
+     * @return a message indicating that the UCSB Organization was deleted
      */
     @Operation(summary = "Delete a UCSB Organization")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @DeleteMapping({"", ""})
-    public Object deleteOrganization(
-            @RequestParam(required = false) String id,
-            @RequestParam(required = false) String orgCode) {
-        String identifier = id != null ? id : orgCode;
-        if (identifier == null) {
-            throw new IllegalArgumentException("Either id or orgCode must be provided");
-        }
+    @DeleteMapping("")
+    public Object deleteUCSBOrganization(
+            @Parameter(name = "orgCode") @RequestParam String orgCode) {
+        UCSBOrganization ucsbOrganization = ucsbOrganizationRepository.findById(orgCode)
+                .orElseThrow(() -> new EntityNotFoundException(UCSBOrganization.class, orgCode));
 
-        UCSBOrganization organization = ucsbOrganizationRepository.findById(identifier)
-                .orElseThrow(() -> new EntityNotFoundException(UCSBOrganization.class, identifier));
-
-        ucsbOrganizationRepository.delete(organization);
-        return genericMessage("UCSBOrganization with id %s deleted".formatted(identifier));
+        ucsbOrganizationRepository.delete(ucsbOrganization);
+        return genericMessage("UCSBOrganization with id %s deleted".formatted(orgCode));
     }
 
     /**
-     * Update a single UCSB organization.
-     * Accessible only to users with the role "ROLE_ADMIN".
-     * Accepts both `id` and `orgCode` as parameters.
+     * Update a single UCSB Organization. Accessible only to users with the role "ROLE_ADMIN".
+     * @param orgCode orgCode of the UCSB Organization to update
+     * @param incoming the new UCSB Organization contents
+     * @return the updated UCSB Organization object
      */
     @Operation(summary = "Update a single UCSB Organization")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @PutMapping({"", ""})
-    public UCSBOrganization updateOrganization(
-            @RequestParam(required = false) String id,
-            @RequestParam(required = true) String orgCode,
+    @PutMapping("")
+    public UCSBOrganization updateUCSBOrganization(
+            @Parameter(name = "orgCode") @RequestParam String orgCode,
             @RequestBody @Valid UCSBOrganization incoming) {
 
-        String identifier = id != null ? id : orgCode;
-        if (identifier == null) {
-            throw new IllegalArgumentException("Either id or orgCode must be provided");
-        }
+        UCSBOrganization ucsbOrganization = ucsbOrganizationRepository.findById(orgCode)
+                .orElseThrow(() -> new EntityNotFoundException(UCSBOrganization.class, orgCode));
 
-        UCSBOrganization organization = ucsbOrganizationRepository.findById(identifier)
-                .orElseThrow(() -> new EntityNotFoundException(UCSBOrganization.class, identifier));
+        incoming.setOrgCode(orgCode);
+        ucsbOrganizationRepository.save(incoming);
 
-        // organization.setOrgCode(incoming.getOrgCode());
-        organization.setOrgTranslationShort(incoming.getOrgTranslationShort());
-        organization.setOrgTranslation(incoming.getOrgTranslation());
-        organization.setInactive(incoming.getInactive());
-
-        return ucsbOrganizationRepository.save(organization);
+        return incoming;
     }
 }
