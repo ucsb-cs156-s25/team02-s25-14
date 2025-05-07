@@ -46,9 +46,10 @@ public class UCSBOrganizationController extends ApiController {
     }
 
     /**
-     * This method returns a single UCSB Organization.
-     * @param id id of the UCSB Organization to get
-     * @return a single UCSB Organization
+     * Get a single UCSB Organization
+     * 
+     * @param orgCode the orgCode of the UCSB Organization to get
+     * @return the UCSB Organization
      */
     @Operation(summary = "Get a single UCSB Organization")
     @PreAuthorize("hasRole('ROLE_USER')")
