@@ -138,7 +138,7 @@ describe("UCSBOrganizationEditPage tests", () => {
     });
   
     // ✅ Now spy works correctly
-    expect(invalidateSpy).toHaveBeenCalledWith(["ucsborganizations", "RHA"]);
+    expect(invalidateSpy).toHaveBeenCalledWith(["RHA"]);
   });
   
   
@@ -181,6 +181,7 @@ describe("UCSBOrganizationEditPage tests", () => {
       orgTranslation: "Updated Translation",
       inactive: true,
     });
+    expect(axiosMock.history.put[0].params).toEqual({orgCode: "RHA"})
   });
 
   test("renders button with correct label", async () => {
