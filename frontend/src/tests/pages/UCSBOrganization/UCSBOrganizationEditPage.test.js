@@ -5,7 +5,6 @@ import UCSBOrganizationEditPage from "main/pages/UCSBOrganization/UCSBOrganizati
 
 import axios from "axios";
 import AxiosMockAdapter from "axios-mock-adapter";
-import { ucsbOrganizationFixtures } from "fixtures/ucsbOrganizationFixtures";
 
 const mockToast = jest.fn();
 jest.mock("react-toastify", () => {

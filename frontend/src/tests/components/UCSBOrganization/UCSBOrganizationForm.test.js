@@ -1,8 +1,7 @@
-import { render, waitFor, fireEvent, screen } from "@testing-library/react";
+import { render, fireEvent, screen } from "@testing-library/react";
 import UCSBOrganizationForm from "main/components/UCSBOrganization/UCSBOrganizationForm";
 import { BrowserRouter as Router } from "react-router-dom";
 
-import { toast } from "react-toastify";
 
 jest.mock("react-toastify", () => {
   return {
@@ -272,7 +271,7 @@ describe("UCSBOrganizationForm tests", () => {
     expect(orgCodeField).not.toBeDisabled();
   });
 
-  test("orgCode field is editable when creating", async () => {
+  test("orgCode field is editable when creating.", async () => {
     render(
       <Router>
         <UCSBOrganizationForm />
