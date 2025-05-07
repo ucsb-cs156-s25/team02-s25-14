@@ -2,7 +2,6 @@ import { render, fireEvent, screen } from "@testing-library/react";
 import UCSBOrganizationForm from "main/components/UCSBOrganization/UCSBOrganizationForm";
 import { BrowserRouter as Router } from "react-router-dom";
 
-
 jest.mock("react-toastify", () => {
   return {
     toast: jest.fn(),

@@ -98,18 +98,24 @@ describe("UCSBOrganizationEditPage tests", () => {
       </QueryClientProvider>,
     );
 
-    await waitFor(() => {
-      const getRequest = axiosMock.history.get.find((req) =>
-        req.url.includes("/api/ucsborganizations"),
-      );
-      expect(getRequest).toBeDefined();
-      expect(getRequest.url).toContain("/api/ucsborganizations");
-      expect(getRequest.params).toEqual({ orgCode: "RHA" });
-      expect(screen.getByTestId("UCSBOrganizationForm-orgCode")).toHaveValue(
-        "RHA",
-      );
-      expect(getRequest.method).toBe("get");
-    });
+    await waitFor(() =>
+      expect(
+        axiosMock.history.get.find((req) =>
+          req.url.includes("/api/ucsborganizations"),
+        ),
+      ).toBeDefined(),
+    );
+
+    const getRequest = axiosMock.history.get.find((req) =>
+      req.url.includes("/api/ucsborganizations"),
+    );
+
+    expect(getRequest.url).toContain("/api/ucsborganizations");
+    expect(getRequest.params).toEqual({ orgCode: "RHA" });
+    expect(screen.getByTestId("UCSBOrganizationForm-orgCode")).toHaveValue(
+      "RHA",
+    );
+    expect(getRequest.method).toBe("get");
   });
 
   test("calls mutate and invalidates correct cache key", async () => {
