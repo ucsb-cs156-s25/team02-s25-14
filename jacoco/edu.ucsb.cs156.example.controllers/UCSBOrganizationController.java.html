@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 
 @Tag(name = &quot;UCSBOrganizations&quot;)
-@RequestMapping({&quot;/api/ucsborganizations&quot;, &quot;/api/ucsborganization&quot;})
+@RequestMapping(&quot;/api/ucsborganizations&quot;)
 @RestController
 <span class="fc" id="L28">@Slf4j</span>
 <span class="fc" id="L29">public class UCSBOrganizationController extends ApiController {</span>
@@ -37,7 +37,7 @@ import jakarta.validation.Valid;
      */
     @Operation(summary = &quot;List all UCSB Organizations&quot;)
     @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
-    @GetMapping({&quot;/all&quot;, &quot;/all&quot;})
+    @GetMapping(&quot;/all&quot;)
     public Iterable&lt;UCSBOrganization&gt; allOrganizations() {
 <span class="fc" id="L42">        return ucsbOrganizationRepository.findAll();</span>
     }
@@ -51,7 +51,7 @@ import jakarta.validation.Valid;
      */
     @Operation(summary = &quot;Get a single UCSB Organization&quot;)
     @PreAuthorize(&quot;hasRole('ROLE_USER')&quot;)
-    @GetMapping({&quot;&quot;, &quot;&quot;})
+    @GetMapping(&quot;&quot;)
     public UCSBOrganization getById(
             @RequestParam(required = false) String id,
             @RequestParam(required = false) String orgCode) {
@@ -70,7 +70,7 @@ import jakarta.validation.Valid;
      */
     @Operation(summary = &quot;Create a new UCSB Organization&quot;)
     @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
-    @PostMapping({&quot;/post&quot;, &quot;/post&quot;})
+    @PostMapping(&quot;/post&quot;)
     public UCSBOrganization postOrganization(
             @Parameter(name = &quot;orgCode&quot;) @RequestParam String orgCode,
             @Parameter(name = &quot;orgTranslationShort&quot;) @RequestParam String orgTranslationShort,
@@ -94,7 +94,7 @@ import jakarta.validation.Valid;
      */
     @Operation(summary = &quot;Delete a UCSB Organization&quot;)
     @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
-    @DeleteMapping({&quot;&quot;, &quot;&quot;})
+    @DeleteMapping(&quot;&quot;)
     public Object deleteOrganization(
             @RequestParam(required = false) String id,
             @RequestParam(required = false) String orgCode) {
@@ -117,7 +117,7 @@ import jakarta.validation.Valid;
      */
     @Operation(summary = &quot;Update a single UCSB Organization&quot;)
     @PreAuthorize(&quot;hasRole('ROLE_ADMIN')&quot;)
-    @PutMapping({&quot;&quot;, &quot;&quot;})
+    @PutMapping(&quot;&quot;)
     public UCSBOrganization updateOrganization(
             @RequestParam(required = false) String id,
             @RequestParam(required = true) String orgCode,
