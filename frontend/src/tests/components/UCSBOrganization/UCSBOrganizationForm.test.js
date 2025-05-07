@@ -123,10 +123,10 @@ describe("UCSBOrganizationForm tests", () => {
         <UCSBOrganizationForm />
       </Router>,
     );
-  
+
     const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
     fireEvent.click(submitButton);
-  
+
     await screen.findByText(/Org Code is required./);
   });
 
@@ -136,13 +136,13 @@ describe("UCSBOrganizationForm tests", () => {
         <UCSBOrganizationForm />
       </Router>,
     );
-  
+
     const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
     const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
-  
+
     fireEvent.change(orgCodeField, { target: { value: "A".repeat(11) } }); // Exceeds max length of 10
     fireEvent.click(submitButton);
-  
+
     await screen.findByText(/Max length 10 characters/);
   });
 
@@ -153,13 +153,13 @@ describe("UCSBOrganizationForm tests", () => {
       orgTranslation: "Residence Halls Association",
       inactive: false,
     };
-  
+
     render(
       <Router>
         <UCSBOrganizationForm initialContents={initialContents} />
       </Router>,
     );
-  
+
     const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
     expect(orgCodeField).toHaveValue("RHA");
   });
@@ -170,10 +170,10 @@ describe("UCSBOrganizationForm tests", () => {
         <UCSBOrganizationForm />
       </Router>,
     );
-  
+
     const cancelButton = screen.getByTestId("UCSBOrganizationForm-cancel");
     fireEvent.click(cancelButton);
-  
+
     expect(mockedNavigate).toHaveBeenCalledWith(-1);
   });
 
@@ -181,15 +181,14 @@ describe("UCSBOrganizationForm tests", () => {
     render(
       <Router>
         <UCSBOrganizationForm />
-      </Router>
+      </Router>,
     );
-  
+
     const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
-  
+
     // ✅ If the mutant changes `|| ""` to `&& ""`, this will fail
     expect(orgCodeField).toHaveValue("");
   });
-  
 
   test("orgCode field is editable when editing", async () => {
     const initialContents = {
@@ -198,21 +197,21 @@ describe("UCSBOrganizationForm tests", () => {
       orgTranslation: "Residence Halls Association",
       inactive: false,
     };
-  
+
     render(
       <Router>
         <UCSBOrganizationForm initialContents={initialContents} />
       </Router>,
     );
-  
+
     const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
-  
+
     // Ensure the field is editable
     expect(orgCodeField).not.toBeDisabled();
-  
+
     // Simulate changing the value
     fireEvent.change(orgCodeField, { target: { value: "NEWCODE" } });
-  
+
     // Verify the value has been updated
     expect(orgCodeField).toHaveValue("NEWCODE");
   });
@@ -304,7 +303,11 @@ describe("UCSBOrganizationForm tests", () => {
       </Router>,
     );
 
-    expect(screen.getByTestId("UCSBOrganizationForm-cancel")).toBeInTheDocument();
-    expect(screen.getByTestId("UCSBOrganizationForm-submit")).toBeInTheDocument();
+    expect(
+      screen.getByTestId("UCSBOrganizationForm-cancel"),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByTestId("UCSBOrganizationForm-submit"),
+    ).toBeInTheDocument();
   });
 });

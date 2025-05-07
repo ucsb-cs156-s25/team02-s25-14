@@ -68,9 +68,15 @@ describe("UCSBOrganizationEditPage tests", () => {
     await screen.findByTestId("UCSBOrganizationForm-orgCode");
 
     const orgCodeField = screen.getByTestId("UCSBOrganizationForm-orgCode");
-    const orgTranslationShortField = screen.getByTestId("UCSBOrganizationForm-orgTranslationShort");
-    const orgTranslationField = screen.getByTestId("UCSBOrganizationForm-orgTranslation");
-    const inactiveCheckbox = screen.getByTestId("UCSBOrganizationForm-inactive");
+    const orgTranslationShortField = screen.getByTestId(
+      "UCSBOrganizationForm-orgTranslationShort",
+    );
+    const orgTranslationField = screen.getByTestId(
+      "UCSBOrganizationForm-orgTranslation",
+    );
+    const inactiveCheckbox = screen.getByTestId(
+      "UCSBOrganizationForm-inactive",
+    );
     const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
 
     expect(orgCodeField).toBeInTheDocument();
@@ -92,24 +98,24 @@ describe("UCSBOrganizationEditPage tests", () => {
         </MemoryRouter>
       </QueryClientProvider>,
     );
-  
+
     await waitFor(() => {
-      const getRequest = axiosMock.history.get.find(
-        (req) => req.url.includes("/api/ucsborganizations")
+      const getRequest = axiosMock.history.get.find((req) =>
+        req.url.includes("/api/ucsborganizations"),
       );
       expect(getRequest).toBeDefined();
       expect(getRequest.url).toContain("/api/ucsborganizations");
       expect(getRequest.params).toEqual({ orgCode: "RHA" });
-      expect(screen.getByTestId("UCSBOrganizationForm-orgCode")).toHaveValue("RHA");
+      expect(screen.getByTestId("UCSBOrganizationForm-orgCode")).toHaveValue(
+        "RHA",
+      );
       expect(getRequest.method).toBe("get");
-
     });
   });
-  
-  
+
   test("calls mutate and invalidates correct cache key", async () => {
     const invalidateSpy = jest.spyOn(queryClient, "invalidateQueries");
-  
+
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
@@ -117,12 +123,18 @@ describe("UCSBOrganizationEditPage tests", () => {
         </MemoryRouter>
       </QueryClientProvider>,
     );
-  
-    const orgTranslationShortField = await screen.findByTestId("UCSBOrganizationForm-orgTranslationShort");
-    const orgTranslationField = screen.getByTestId("UCSBOrganizationForm-orgTranslation");
-    const inactiveCheckbox = screen.getByTestId("UCSBOrganizationForm-inactive");
+
+    const orgTranslationShortField = await screen.findByTestId(
+      "UCSBOrganizationForm-orgTranslationShort",
+    );
+    const orgTranslationField = screen.getByTestId(
+      "UCSBOrganizationForm-orgTranslation",
+    );
+    const inactiveCheckbox = screen.getByTestId(
+      "UCSBOrganizationForm-inactive",
+    );
     const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
-  
+
     fireEvent.change(orgTranslationShortField, {
       target: { value: "Updated Short" },
     });
@@ -131,17 +143,15 @@ describe("UCSBOrganizationEditPage tests", () => {
     });
     fireEvent.click(inactiveCheckbox);
     fireEvent.click(submitButton);
-  
+
     await waitFor(() => {
       expect(mockToast).toBeCalled();
       expect(mockNavigate).toBeCalled();
     });
-  
+
     // ✅ Now spy works correctly
     expect(invalidateSpy).toHaveBeenCalledWith(["RHA"]);
   });
-  
-  
 
   test("handles form submission and updates data", async () => {
     render(
@@ -154,9 +164,15 @@ describe("UCSBOrganizationEditPage tests", () => {
 
     // await screen.findByTestId("UCSBOrganizationForm-orgCode");
 
-    const orgTranslationShortField = screen.getByTestId("UCSBOrganizationForm-orgTranslationShort");
-    const orgTranslationField = screen.getByTestId("UCSBOrganizationForm-orgTranslation");
-    const inactiveCheckbox = screen.getByTestId("UCSBOrganizationForm-inactive");
+    const orgTranslationShortField = screen.getByTestId(
+      "UCSBOrganizationForm-orgTranslationShort",
+    );
+    const orgTranslationField = screen.getByTestId(
+      "UCSBOrganizationForm-orgTranslation",
+    );
+    const inactiveCheckbox = screen.getByTestId(
+      "UCSBOrganizationForm-inactive",
+    );
     const submitButton = screen.getByTestId("UCSBOrganizationForm-submit");
 
     fireEvent.change(orgTranslationShortField, {
@@ -181,7 +197,7 @@ describe("UCSBOrganizationEditPage tests", () => {
       orgTranslation: "Updated Translation",
       inactive: true,
     });
-    expect(axiosMock.history.put[0].params).toEqual({orgCode: "RHA"})
+    expect(axiosMock.history.put[0].params).toEqual({ orgCode: "RHA" });
   });
 
   test("renders button with correct label", async () => {
@@ -193,7 +209,9 @@ describe("UCSBOrganizationEditPage tests", () => {
       </QueryClientProvider>,
     );
 
-    const submitButton = await screen.findByTestId("UCSBOrganizationForm-submit");
+    const submitButton = await screen.findByTestId(
+      "UCSBOrganizationForm-submit",
+    );
     expect(submitButton).toHaveTextContent("Update");
   });
 });

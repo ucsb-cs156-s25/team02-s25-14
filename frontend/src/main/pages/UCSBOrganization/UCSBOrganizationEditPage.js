@@ -57,8 +57,6 @@ export default function UCSBOrganizationEditPage({ storybook = false }) {
     mutation.mutate(data);
   };
 
-
-
   if (isSuccess && !storybook) {
     return <Navigate to="/ucsborganization" />;
   }

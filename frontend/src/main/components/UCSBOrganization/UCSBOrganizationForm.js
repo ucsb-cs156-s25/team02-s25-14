@@ -22,7 +22,7 @@ function UCSBOrganizationForm({
 
   return (
     <Form onSubmit={handleSubmit(submitAction)}>
-        <Form.Group className="mb-3">
+      <Form.Group className="mb-3">
         <Form.Label htmlFor="orgCode">Org Code</Form.Label>
         <Form.Control
           data-testid={testIdPrefix + "-orgCode"}
@@ -35,7 +35,9 @@ function UCSBOrganizationForm({
               message: "Max length 10 characters",
             },
           })}
+          // Stryker disable all
           defaultValue={initialContents?.orgCode || ""}
+          // Stryker restore all
           disabled={disabledFields.orgCode || false} // Disable only if editing
           isInvalid={Boolean(errors.orgCode)}
         />

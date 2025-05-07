@@ -136,7 +136,7 @@ describe("UCSBOrganizationTable tests", () => {
 
   test("renders 'Yes' or 'No' in the Inactive column", () => {
     const currentUser = currentUserFixtures.userOnly;
-  
+
     const testData = [
       {
         orgCode: "ON",
@@ -151,7 +151,7 @@ describe("UCSBOrganizationTable tests", () => {
         inactive: false, // should render "No"
       },
     ];
-  
+
     render(
       <QueryClientProvider client={queryClient}>
         <MemoryRouter>
@@ -160,17 +160,20 @@ describe("UCSBOrganizationTable tests", () => {
             currentUser={currentUser}
           />
         </MemoryRouter>
-      </QueryClientProvider>
+      </QueryClientProvider>,
     );
-  
+
     // ✅ Assert explicit text content for "inactive" column
-    const row0Inactive = screen.getByTestId("UCSBOrganizationTable-cell-row-0-col-inactive");
-    const row1Inactive = screen.getByTestId("UCSBOrganizationTable-cell-row-1-col-inactive");
-  
+    const row0Inactive = screen.getByTestId(
+      "UCSBOrganizationTable-cell-row-0-col-inactive",
+    );
+    const row1Inactive = screen.getByTestId(
+      "UCSBOrganizationTable-cell-row-1-col-inactive",
+    );
+
     expect(row0Inactive).toHaveTextContent("Yes");
     expect(row1Inactive).toHaveTextContent("No");
   });
-  
 
   test("Edit button navigates to the edit page", async () => {
     const currentUser = currentUserFixtures.adminUser;

@@ -76,7 +76,7 @@ describe("UCSBOrganizationIndexPage tests", () => {
     setupUserOnly();
     const queryClient = new QueryClient();
     axiosMock.onGet("/api/ucsborganizations/all").reply(200, []);
-  
+
     // Act
     render(
       <QueryClientProvider client={queryClient}>
@@ -85,19 +85,21 @@ describe("UCSBOrganizationIndexPage tests", () => {
         </MemoryRouter>
       </QueryClientProvider>,
     );
-  
+
     // Assert
     await waitFor(() => {
-      expect(screen.queryByText(/Create UCSB Organization/)).not.toBeInTheDocument();
+      expect(
+        screen.queryByText(/Create UCSB Organization/),
+      ).not.toBeInTheDocument();
     });
   });
-  
+
   test("renders Create Button for admin user", async () => {
     // Arrange
     setupAdminUser();
     const queryClient = new QueryClient();
     axiosMock.onGet("/api/ucsborganizations/all").reply(200, []);
-  
+
     // Act
     render(
       <QueryClientProvider client={queryClient}>
@@ -106,7 +108,7 @@ describe("UCSBOrganizationIndexPage tests", () => {
         </MemoryRouter>
       </QueryClientProvider>,
     );
-  
+
     // Assert
     await waitFor(() => {
       expect(screen.getByText(/Create UCSB Organization/)).toBeInTheDocument();
@@ -123,7 +125,7 @@ describe("UCSBOrganizationIndexPage tests", () => {
     axiosMock
       .onGet("/api/ucsborganizations/all")
       .reply(200, ucsbOrganizationFixtures.threeUCSBOrganizations);
-  
+
     // Act
     render(
       <QueryClientProvider client={queryClient}>
@@ -132,7 +134,7 @@ describe("UCSBOrganizationIndexPage tests", () => {
         </MemoryRouter>
       </QueryClientProvider>,
     );
-  
+
     // Assert
     await waitFor(() => {
       expect(
@@ -146,13 +148,13 @@ describe("UCSBOrganizationIndexPage tests", () => {
       screen.getByTestId("UCSBOrganizationTable-cell-row-2-col-orgCode"),
     ).toHaveTextContent("ARC");
   });
-  
+
   test("throws error when organizations data is invalid", async () => {
     // Arrange
     setupAdminUser();
     const queryClient = new QueryClient();
     axiosMock.onGet("/api/ucsborganizations/all").reply(500);
-  
+
     // Act
     render(
       <QueryClientProvider client={queryClient}>
@@ -161,7 +163,7 @@ describe("UCSBOrganizationIndexPage tests", () => {
         </MemoryRouter>
       </QueryClientProvider>,
     );
-  
+
     // // Assert
     // await waitFor(() => {
     //   const errorMessage = screen.getByText(/Request failed with status code 500/);
@@ -174,7 +176,7 @@ describe("UCSBOrganizationIndexPage tests", () => {
     setupAdminUser();
     const queryClient = new QueryClient();
     axiosMock.onGet("/api/ucsborganizations/all").reply(200, []);
-  
+
     // Act
     render(
       <QueryClientProvider client={queryClient}>
@@ -183,7 +185,7 @@ describe("UCSBOrganizationIndexPage tests", () => {
         </MemoryRouter>
       </QueryClientProvider>,
     );
-  
+
     // Assert
     await waitFor(() => {
       expect(
@@ -191,7 +193,6 @@ describe("UCSBOrganizationIndexPage tests", () => {
       ).not.toBeInTheDocument();
     });
   });
-
 
   test("renders empty table when backend unavailable, user only", async () => {
     // arrange
@@ -235,7 +236,7 @@ describe("UCSBOrganizationIndexPage tests", () => {
     axiosMock
       .onDelete("/api/ucsborganizations")
       .reply(200, "UCSBOrganization with orgCode RHA was deleted");
-  
+
     // Act
     render(
       <QueryClientProvider client={queryClient}>
@@ -244,23 +245,23 @@ describe("UCSBOrganizationIndexPage tests", () => {
         </MemoryRouter>
       </QueryClientProvider>,
     );
-  
+
     // Wait for the table to render
     await waitFor(() => {
       expect(
         screen.getByTestId("UCSBOrganizationTable-cell-row-0-col-orgCode"),
       ).toBeInTheDocument();
     });
-  
+
     // Locate the delete button
     const deleteButton = screen.getByTestId(
       "UCSBOrganizationTable-cell-row-0-col-Delete-button",
     );
     expect(deleteButton).toBeInTheDocument();
-  
+
     // Act: Click the delete button
     fireEvent.click(deleteButton);
-  
+
     // Assert: Verify the toast message
     await waitFor(() => {
       expect(mockToast).toBeCalledWith(
