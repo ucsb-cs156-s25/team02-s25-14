@@ -162,7 +162,7 @@ describe("UCSBOrganizationForm tests", () => {
     expect(orgCodeField).toHaveValue("RHA");
   });
 
-  test("cancel button navigates back", async () => {
+  test("cancel button navigates back.", async () => {
     render(
       <Router>
         <UCSBOrganizationForm />
@@ -252,7 +252,7 @@ describe("UCSBOrganizationForm tests", () => {
     ).not.toBeInTheDocument();
   });
 
-  test("orgCode field is editable when editing", async () => {
+  test("orgCode field is editable when editing.", async () => {
     const initialContents = {
       orgCode: "RHA",
       orgTranslationShort: "Res Hall Assoc",
