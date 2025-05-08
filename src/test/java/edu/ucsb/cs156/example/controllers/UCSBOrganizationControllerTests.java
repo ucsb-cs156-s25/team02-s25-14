@@ -260,6 +260,7 @@ public class UCSBOrganizationControllerTests extends ControllerTestCase {
             verify(ucsbOrganizationRepository, times(1)).save(ucsbOrganizationEdited); // should be saved with updated info
             String responseString = response.getResponse().getContentAsString();
             assertEquals(requestBody, responseString);
+            
     }
 
     @WithMockUser(roles = { "ADMIN", "USER" })
