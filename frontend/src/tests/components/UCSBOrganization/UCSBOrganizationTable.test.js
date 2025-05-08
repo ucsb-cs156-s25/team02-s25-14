@@ -236,6 +236,6 @@ describe("UCSBOrganizationTable tests", () => {
     fireEvent.click(deleteButton);
 
     await waitFor(() => expect(axiosMock.history.delete.length).toBe(1));
-    expect(axiosMock.history.delete[0].params).toEqual({ id: "AS" });
+    expect(axiosMock.history.delete[0].params).toEqual({ orgCode: "AS" });
   });
 });
