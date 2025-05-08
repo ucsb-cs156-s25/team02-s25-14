@@ -43,16 +43,11 @@ function MenuItemReviewForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="itemId">Item Id</Form.Label>
         <Form.Control
-          data-testid={testIdPrefix + "-itemId"}
           id="itemId"
-          type="text"
+          type="number"
           isInvalid={Boolean(errors.itemId)}
           {...register("itemId", {
             required: "Item Id is required.",
-            maxLength: {
-              value: 255,
-              message: "Max length 255 characters",
-            },
           })}
         />
         <Form.Control.Feedback type="invalid">
@@ -63,11 +58,16 @@ function MenuItemReviewForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="reviewerEmail">Reviewer Email</Form.Label>
         <Form.Control
+          data-testid={testIdPrefix + "-reviewerEmail"}
           id="reviewerEmail"
           type="text"
           isInvalid={Boolean(errors.reviewerId)}
           {...register("reviewerEmail", {
             required: "Reviewer Email is required.",
+            pattern: {
+              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+              message: "Reviewer Email must be a valid email address.",
+            },
           })}
         />
         <Form.Control.Feedback type="invalid">
@@ -78,11 +78,20 @@ function MenuItemReviewForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="stars">Stars</Form.Label>
         <Form.Control
+          data-testid={testIdPrefix + "-stars"}
           id="stars"
-          type="text"
+          type="number"
           isInvalid={Boolean(errors.stars)}
           {...register("stars", {
             required: "Stars is required.",
+            min: {
+              value: 1,
+              message: "Stars must be at least 1.",
+            },
+            max: {
+              value: 5,
+              message: "Stars must be at most 5.",
+            },
           })}
         />
         <Form.Control.Feedback type="invalid">
@@ -109,11 +118,16 @@ function MenuItemReviewForm({
       <Form.Group className="mb-3">
         <Form.Label htmlFor="comments">Comments</Form.Label>
         <Form.Control
+          data-testid={testIdPrefix + "-comments"}
           id="comments"
           type="text"
           isInvalid={Boolean(errors.comments)}
           {...register("comments", {
             required: "Comments is required.",
+            maxLength: {
+              value: 255,
+              message: "Max length 255 characters",
+            },
           })}
         />
         <Form.Control.Feedback type="invalid">

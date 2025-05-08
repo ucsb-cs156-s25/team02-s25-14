@@ -144,7 +144,7 @@ public class MenuItemReviewController extends ApiController{
      */
     @Operation(summary= "Delete a MenuItemReview")
     @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @DeleteMapping("")
+    @DeleteMapping("/delete")
     public Object deleteMenuItemReview(
             @Parameter(name="id") @RequestParam Long id) {
         MenuItemReview menuItemReview = menuItemReviewRepository.findById(id)
