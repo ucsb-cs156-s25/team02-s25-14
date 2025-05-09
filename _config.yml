@@ -20,4 +20,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-s25/team02-s25-14
 owner: ucsb-cs156-s25
 repo_name: team02-s25-14
-pull_requests: [{"author":{"id":"U_kgDOB3Ewuw","is_bot":false,"login":"shruthiunnithan","name":"Shruthi Santhosh Unnithan"},"headRefName":"shruthiunnithan-team03","number":134,"title":"merging to work on team03 + integration tests","url":"https://github.com/ucsb-cs156-s25/team02-s25-14/pull/134"}]
+pull_requests: [{"author":{"id":"U_kgDOB3Ewuw","is_bot":false,"login":"shruthiunnithan","name":"Shruthi Santhosh Unnithan"},"headRefName":"shruthiunnithan-menuitemreview-it","number":135,"title":"integration tests implemented (and they pass)","url":"https://github.com/ucsb-cs156-s25/team02-s25-14/pull/135"},{"author":{"id":"U_kgDOB3Ewuw","is_bot":false,"login":"shruthiunnithan","name":"Shruthi Santhosh Unnithan"},"headRefName":"shruthiunnithan-team03","number":134,"title":"merging to work on team03 + integration tests","url":"https://github.com/ucsb-cs156-s25/team02-s25-14/pull/134"}]
