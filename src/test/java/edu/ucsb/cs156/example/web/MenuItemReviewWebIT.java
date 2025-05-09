@@ -22,7 +22,10 @@ public class MenuItemReviewWebIT extends WebTestCase {
         setupUser(false);
 
         page.getByText("Menu Item Reviews").click();
+        page.waitForURL("**/menuitemreview");
 
+        page.waitForSelector("text=Menu Item Reviews");
+        
         assertThat(page.getByText("Create Menu Item Review")).not().isVisible();
         assertThat(page.getByTestId("MenuItemReviewTable-cell-row-0-col-name")).not().isVisible();
     }
