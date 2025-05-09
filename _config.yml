@@ -20,4 +20,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-s25/team02-s25-14
 owner: ucsb-cs156-s25
 repo_name: team02-s25-14
-pull_requests: [{"author":{"id":"U_kgDOCM7wqA","is_bot":false,"login":"siddhimundhra1","name":""},"headRefName":"sm-commits-integration-tests","number":136,"title":"sm - add integration tests for Help Requests Controller endpoints","url":"https://github.com/ucsb-cs156-s25/team02-s25-14/pull/136"}]
+pull_requests: [{"author":{"id":"U_kgDOCM7wqA","is_bot":false,"login":"siddhimundhra1","name":""},"headRefName":"end-to-end-Help-Requests","number":137,"title":"End to end help requests","url":"https://github.com/ucsb-cs156-s25/team02-s25-14/pull/137"},{"author":{"id":"U_kgDOCM7wqA","is_bot":false,"login":"siddhimundhra1","name":""},"headRefName":"sm-commits-integration-tests","number":136,"title":"sm - add integration tests for Help Requests Controller endpoints","url":"https://github.com/ucsb-cs156-s25/team02-s25-14/pull/136"}]
