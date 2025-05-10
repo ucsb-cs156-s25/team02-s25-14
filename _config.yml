@@ -20,4 +20,4 @@ repo_name: "TBD"
 repo: ucsb-cs156-s25/team02-s25-14
 owner: ucsb-cs156-s25
 repo_name: team02-s25-14
-pull_requests: [{"author":{"id":"U_kgDOBZUlcw","is_bot":false,"login":"andrewzhang0708","name":"Andrew Zhang"},"headRefName":"az-it-e2t-tests","number":142,"title":"Az it e2t tests","url":"https://github.com/ucsb-cs156-s25/team02-s25-14/pull/142"},{"author":{"id":"U_kgDOB3D-ww","is_bot":false,"login":"chloeandersen-ucsb","name":""},"headRefName":"chloe-articles","number":141,"title":"Articles integration and end to end tests","url":"https://github.com/ucsb-cs156-s25/team02-s25-14/pull/141"}]
+pull_requests: [{"author":{"id":"U_kgDOBZUlcw","is_bot":false,"login":"andrewzhang0708","name":"Andrew Zhang"},"headRefName":"az-it-e2t-tests","number":142,"title":"Az it e2t tests","url":"https://github.com/ucsb-cs156-s25/team02-s25-14/pull/142"}]
