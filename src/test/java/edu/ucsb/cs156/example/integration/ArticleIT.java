@@ -81,7 +81,7 @@ public class ArticleIT {
                                 .andExpect(status().isOk()).andReturn();
 
                 // assert
-                article1.setId(1L);
+                
                 String expectedJson = mapper.writeValueAsString(article1);
                 String responseString = response.getResponse().getContentAsString();
                 assertEquals(expectedJson, responseString);
@@ -103,6 +103,7 @@ public class ArticleIT {
                     .dateAdded(ldt1)
                     .build();
                 
+                
 
                 // act
                 MvcResult response = mockMvc.perform(
@@ -111,6 +112,7 @@ public class ArticleIT {
                                 .andExpect(status().isOk()).andReturn();
 
                 // assert
+                article1.setId(1L);
                 String expectedJson = mapper.writeValueAsString(article1);
                 String responseString = response.getResponse().getContentAsString();
                 assertEquals(expectedJson, responseString);
