@@ -40,11 +40,11 @@ import java.time.LocalDateTime;
 @Import(TestConfig.class)
 @DirtiesContext(classMode = ClassMode.BEFORE_EACH_TEST_METHOD)
 public class ArticleIT {
-        // @Autowired
-        // public CurrentUserService currentUserService;
+        @Autowired
+        public CurrentUserService currentUserService;
 
-        // @Autowired
-        // public GrantedAuthoritiesService grantedAuthoritiesService;
+        @Autowired
+        public GrantedAuthoritiesService grantedAuthoritiesService;
 
         @Autowired
         ArticlesRepository articleRepository;
@@ -52,11 +52,11 @@ public class ArticleIT {
         @Autowired
         public MockMvc mockMvc;
 
-        // @Autowired
-        // public ObjectMapper mapper;
+        @Autowired
+        public ObjectMapper mapper;
 
-        // @MockBean
-        // UserRepository userRepository;
+        @MockBean
+        UserRepository userRepository;
 
         @WithMockUser(roles = { "USER" })
         @Test
@@ -77,23 +77,15 @@ public class ArticleIT {
 
 
                 // act
-                // MvcResult response = mockMvc.perform(get("/api/articles?id=1"))
-                //                 .andExpect(status().isOk()).andReturn();
+                MvcResult response = mockMvc.perform(get("/api/articles?id=1"))
+                                .andExpect(status().isOk()).andReturn();
 
-                // // assert
+                // assert
                 
-                // String expectedJson = mapper.writeValueAsString(article1);
-                // String responseString = response.getResponse().getContentAsString();
-                // assertEquals(expectedJson, responseString);
-
-                mockMvc.perform(get("/api/articles/all"))
-                        .andExpect(status().isOk())
-                        .andExpect(content().string(containsString("Article 1")))
-                        .andExpect(content().string(containsString("https://ucsb-cs156.github.io/s25/lab/team01.html")))
-                        .andExpect(content().string(containsString("dining hall menu")))
-                        .andExpect(content().string(containsString("student1@ucsb.edu")))
-                        .andExpect(content().string(containsString("22022-01-03T00:00:00")));
-    }
+                String expectedJson = mapper.writeValueAsString(article1);
+                String responseString = response.getResponse().getContentAsString();
+                assertEquals(expectedJson, responseString);
+        }
 
         @WithMockUser(roles = { "ADMIN", "USER" })
         @Test
@@ -102,51 +94,27 @@ public class ArticleIT {
 
                 LocalDateTime ldt1 = LocalDateTime.parse("2022-01-03T00:00:00");
 
-                // Articles article1 = Articles.builder()
-                //     .id(1L)
-                //     .title("Article 1")
-                //     .url("https://ucsb-cs156.github.io/s25/lab/team01.html")
-                //     .explanation("dining hall menu")
-                //     .email("student1@ucsb.edu")
-                //     .dateAdded(ldt1)
-                //     .build();
+                Articles article1 = Articles.builder()
+                    .id(1L)
+                    .title("Article 1")
+                    .url("https://ucsb-cs156.github.io/s25/lab/team01.html")
+                    .explanation("dining hall menu")
+                    .email("student1@ucsb.edu")
+                    .dateAdded(ldt1)
+                    .build();
                 
-
-                MvcResult response = mockMvc.perform(
-                        post("/api/articles/post")
-                                .param("title", "Article 1")
-                                .param("url", "https://ucsb-cs156.github.io/s25/lab/team01.html")
-                                .param("explanation", "dining hall menu")
-                                .param("email", "student1@ucsb.edu")
-                                .param("dateAdded", "2022-01-03T00:00:00")
-                                .with(csrf()))
-                        .andExpect(status().isOk())
-                        .andExpect(content().string(containsString("Article 1")))
-                        .andExpect(content().string(containsString("https://ucsb-cs156.github.io/s25/lab/team01.html")))
-                        .andExpect(content().string(containsString("dining hall menu")))
-                        .andExpect(content().string(containsString("student1@ucsb.edu")))
-                        .andExpect(content().string(containsString("2022-01-03T00:00:00")))
-                        .andReturn();
-
-        String responseString = response.getResponse().getContentAsString();
-
-        assert(responseString.contains("Article 1"));
-        assert(responseString.contains("https://ucsb-cs156.github.io/s25/lab/team01.html"));
-        assert(responseString.contains("dining hall menu"));
-        assert(responseString.contains("student1@ucsb.edu"));
-        assert(responseString.contains("2022-01-03T00:00:00"));
                 
 
                 // act
-                // MvcResult response = mockMvc.perform(
-                //                 post("/api/articles/post?title=Article 1&url=https://ucsb-cs156.github.io/s25/lab/team01.html&explanation=dining hall menu&email=student1@ucsb.edu&dateAdded=2022-01-03T00:00:00")
-                //                                 .with(csrf()))
-                //                 .andExpect(status().isOk()).andReturn();
+                MvcResult response = mockMvc.perform(
+                                post("/api/articles/post?title=Article 1&url=https://ucsb-cs156.github.io/s25/lab/team01.html&explanation=dining hall menu&email=student1@ucsb.edu&dateAdded=2022-01-03T00:00:00")
+                                                .with(csrf()))
+                                .andExpect(status().isOk()).andReturn();
 
-                // // assert
-                // article1.setId(1L);
-                // String expectedJson = mapper.writeValueAsString(article1);
-                // String responseString = response.getResponse().getContentAsString();
-                // assertEquals(expectedJson, responseString);
+                // assert
+                article1.setId(1L);
+                String expectedJson = mapper.writeValueAsString(article1);
+                String responseString = response.getResponse().getContentAsString();
+                assertEquals(expectedJson, responseString);
         }
 }
