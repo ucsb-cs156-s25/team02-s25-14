@@ -33,7 +33,7 @@ public abstract class WebTestCase {
     @BeforeAll
     public static void setupWireMock() {
         wireMockServer = new WireMockServer(options()
-                .port(8090)
+                .dynamicPort()
                 .globalTemplating(true));
 
         WiremockServiceImpl.setupOauthMocks(wireMockServer, false);
