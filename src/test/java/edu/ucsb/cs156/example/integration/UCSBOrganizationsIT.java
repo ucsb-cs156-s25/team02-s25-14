@@ -24,8 +24,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.csrf;
 import static org.hamcrest.Matchers.containsString;
 
-import edu.ucsb.cs156.example.entities.UCSBOrganizations;
-import edu.ucsb.cs156.example.repositories.UCSBOrganizationsRepository;
+import edu.ucsb.cs156.example.entities.UCSBOrganization;
+import edu.ucsb.cs156.example.repositories.UCSBOrganizationRepository;
 import edu.ucsb.cs156.example.repositories.UserRepository;
 import edu.ucsb.cs156.example.services.CurrentUserService;
 import edu.ucsb.cs156.example.services.GrantedAuthoritiesService;
@@ -46,7 +46,7 @@ import java.time.LocalDateTime;
 
 public class UCSBOrganizationsIT {
     @Autowired
-    UCSBOrganizationsRepository ucsbOrganizationsRepository;
+    UCSBOrganizationRepository ucsbOrganizationRepository;
 
     @Autowired
     public MockMvc mockMvc;
@@ -54,16 +54,16 @@ public class UCSBOrganizationsIT {
     @WithMockUser(roles = { "USER" })
     @Test
     public void get_ucsborganizations() throws Exception {
-        ucsbOrganizationsRepository.deleteAll();
+        ucsbOrganizationRepository.deleteAll();
 
         // arrange
-        UCSBOrganizations ucsbOrganization = UCSBOrganizations.builder()
+        UCSBOrganization ucsbOrganization = UCSBOrganization.builder()
             .orgCode("UCSB")
             .orgTranslationShort("UCSB")
             .orgTranslation("University of California, Santa Barbara")
             .build();
                         
-        ucsbOrganizationsRepository.save(ucsbOrganization);
+        ucsbOrganizationRepository.save(ucsbOrganization);
 
         mockMvc.perform(get("/api/ucsborganizations/all"))
             .andExpect(status().isOk())
