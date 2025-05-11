@@ -71,3 +71,4 @@ public class UsersControllerTests extends ControllerTestCase {
 
   }
 }
+
